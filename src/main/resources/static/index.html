@@ -4,33 +4,125 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Strona Główna</title>
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <style>
+
+    .banner {
+      background: url('img') no-repeat center center;
+      background-size: cover;
+      height: 100px;
+      font-weight: bold;
+      margin-left: 20px;
+      color: cornflowerblue;
+    }
+
+    nav {
+      background-color: cornflowerblue;
+      width: 100%;
+      height: 56px;
+      line-height: 56px;
+      font-weight: bold;
+    }
+
+    .kafelki {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .kafelka a{
+      color: white;
+    }
+
+    .kafelki .kafelka {
+      margin: 10px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+      background-color: cornflowerblue;
+    }
+
+    .kafelka img {
+      width: 100%;
+      height: auto;
+    }
+
+    footer {
+      background-color: dimgrey;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+
+  </style>
 </head>
 <body>
 <header>
   <nav>
-    <input type="checkbox" id="menu-toggle">
-    <label for="menu-toggle" class="menu-icon">☰</label>
-    <ul class="menu">
-      <li><a href="#polisowa">Sekcja Polisowa</a></li>
-      <li><a href="#szkodowa">Sekcja Szkodowa</a></li>
-      <li><a href="#ubezpieczonego">Sekcja Ubezpieczonego</a></li>
-      <li><a href="#logowanie">Dane Logowania</a></li>
-      <li><a href="#zaloguj">Zaloguj się</a></li>
-    </ul>
+    <div>
+      <a href="#" class="brand-logo">
+        &nbsp; TU Bezpieczna przyszłość
+      </a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#polisy">Polisy ubezpieczeniowe</a></li>
+        <li><a href="#szkody">Szkody ubezpieczeniowe</a></li>
+        <li><a href="#products">Produkty ubezpieczeniowe</a></li>
+        <li><a href="#clients">Sekcja ubezpieczonego</a></li>
+        <li><a href="#login">Zaloguj się</a></li>
+      </ul>
+    </div>
   </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="#polisy">Polisy ubezpieczeniowe</a></li>
+    <li><a href="#szkody">Szkody ubezpieczeniowe</a></li>
+    <li><a href="#products">Produkty ubezpieczeniowe</a></li>
+    <li><a href="#clients">Sekcja ubezpieczonego</a></li>
+    <li><a href="#login">Zaloguj się</a></li>
+  </ul>
 </header>
-<section class="banner">
-  <h1>Witamy na naszej stronie!</h1>
-</section>
-<section class="tiles">
-  <div class="tile"><a href="#polisowa"><img src="polisowa.jpg" alt="Polisowa"></a></div>
-  <div class="tile"><a href="#szkodowa"><img src="szkodowa.jpg" alt="Szkodowa"></a></div>
-  <div class="tile"><a href="#ubezpieczonego"><img src="ubezpieczonego.jpg" alt="Ubezpieczonego"></a></div>
-  <div class="tile"><a href="#logowanie"><img src="logowanie.jpg" alt="Logowanie"></a></div>
-</section>
+
+<div class="banner">
+  <p>Obecnie w systemie znajduje się : 20 polis</p>
+  <p>Klienci zgłosili łącznie : 7 szkód</p>
+  <p>4 szkody oczekują na wydanie decyzji</p>
+</div>
+
+<div class="kafelki">
+  <div class="kafelka">
+    <img src="images/insurance.jpg" alt="Sekcja Polisowa">
+    <p><a href="#policy">Polisy ubezpieczeniowe</a></p>
+  </div>
+  <div class="kafelka">
+    <img src="images/claims.jpg" alt="Sekcja Szkodowa">
+    <p><a href="#claims">Szkody ubezpieczeniowe</a></p>
+  </div>
+  <div class="kafelka">
+    <img src="images/documents.jpg" alt="Produkty ubezpieczeniowe">
+    <p><a href="#products">Produkty ubezpieczeniowe</a></p>
+  </div>
+  <div class="kafelka">
+    <img src="images/insured_person.jpg" alt="Sekcja ubezpieczonego">
+    <p><a href="#clients">Sekcja ubezpieczonego</a></p>
+  </div>
+</div>
+
+
 <footer>
-  <p>© 2024 Twoja Firma. Wszelkie prawa zastrzeżone.</p>
+  <p>&copy; 2024 Bezpieczna Przyszłość. Prosty projekt systemu zawierania ubezpieczeń i zgłaszania szkód. Wszelkie prawa zastrzeżone.</p>
 </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems);
+  });
+</script>
 </body>
 </html>
