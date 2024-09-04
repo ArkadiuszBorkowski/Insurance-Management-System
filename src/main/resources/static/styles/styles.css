@@ -1,0 +1,49 @@
+.nav-wrapper {
+    background-color: white;
+}
+.nav-wrapper a {
+    color: black;
+    font-weight: bold;
+}
+
+nav .brand-logo {
+    position: relative;
+    display: contents;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1680px;
+    width: 90%
+}
+
+@media only screen and (min-width: 601px) {
+    .container {
+        width:85%
+    }
+}
+
+@media only screen and (min-width: 993px) {
+    .container {
+        width: 90%;
+    }
+}
+
+
+footer {
+    background-color: teal;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.label-select {
+    margin-top: -7PX;
+}

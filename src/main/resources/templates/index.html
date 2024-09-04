@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strona Główna</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/styles.css">
+
+</head>
+<body>
+<header>
+
+    <!-- NAWIGACJA -->
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo logo">
+                <img src="/images/logo.png" alt="Logo"
+                     style="height: 50px; vertical-align: middle; margin: 0px 0px 10px 10px">
+                Bezpieczna przyszłość
+            </a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/policy">POLISY</a></li>
+                <li><a href="/claims">SZKODY<span class="new badge">4</span></a></li>
+                <li><a href="#products">PRODUKTY</a></li>
+                <li><a href="#clients">OBSŁUGA</a></li>
+                <li><a href="#login">ZALOGUJ SIĘ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- NAWIGACJA - WIDOK MOBILNY-->
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="#polisy">POLISY</a></li>
+        <li><a href="#claims">SZKODY</a></li>
+        <li><a href="#products">PRODUKTY</a></li>
+        <li><a href="#clients">OBSŁUGA</a></li>
+        <li><a href="#login">ZALOGUJ SIĘ</a></li>
+    </ul>
+</header>
+
+<!-- WYSZUKIWARKA -->
+<nav>
+    <div class="nav-wrapper" style="background-color: #00897b ">
+        <form>
+            <div class="input-field">
+                <input id="search" type="search" required>
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+            </div>
+        </form>
+    </div>
+</nav>
+
+<div><br><br</div>
+
+
+<!-- Zawartość strony -->
+<div class="container">
+    <div class="row">
+        <!-- Sekcja kafelków -->
+        <div class="col s12 m6 l9">
+            <div class="row">
+                <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="/images/policy.jpg" alt="POLISA UBEZPIECZENIOWA">
+                        </div>
+                        <div class="card-action">
+                            <a href="/policy">POLISY</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="/images/claims.jpg" alt="SZKODA UBEZPIECZENIOWA 3">
+                        </div>
+                        <div class="card-action">
+                            <a href="/claims">SZKODY</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="/images/products.jpg" alt="PRODUKTY UBEZPIECZENIOWE">
+                        </div>
+                        <div class="card-action">
+                            <a href="#">PRODUKTY</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="/images/service.jpg" alt="Obsługa">
+                        </div>
+                        <div class="card-action">
+                            <a href="#">OBSŁUGA</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sekcja podsumowania -->
+        <div class="col s12 m6 l3">
+            <div class="card teal darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">Podsumowanie:</span>
+                    <p>Liczba aktywnych polis: 1200</p>
+                    <p>Liczba zgłoszonych szkód: 300</p>
+                    <p>Liczba wypłaconych szkód: 250</p>
+                    <p>Szkody z bliskim terminem: 250</p>
+                    <p>Szkody z bliskim terminem: 250</p>
+                </div>
+                <div class="card-action">
+                    <a href="/claims">Szkody</a>
+                    <a href="/service">Polisy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Bezpieczna Przyszłość. Prosty projekt systemu zawierania ubezpieczeń i zgłaszania szkód. Wszelkie
+        prawa zastrzeżone.</p>
+</footer>
+
+<!-- SZYBKI DOSTĘP - SKRÓTY -->
+<div class="fixed-action-btn" style="bottom: 100px; right: 24px;">
+    <a class="btn-floating btn-large red">
+        <i class="large material-icons">mode_edit</i>
+    </a>
+    <ul>
+        <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+        <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+        <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+    </ul>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<!-- Sekcja nawigacji -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems);
+    });
+</script>
+
+<!-- Sekcja szybki dostęp -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.fixed-action-btn');
+        var instances = M.FloatingActionButton.init(elems, {
+            direction: 'left',
+            hoverEnabled: false
+        });
+    });
+</script>
+
+</body>
+</html>
