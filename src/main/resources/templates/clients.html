@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SZKODY UBEZPIECZENIOWE</title>
+    <title>SEKCJA KLIENTA</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -48,7 +48,7 @@
 
 <!-- WYSZUKIWARKA -->
 <nav>
-    <div class="nav-wrapper red accent-3">
+    <div class="nav-wrapper cyan darken-4">
         <form>
             <div class="input-field">
                 <input id="search" type="search" required placeholder="Wyszukaj po numerze polisy, szkody lub po numerze PESEL klienta">
@@ -67,7 +67,7 @@
         <!-- SEKCJA KAFELKÓW -->
         <div class="col s12 m6 l9">
             <div class="row">
-                <h5>Lista szkód</h5>
+                <h5>Lista klientów</h5>
                 <div class="collection">
                     <a href="#!" class="collection-item"><span class="badge">1</span>Alan</a>
                     <a href="#!" class="collection-item"><span class="new badge">4</span>Alan</a>
@@ -79,7 +79,7 @@
 
         <!-- SEKCJA SKRÓTY PODSUMOWANIA -->
         <div class="col s12 m6 l3">
-            <div class="card red accent-3">
+            <div class="card cyan darken-4">
                 <div class="card-content white-text">
                     <span class="card-title">Podsumowanie:</span>
                     <p>Liczba aktywnych polis: 1200</p>
@@ -89,7 +89,11 @@
                     <p>Szkody z bliskim terminem: 250</p>
                 </div>
                 <div class="card-action">
-                    <button class="btn waves-effect teal darken-1" type="submit" name="action">Zgłoś nowe roszczenie
+                    <button class="btn waves-effect red" type="submit" name="action">Wprowadź ręcznie klienta
+                        <i class="material-icons right">send</i>
+                    </button>
+                    <p></p>
+                    <button class="btn waves-effect blue" type="submit" name="action">Zaimportuj klienta z pliku
                         <i class="material-icons right">send</i>
                     </button>
                 </div>

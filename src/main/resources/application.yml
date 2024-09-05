@@ -1,1 +1,8 @@
-spring.application.name=Insurance-Management-System
+spring:
+  application:
+    name: Insurance-Management-System
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+

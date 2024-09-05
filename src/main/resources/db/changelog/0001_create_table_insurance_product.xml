@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="0001-1" author="Arkadiusz Borkowski">
+        <createTable tableName="insurance_product">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_insuranceproduct"/>
+            </column>
+            <column name="product_name" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="0001-2" author="Arkadiusz Borkowski">
+        <createTable tableName="insurance_product_risks">
+            <column name="insurance_product_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="risks" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="0001-3" author="Arkadiusz Borkowski">
+        <addForeignKeyConstraint baseColumnNames="insurance_product_id" baseTableName="insurance_product_risks"
+                                 constraintName="fk_insuranceproduct_risks_on_insurance_product"
+                                 referencedColumnNames="id" referencedTableName="insurance_product"/>
+    </changeSet>
+
+</databaseChangeLog>

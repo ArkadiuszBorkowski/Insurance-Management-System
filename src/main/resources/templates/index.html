@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strona Główna</title>
+    <title>Bezpieczna przyszłość</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/styles/styles.css">
-
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
 </head>
 <body>
+
+<!-- PASEK MENU -->
 <header>
 
     <!-- NAWIGACJA -->
@@ -26,45 +28,47 @@
             <ul class="right hide-on-med-and-down">
                 <li><a href="/policy">POLISY</a></li>
                 <li><a href="/claims">SZKODY<span class="new badge">4</span></a></li>
-                <li><a href="#products">PRODUKTY</a></li>
-                <li><a href="#clients">OBSŁUGA</a></li>
-                <li><a href="#login">ZALOGUJ SIĘ</a></li>
+                <li><a href="/products">PRODUKTY</a></li>
+                <li><a href="/clients">KLIENT</a></li>
+                <li><a href="/login">ZALOGUJ SIĘ</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- NAWIGACJA - WIDOK MOBILNY-->
     <ul class="sidenav" id="mobile-demo">
-        <li><a href="#polisy">POLISY</a></li>
-        <li><a href="#claims">SZKODY</a></li>
-        <li><a href="#products">PRODUKTY</a></li>
-        <li><a href="#clients">OBSŁUGA</a></li>
-        <li><a href="#login">ZALOGUJ SIĘ</a></li>
+        <li><a href="/policy">POLISY</a></li>
+        <li><a href="/claims">SZKODY</a></li>
+        <li><a href="/products">PRODUKTY</a></li>
+        <li><a href="/clients">KLIENT</a></li>
+        <li><a href="/login">ZALOGUJ SIĘ</a></li>
     </ul>
+
 </header>
 
 <!-- WYSZUKIWARKA -->
 <nav>
-    <div class="nav-wrapper" style="background-color: #00897b ">
+    <div class="nav-wrapper teal darken-1">
         <form>
             <div class="input-field">
-                <input id="search" type="search" required>
+                <input id="search" type="search" required placeholder="Wyszukaj po numerze polisy, szkody lub po numerze PESEL klienta">
                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                 <i class="material-icons">close</i>
             </div>
         </form>
     </div>
 </nav>
+<div><br><br></div>
 
-<div><br><br</div>
+<!-- ZAWARTOŚĆ STRONY -->
 
-
-<!-- Zawartość strony -->
 <div class="container">
     <div class="row">
-        <!-- Sekcja kafelków -->
+
+        <!-- SEKCJA KAFELKÓW -->
         <div class="col s12 m6 l9">
             <div class="row">
+
                 <div class="col s12 m6 l3">
                     <div class="card">
                         <div class="card-image">
@@ -75,6 +79,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col s12 m6 l3">
                     <div class="card">
                         <div class="card-image">
@@ -85,30 +90,33 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col s12 m6 l3">
                     <div class="card">
                         <div class="card-image">
                             <img src="/images/products.jpg" alt="PRODUKTY UBEZPIECZENIOWE">
                         </div>
                         <div class="card-action">
-                            <a href="#">PRODUKTY</a>
+                            <a href="/products">PRODUKTY</a>
                         </div>
                     </div>
                 </div>
+
                 <div class="col s12 m6 l3">
                     <div class="card">
                         <div class="card-image">
-                            <img src="/images/service.jpg" alt="Obsługa">
+                            <img src="/images/clients.jpg" alt="KLIENT">
                         </div>
                         <div class="card-action">
-                            <a href="#">OBSŁUGA</a>
+                            <a href="/clients">Klient</a>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
-        <!-- Sekcja podsumowania -->
+        <!-- SEKCJA SKRÓTY PODSUMOWANIA -->
         <div class="col s12 m6 l3">
             <div class="card teal darken-1">
                 <div class="card-content white-text">
@@ -121,15 +129,16 @@
                 </div>
                 <div class="card-action">
                     <a href="/claims">Szkody</a>
-                    <a href="/service">Polisy</a>
+                    <a href="/policy">Polisy</a>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
 <footer>
-    <p>&copy; 2024 Bezpieczna Przyszłość. Prosty projekt systemu zawierania ubezpieczeń i zgłaszania szkód. Wszelkie
+    <p>&copy; 2024 Bezpieczna Przyszłość. Arkadiusz Borkowski. Prosty projekt systemu zawierania ubezpieczeń i rejestracji szkód. Wszelkie
         prawa zastrzeżone.</p>
 </footer>
 
@@ -148,7 +157,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-<!-- Sekcja nawigacji -->
+<!-- SEKCJA NAWIGACJI by https://materializecss.com/navbar.html -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.sidenav');
@@ -156,7 +165,7 @@
     });
 </script>
 
-<!-- Sekcja szybki dostęp -->
+<!-- SEKCJA SZYBKI DOSTĘP by https://materializecss.com/floating-action-button.html -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.fixed-action-btn');
