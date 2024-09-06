@@ -1,13 +1,64 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org" >
-<head th:replace="~{fragments :: head}"></head>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bezpieczna przyszłość</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+</head>
 <body>
 
 <!-- PASEK MENU -->
-<header th:replace="~{fragments :: header}"></header>
+<header>
+
+    <!-- NAWIGACJA -->
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo logo">
+                <img src="/images/logo.png" alt="Logo"
+                     style="height: 50px; vertical-align: middle; margin: 0 0 10px 10px">
+                Bezpieczna przyszłość
+            </a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/policy">POLISY</a></li>
+                <li><a href="/claims">SZKODY<span class="new badge">4</span></a></li>
+                <li><a href="/products">PRODUKTY</a></li>
+                <li><a href="/clients">KLIENT</a></li>
+                <li><a href="/login">ZALOGUJ SIĘ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- NAWIGACJA - WIDOK MOBILNY-->
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="/policy">POLISY</a></li>
+        <li><a href="/claims">SZKODY</a></li>
+        <li><a href="/products">PRODUKTY</a></li>
+        <li><a href="/clients">KLIENT</a></li>
+        <li><a href="/login">ZALOGUJ SIĘ</a></li>
+    </ul>
+
+</header>
 
 <!-- WYSZUKIWARKA -->
-<nav th:replace="~{fragments :: search}"></nav>
+<nav>
+    <div class="nav-wrapper teal darken-1">
+        <form>
+            <div class="input-field">
+                <input id="search" type="search" required
+                       placeholder="Wyszukaj po numerze polisy, szkody lub po numerze PESEL klienta">
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+            </div>
+        </form>
+    </div>
+</nav>
 <div><br><br></div>
 
 <!-- ZAWARTOŚĆ STRONY -->
@@ -188,18 +239,53 @@
     </div>
 </div>
 
-<footer th:replace="~{fragments :: footer}"></footer>
+<footer>
+  <p>&copy; 2024 Bezpieczna Przyszłość. Arkadiusz Borkowski. Prosty projekt systemu zawierania ubezpieczeń i rejestracji szkód. Wszelkie
+    prawa zastrzeżone.</p>
+</footer>
 
 <!-- SZYBKI DOSTĘP - SKRÓTY -->
-<div th:replace="~{fragments :: floating_btn}"></div>
+<div class="fixed-action-btn" style="bottom: 100px; right: 24px;">
+    <a class="btn-floating btn-large red">
+        <i class="large material-icons">mode_edit</i>
+    </a>
+    <ul>
+        <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+        <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+        <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+    </ul>
+</div>
+
+<!-- SEKCJA PREZETNACJA DANYCH by https://materializecss.com/collapsible.html -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.collapsible');
+        var instances = M.Collapsible.init(elems);
+    });
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<!-- SEKCJA PREZETNACJA DANYCH by https://materializecss.com/collapsible.html -->
-<script th:replace="~{fragments :: script_data_collapsible}"></script>
+
 <!-- SEKCJA NAWIGACJI by https://materializecss.com/navbar.html -->
-<script th:replace="~{fragments :: script_nav}"></script>
-<!-- SEKCJA SZYBKI DOSTĘP (prawy dolny róg) by https://materializecss.com/floating-action-button.html -->
-<script th:replace="~{fragments :: script_quick_access_btn}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems);
+    });
+</script>
+
+<!-- SEKCJA SZYBKI DOSTĘP by https://materializecss.com/floating-action-button.html -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.fixed-action-btn');
+        var instances = M.FloatingActionButton.init(elems, {
+            direction: 'left',
+            hoverEnabled: false
+        });
+    });
+</script>
+
 
 </body>
 </html>

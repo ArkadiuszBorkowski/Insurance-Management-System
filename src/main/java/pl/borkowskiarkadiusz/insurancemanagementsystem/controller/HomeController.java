@@ -18,7 +18,13 @@ class HomeController {
 
     @GetMapping("/products")
     public String getProducts() {
+        return "products3";
+    }
+
+    @GetMapping("/products2")
+    public String getProducts2() {
         return "products";
     }
+
 
 }
