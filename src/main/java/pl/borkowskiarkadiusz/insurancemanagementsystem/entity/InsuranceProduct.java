@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.Enum.PolicyType;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class InsuranceProduct {
@@ -13,14 +13,23 @@ public class InsuranceProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private PolicyType productName;
+    @NotNull
+    private String productName;
 
     @NotNull
     private String description;
 
-    @ElementCollection
-    private List<String> risks;
+    @ManyToMany
+    @JoinTable(
+            name = "product_risk",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "risk_id")
+    )
+    private Set<Risk> risks;
+
+    public InsuranceProduct() {
+
+    }
 
     public Long getId() {
         return id;
@@ -30,11 +39,7 @@ public class InsuranceProduct {
         this.id = id;
     }
 
-    public PolicyType getProductName() {
-        return productName;
-    }
-
-    public void setProductName(PolicyType productName) {
+    public InsuranceProduct(String productName) {
         this.productName = productName;
     }
 
@@ -46,11 +51,11 @@ public class InsuranceProduct {
         this.description = description;
     }
 
-    public List<String> getRisks() {
+    public Set<Risk> getRisks() {
         return risks;
     }
 
-    public void setRisks(List<String> risks) {
+    public void setRisks(Set<Risk> risks) {
         this.risks = risks;
     }
 }
