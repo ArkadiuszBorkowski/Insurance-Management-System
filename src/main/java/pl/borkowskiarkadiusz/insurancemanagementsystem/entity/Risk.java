@@ -12,6 +12,8 @@ public class Risk {
 
     private String riskName;
 
+    private String iconName;
+
     @ManyToMany(mappedBy = "risks")
     private Set<InsuranceProduct> products;
 
@@ -40,5 +42,13 @@ public class Risk {
 
     public void setProducts(Set<InsuranceProduct> products) {
         this.products = products;
+    }
+
+    public String getIconName() {
+        return iconName;
+    }
+
+    public void setIconName(String iconName) {
+        this.iconName = iconName;
     }
 }

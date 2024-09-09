@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Produkty ubezpieczeniowe</title>
+</head>
+<body>
+
+
+<!-- ZAWARTOŚĆ STRONY -->
+
+<div class="container" th:fragment="products_list">
+    <div class="row">
+
+        <ul class="collapsible">
+            <li th:each="product : ${products}">
+                <!-- NAZWA PRODUKTU -->
+                <div class="collapsible-header"><i class="material-icons">home</i>
+                    <span th:text="${product.productName}">PRZYKŁADOWY PRODUKT</span>
+                </div>
+
+                <!-- OPIS PRODUKTU -->
+                <div class="collapsible-body">
+                    <span th:text="${product.description}">
+                        OPIS PRODUKTU UBEZPIECZENIOWEGO
+                    </span>
+                    <!-- LISTA RYZYK PRODUKTU -->
+                    <p>Ryzyka:</p>
+                    <p>
+                    <div class="chip" th:each="risk : ${product.risks}">
+                        <i class="material-icons">
+                            <span th:text="${risk.iconName}">flood</span>
+                        </i>
+                        <span th:text="${risk.riskName}">ZALANIE</span>
+                    </div>
+                    <p>
+
+                </div>
+
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+</body>
+</html>

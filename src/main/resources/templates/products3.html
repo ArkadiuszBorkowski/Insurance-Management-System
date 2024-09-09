@@ -62,6 +62,14 @@
 <div><br><br></div>
 
 <!-- ZAWARTOŚĆ STRONY -->
+
+<!-- MAPOWWANIE RYZYK -->
+<h1>Lista Ryzyk</h1>
+<ul>
+    <li th:each="risk : ${risks}" th:text="${risk.riskName}"></li>
+</ul>
+
+
 <div class="container">
     <div class="row">
         <h6>PRODUKTY UBEZPIECZENIOWE</h6>

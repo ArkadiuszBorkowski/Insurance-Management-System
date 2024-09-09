@@ -7,7 +7,7 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.Enum.Decision;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.Enum.ClaimStatus;
 
 @Controller
-public class ClaimsController {
+class ClaimsController {
 
     @GetMapping("/claimsform")
     public String getClaimsForm(Model model) {

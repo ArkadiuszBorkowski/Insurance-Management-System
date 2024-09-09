@@ -28,18 +28,13 @@ public class InsuranceProduct {
     private Set<Risk> risks;
 
     public InsuranceProduct() {
-
     }
 
-    public Long getId() {
-        return id;
+    public @NotNull String getProductName() {
+        return productName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public InsuranceProduct(String productName) {
+    public void setProductName(@NotNull String productName) {
         this.productName = productName;
     }
 
@@ -57,5 +52,13 @@ public class InsuranceProduct {
 
     public void setRisks(Set<Risk> risks) {
         this.risks = risks;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
