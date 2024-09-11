@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<!-- - - - - - - - - - - H - E - A - D - - - - - - - - - - - - -->
 <head th:replace="~{fragments :: head}"></head>
 <body>
-
-<!-- PASEK MENU -->
+<!-- - - - - - - - - - - M - E - N - U - - - - - - - - - - - - -->
 <header th:replace="~{fragments :: header}"></header>
-
-<!-- WYSZUKIWARKA -->
+<!-- - - - W - Y - S - Z - U - K - I - W - A - R - K - A - - - -->
 <nav th:replace="~{fragments :: search}"></nav>
-<div><br><br></div>
+<br><br>
 
-<!-- ZAWARTOŚĆ STRONY -->
+<!--Z - A - W - A - R - T - O - Ś - Ć - - S - T - R - O - N - Y-->
 <main>
     <div class="container">
         <div class="row">
@@ -22,10 +21,10 @@
                     <div class="col s12 m6 l3">
                         <div class="card">
                             <div class="card-image">
-                                <img src="/images/policy.jpg" alt="POLISA UBEZPIECZENIOWA">
+                                <img src="../static/images/policy.png" th:src="@{/images/policy.jpg}" alt="POLISA UBEZPIECZENIOWA">
                             </div>
                             <div class="card-action">
-                                <a href="/policy">POLISY</a>
+                                <a href="/policies" th:href="@{/policies}">POLISY</a>
                             </div>
                         </div>
                     </div>
@@ -33,10 +32,10 @@
                     <div class="col s12 m6 l3">
                         <div class="card">
                             <div class="card-image">
-                                <img src="/images/claims.jpg" alt="SZKODA UBEZPIECZENIOWA">
+                                <img src="../static/images/claims.png" th:src="@{/images/claims.jpg}" alt="SZKODA UBEZPIECZENIOWA">
                             </div>
                             <div class="card-action">
-                                <a href="/claims">SZKODY</a>
+                                <a href="/claims" th:href="@{/claims}">SZKODY</a>
                             </div>
                         </div>
                     </div>
@@ -44,10 +43,10 @@
                     <div class="col s12 m6 l3">
                         <div class="card">
                             <div class="card-image">
-                                <img src="/images/products.jpg" alt="PRODUKTY UBEZPIECZENIOWE">
+                                <img src="../static/images/products.png" th:src="@{/images/products.jpg}" alt="PRODUKTY UBEZPIECZENIOWE">
                             </div>
                             <div class="card-action">
-                                <a href="/products">PRODUKTY</a>
+                                <a href="/products" th:href="@{/products}">PRODUKTY</a>
                             </div>
                         </div>
                     </div>
@@ -55,10 +54,10 @@
                     <div class="col s12 m6 l3">
                         <div class="card">
                             <div class="card-image">
-                                <img src="/images/clients.jpg" alt="KLIENT">
+                                <img src="../static/images/clients.png" th:src="@{/images/clients.jpg}" alt="KLIENT">
                             </div>
                             <div class="card-action">
-                                <a href="/clients">Klient</a>
+                                <a href="/clients" th:href="@{/clients}">Klient</a>
                             </div>
                         </div>
                     </div>
@@ -78,8 +77,8 @@
                         <p>Szkody z bliskim terminem: 250</p>
                     </div>
                     <div class="card-action">
-                        <a href="/claims">Szkody</a>
-                        <a href="/policy">Polisy</a>
+                        <a href="/claims" th:href="@{/claims}">SZKODY</a>
+                        <a href="/policies" th:href="@{/policies}">POLISY</a>
                     </div>
                 </div>
             </div>
@@ -88,16 +87,14 @@
     </div>
 </main>
 
+<!-- - - - - - - - - S - T - O - P - K - A - - - - - - - - - - -->
 <footer th:replace="~{fragments :: footer}"></footer>
 
-<!-- SZYBKI DOSTĘP - SKRÓTY -->
+<!-- - - P - Ł - Y - W - A - J - Ą - C - Y  -  - P - R - Z - Y - C - I - S - K - - -->
 <div th:replace="~{fragments :: floating_btn}"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<!-- SEKCJA NAWIGACJI by https://materializecss.com/navbar.html -->
-<script th:replace="~{fragments :: script_nav}"></script>
-<!-- SEKCJA SZYBKI DOSTĘP (prawy dolny róg) by https://materializecss.com/floating-action-button.html -->
-<script th:replace="~{fragments :: script_quick_access_btn}"></script>
+<!-- - - - - - - - - S - K - R - Y - P - T - Y - - - - - - - - -->
+<div th:replace="~{fragments :: script_js}"></div>
 
 </body>
 </html>

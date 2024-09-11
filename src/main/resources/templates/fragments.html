@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<!-- - - - - - - - - - - H - E - A - D - - - - - - - - - - - - -->
 <head th:fragment="head">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,57 +12,106 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
     <link rel="stylesheet" href="../static/styles/styles.css" th:href="@{/styles/styles.css}">
 </head>
+
 <body>
 
-<!-- PASEK MENU -->
+<!-- - - - - - - - - - - M - E - N - U - - - - - - - - - - - - -->
 <header th:fragment="header">
 
-    <!-- NAWIGACJA -->
+    <!-- - - - - - - - P - O - D - - - M - E - N - U - - - - - - - -->
+    <ul id="policy_dropdown" class="dropdown-content">
+        <li><a href="/policies" th:href="@{/policies}">SEKCJA POLIS</a></li>
+        <li><a href="/policy" th:href="@{/policy}">FORMULARZ POLISOWY</a></li>
+        <li><a href="/import" th:href="@{/import}">IMPORT POLIS</a></li>
+    </ul>
+    <ul id="policy_dropdown_mobile" class="dropdown-content">
+        <li><a href="/policies" th:href="@{/policies}">SEKCJA POLIS</a></li>
+        <li><a href="/policy" th:href="@{/policy}">FORMULARZ POLISOWY</a></li>
+        <li><a href="/import" th:href="@{/import}">IMPORT POLIS</a></li>
+    </ul>
+
+    <ul id="claims_dropdown" class="dropdown-content">
+        <li><a href="/claims" th:href="@{/claims}">SEKCJA SZKÓD</a></li>
+        <li><a href="/claim" th:href="@{/claim}">FORMULARZ SZKODOWY</a></li>
+        <li><a href="/claims_list" th:href="@{/claims_list}">LISTA SZKÓD</a></li>
+    </ul>
+    <ul id="claims_dropdown_mobile" class="dropdown-content">
+        <li><a href="/claims" th:href="@{/claims}">SEKCJA SZKÓD</a></li>
+        <li><a href="/claim" th:href="@{/claim}">FORMULARZ SZKODOWY</a></li>
+        <li><a href="/claims_list" th:href="@{/claims_list}">LISTA SZKÓD</a></li>
+    </ul>
+
+    <!-- - - - - - - N - A - W - I - G - A - C - J - A - - - - - - -->
     <nav>
         <div class="nav-wrapper">
-            <a href="/" class="brand-logo">
+            <a href="#" th:href="@{/}" class="brand-logo">
                 <img src="../static/images/logo.png" th:src="@{/images/logo.png}" alt="Logo"
                      style="height: 50px; vertical-align: middle; margin: 0 0 10px 10px">
                 <span>Bezpieczna przyszłość</span>
             </a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="/policy">POLISY</a></li>
-                <li><a href="/claims">SZKODY<span class="new badge">4</span></a></li>
-                <li><a href="/products">PRODUKTY</a></li>
-                <li><a href="/clients">KLIENT</a></li>
-                <li><a href="/login">ZALOGUJ SIĘ</a></li>
+
+                <li>
+                    <a class="dropdown-trigger" href="/policies" th:href="@{/policies}" data-target="policy_dropdown">
+                        POLISY
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-trigger" href="/claims" th:href="@{/claims}" data-target="claims_dropdown">
+                        SZKODY
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+
+                <li><a href="/products" th:href="@{/products}">PRODUKTY</a></li>
+                <li><a href="/clients" th:href="@{/clients}">KLIENT</a></li>
+                <li><a href="/login" th:href="@{/login}">ZALOGUJ SIĘ</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- NAWIGACJA - WIDOK MOBILNY-->
+    <!-- N - A - W - I - G - A - C - J - A - - - M - O - B - I - L - N - A -->
     <ul class="sidenav" id="mobile-demo">
-        <li><a href="/policy">POLISY</a></li>
-        <li><a href="/claims">SZKODY</a></li>
-        <li><a href="/products">PRODUKTY</a></li>
-        <li><a href="/clients">KLIENT</a></li>
-        <li><a href="/login">ZALOGUJ SIĘ</a></li>
+        <li>
+            <a class="dropdown-trigger" href="/policies" th:href="@{/policies}" data-target="policy_dropdown_mobile">
+                POLISY
+                <i class="material-icons right">arrow_drop_down</i>
+            </a>
+        </li>
+
+        <li>
+            <a class="dropdown-trigger" href="/claims" th:href="@{/claims}" data-target="claims_dropdown_mobile">
+                SZKODY
+                <i class="material-icons right">arrow_drop_down</i>
+            </a>
+        </li>
+
+        <li><a href="/products" th:href="@{/products}">PRODUKTY</a></li>
+        <li><a href="/clients" th:href="@{/clients}">KLIENT</a></li>
+        <li><a href="/login" th:href="@{/login}">ZALOGUJ SIĘ</a></li>
     </ul>
 
 </header>
 
-<!-- NAWIGACJA - PASEK WYSZUKIKARKI-->
+<!-- - - - W - Y - S - Z - U - K - I - W - A - R - K - A - - - -->
 <nav th:fragment="search">
-  <div class="nav-wrapper teal darken-1">
-    <form>
-      <div class="input-field">
-        <input id="search" type="search" required
-               placeholder="Wyszukaj po numerze polisy, szkody lub po numerze PESEL klienta">
-        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-        <i class="material-icons">close</i>
-      </div>
-    </form>
-  </div>
+    <div class="nav-wrapper teal darken-1 m-6">
+        <form>
+            <div class="input-field">
+                <input id="search" type="search" required
+                       placeholder="Wyszukaj po numerze polisy, szkody lub po numerze PESEL klienta">
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+            </div>
+        </form>
+    </div>
 </nav>
 
 
-<!-- STOPKA STRONY -->
+<!-- - - - - - - - - S - T - O - P - K - A - - - - - - - - - - -->
 <footer th:fragment="footer">
     <p>&copy; 2024 Bezpieczna Przyszłość. Arkadiusz Borkowski. Prosty projekt systemu zawierania ubezpieczeń i
         rejestracji szkód. Wszelkie
@@ -69,50 +119,88 @@
 </footer>
 
 
-<!-- SZYBKI DOSTĘP - SKRÓTY -->
+<!-- - - P - Ł - Y - W - A - J - Ą - C - Y  -  - P - R - Z - Y - C - I - S - K - - -->
 <div th:fragment="floating_btn" class="fixed-action-btn" style="bottom: 100px; right: 24px;">
-  <a class="btn-floating btn-large red">
-    <i class="large material-icons">mode_edit</i>
-  </a>
-  <ul>
-    <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-    <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-    <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-    <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-  </ul>
+    <a class="btn-floating btn-large red">
+        <i class="large material-icons">mode_edit</i>
+    </a>
+    <ul>
+        <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+        <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+        <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+    </ul>
 </div>
 
 
-<!-- - - - - - - - S K R Y P T Y - - - - - - - --> >
+<!-- - - - - - - - - S - K - R - Y - P - T - Y - - - - - - - - -->
 
-<!-- SEKCJA PREZETNACJA DANYCH by https://materializecss.com/collapsible.html -->
-<script th:fragment="script_data_collapsible">
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.collapsible');
-        var instances = M.Collapsible.init(elems);
-    });
-</script>
+<div th:fragment="script_js">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-<!-- SEKCJA NAWIGACJI by https://materializecss.com/navbar.html -->
-<script th:fragment="script_nav">
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.sidenav');
-        var instances = M.Sidenav.init(elems);
-    });
-</script>
-
-<!-- SEKCJA SZYBKI DOSTĘP (prawy dolny róg) by https://materializecss.com/floating-action-button.html -->
-<script th:fragment="script_quick_access_btn">
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.fixed-action-btn');
-        var instances = M.FloatingActionButton.init(elems, {
-            direction: 'left',
-            hoverEnabled: false
+    <!-- SEKCJA PREZENTACJA DANYCH PRODUKTÓW by https://materializecss.com/collapsible.html -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.collapsible');
+            var instances = M.Collapsible.init(elems);
         });
-    });
-</script>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- SEKCJA NAWIGACJI by https://materializecss.com/navbar.html -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems);
+            var dropdowns = document.querySelectorAll('.dropdown-trigger');
+            M.Dropdown.init(dropdowns, {coverTrigger: false});
+        });
+    </script>
+
+    <!-- SEKCJA SZYBKI DOSTĘP (prawy dolny róg) by https://materializecss.com/floating-action-button.html -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.fixed-action-btn');
+            var instances = M.FloatingActionButton.init(elems, {
+                direction: 'left',
+                hoverEnabled: false
+            });
+        });
+    </script>
+
+    <!-- SEKCJA ZAKŁADKI () by https://materializecss.com/floating-action-button.html -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.tabs');
+            var instances = M.Tabs.init(elems, {
+                swipeable: true
+            });
+        });
+    </script>
+
+    <!-- SEKCJA WALIDACJI DAT I WYBORU DATY by https://materializecss.com/ -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('select');
+            M.FormSelect.init(elems);
+
+            var dateElems = document.querySelectorAll('.datepicker');
+            M.Datepicker.init(dateElems, {
+                format: 'yyyy-mm-dd'
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('input[data-length]');
+            M.CharacterCounter.init(elems);
+        });
+    </script>
+
+
+</div>
 
 
 </body>

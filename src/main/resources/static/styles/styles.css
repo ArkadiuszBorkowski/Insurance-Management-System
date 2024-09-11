@@ -18,7 +18,15 @@ body {
 .container {
     margin: 0 auto;
     max-width: 1680px;
-    width: 90%
+    width: 90%;
+}
+
+.carousel {
+    height: 1400px;
+}
+
+.container:last-of-type {
+    margin-bottom: 100px; /* Dodaje margines dolny, aby stopka nie zasłaniała zawartości */
 }
 
 @media only screen and (min-width: 601px) {
@@ -33,6 +41,9 @@ body {
     }
 }
 
+.dropdown-content {
+    width: auto !important;
+}
 
 footer {
     background-color: #00897b;

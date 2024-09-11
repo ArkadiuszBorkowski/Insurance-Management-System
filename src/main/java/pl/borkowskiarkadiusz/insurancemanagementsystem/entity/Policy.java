@@ -20,6 +20,15 @@ public class Policy {
     private String policyNumber;
 
     @NotNull
+    private LocalDate startDate;
+    @NotNull
+    private LocalDate  endDate;
+
+    @ManyToOne
+    @JoinColumn(name = "insurance_product_id", referencedColumnName = "id")
+    private InsuranceProduct insuranceProduct;
+
+    @NotNull
     @Positive
     private Double coverageAmount;
 
@@ -31,17 +40,8 @@ public class Policy {
     @Positive
     private Double premium;
 
-    @NotNull
-    private LocalDate startDate;
-    @NotNull
-    private LocalDate  endDate;
-
     @ManyToOne
     private Client client;
-
-    @ManyToOne
-    @JoinColumn(name = "insurance_product_id", referencedColumnName = "id")
-    private InsuranceProduct insuranceProduct;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "policy")
     private Set<Claims> claims;

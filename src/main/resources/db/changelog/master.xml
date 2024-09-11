@@ -10,5 +10,6 @@
     <include file="db/changelog/0004_create_table_claims.xml"/>
 
     <include file="../testdata/0001_insurance_product_and_risk.sql" relativeToChangelogFile="true"/>
+    <include file="../testdata/0002_clients.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

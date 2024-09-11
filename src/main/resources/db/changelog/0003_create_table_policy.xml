@@ -13,6 +13,12 @@
             <column name="policy_number" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="start_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
             <column name="coverage_amount" type="DOUBLE">
                 <constraints nullable="false"/>
             </column>
@@ -20,12 +26,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="premium" type="DOUBLE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="start_date" type="DATE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="end_date" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column name="client_id" type="BIGINT"/>

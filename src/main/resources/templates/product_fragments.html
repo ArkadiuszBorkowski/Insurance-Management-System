@@ -7,7 +7,7 @@
 <body>
 
 
-<!-- ZAWARTOŚĆ STRONY -->
+<!-- GENEROWANIE LISTY PRODUKTÓW (NAZWA + OPIS ORAZ PODPIĘTE RYZYKA I IKONY RYZYK POBIERANE Z BAZY-->
 
 <div class="container" th:fragment="products_list">
     <div class="row">
@@ -15,7 +15,7 @@
         <ul class="collapsible">
             <li th:each="product : ${products}">
                 <!-- NAZWA PRODUKTU -->
-                <div class="collapsible-header"><i class="material-icons">home</i>
+                <div class="collapsible-header"><i class="material-icons">view_timeline</i>
                     <span th:text="${product.productName}">PRZYKŁADOWY PRODUKT</span>
                 </div>
 
@@ -33,6 +33,10 @@
                         </i>
                         <span th:text="${risk.riskName}">ZALANIE</span>
                     </div>
+                    <BR><BR>
+                    <span class="material-icons">picture_as_pdf</span> <a href="/products">OGÓLNE WARUNKI UMOWY</a>
+                    <BR>
+                    <span class="material-icons">picture_as_pdf</span> <a href="/products">KARTA PRODUKTU</a>
                     <p>
 
                 </div>

@@ -11,13 +11,13 @@ INSERT INTO Risk (RISK_NAME, ICON_NAME) VALUES
         ('USZKODZENIE MIENIA', 'engineering'),
         ('PRZEPIĘCIA', 'electric_bolt');
 
-INSERT INTO Insurance_Product (product_name, description) VALUES
+INSERT INTO Insurance_Product (PRODUCT_NAME, DESCRIPTION) VALUES
         ('BEZPIECZNY_DOM', 'Ubezpieczenie domu lub mieszkania zapewnia kompleksową ochronę Twojej nieruchomości przed różnymi ryzykami, takimi jak pożar, powódź, włamanie czy uszkodzenia spowodowane przez wichury. Polisa obejmuje zarówno mury i stałe elementy budynku, jak i wyposażenie wnętrza, w tym meble, sprzęt RTV i AGD, a także cenne przedmioty osobiste.'),
         ('BEZPIECZNE_MASZYNY', 'Ubezpieczenie maszyn firmowych zapewnia ochronę przed nagłymi i nieprzewidzianymi zdarzeniami, które mogą prowadzić do uszkodzenia, zniszczenia lub utraty maszyn i urządzeń wykorzystywanych w działalności gospodarczej. Polisa obejmuje szkody powstałe w wyniku błędów projektowych, wadliwego wykonania, błędów montażowych, awarii mechanicznych, a także zdarzeń losowych, takich jak pożar, powódź czy kradzież..'),
         ('BEZPIECZNY_JACHT', 'Ubezpieczenie jachtów i łodzi zapewnia kompleksową ochronę Twojej jednostki pływającej przed różnymi ryzykami, takimi jak kolizje, pożar, kradzież czy uszkodzenia spowodowane przez czynniki atmosferyczne. Polisa obejmuje zarówno ubezpieczenie casco, które pokrywa koszty naprawy lub wymiany łodzi w przypadku jej uszkodzenia lub utraty, jak i ubezpieczenie OC, które chroni przed odpowiedzialnością cywilną za szkody wyrządzone innym osobom. Dodatkowo, ubezpieczenie może obejmować pomoc assistance, zapewniając holowanie, pomoc techniczną oraz wsparcie w razie awarii na wodzie'),
         ('BEZPIECZNA PRZYSZŁOŚĆ', 'Ubezpieczenie odpowiedzialności cywilnej (OC) w życiu prywatnym zapewnia ochronę przed finansowymi skutkami szkód wyrządzonych osobom trzecim lub ich mieniu. Polisa obejmuje sytuacje, w których Ty lub członkowie Twojej rodziny nieumyślnie spowodujecie szkody, takie jak zalanie mieszkania sąsiada, wybicie szyby czy uszkodzenie mienia podczas codziennych czynności. Ubezpieczenie to pokrywa koszty naprawy szkód, co pozwala uniknąć nieprzewidzianych wydatków i zapewnia spokój ducha.');
 
-INSERT INTO product_risk (product_id, risk_id) VALUES
+INSERT INTO product_risk (PRODUCT_ID, RISK_ID) VALUES
 -- BEZPIECZNY DOM
 (1, 1), -- ZALANIE
 (1, 2), -- POŻAR
