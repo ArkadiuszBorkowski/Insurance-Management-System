@@ -4,54 +4,153 @@
 <head th:replace="~{fragments :: head}"></head>
 <body>
 <!-- - - - - - - - - - - M - E - N - U - - - - - - - - - - - - -->
-<header th:replace="~{fragments :: header}"></header>
+<header th:replace="~{fragments :: header}">
+
+</header>
 <!-- - - - W - Y - S - Z - U - K - I - W - A - R - K - A - - - -->
 <nav th:replace="~{fragments :: search}"></nav>
-<br><br>
+
 
 <!--Z - A - W - A - R - T - O - Ś - Ć - - S - T - R - O - N - Y-->
+
+<style>
+    tr.clickable-row {
+        cursor: pointer;
+    }
+</style>
+
+
 <main>
 
-    <div class="container">
+
+    <!--<div class="container">
         <div class="row">
-            <!-- Sekcja kafelków -->
-            <div class="col s12 m6 l9">
-                <div class="row">
-                    <h5>Lista polis</h5>
-                    <div class="collection">
-                        <a href="#!" class="collection-item"><span class="badge">1</span>Alan</a>
-                        <a href="#!" class="collection-item"><span class="new badge">4</span>Alan</a>
-                        <a href="#!" class="collection-item">Alan</a>
-                        <a href="#!" class="collection-item"><span class="badge">14</span>Alan</a>
-                    </div>
-                </div>
-            </div>
+            &lt;!&ndash; Sekcja kafelków &ndash;&gt;
+            <div class="container">
+                <h1>Policy List</h1>
 
 
-            <!-- Sekcja podsumowania -->
-            <div class="col s12 m6 l3">
-                <div class="card grey lighten-5">
-                    <div class="card-content white-text">
-                        <span class="card-title">Podsumowanie:</span>
-                        <p>Liczba aktywnych polis: 1200</p>
-                        <p>Liczba zgłoszonych szkód: 300</p>
-                        <p>Liczba wypłaconych szkód: 250</p>
-                        <p>Szkody z bliskim terminem: 250</p>
-                        <p>Szkody z bliskim terminem: 250</p>
-                    </div>
-                    <div class="card-action">
-                        <button class="btn waves-effect red" type="button" onclick="window.location.href='/policy'">Wprowadź ręcznie polise
-                            <i class="material-icons right">send</i>
-                        </button>
-                        <p></p>
-                      <button class="btn waves-effect blue" type="button" onclick="window.location.href='/import'">Zaimportuj polisy z pliku
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </div>
-                </div>
+                    <table class="highlight responsive-table">
+                        <thead>
+                        <tr>
+                            <th>Numer polisy</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Premium</th>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>Pesel</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="policy : ${policies}" style="cursor: pointer"
+                            th:onclick="'javascript:rowClicked(\'' +  ${policy.id} + '\');'">
+
+                            <td th:text="${policy.policyNumber}"></td>
+                            <td th:text="${policy.startDate}"></td>
+                            <td th:text="${policy.endDate}"></td>
+                            <td th:text="${policy.premium}"></td>
+                            <td th:text="${policy.client.firstName}"></td>
+                            <td th:text="${policy.client.lastName}"></td>
+                            <td th:text="${policy.client.pesel}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                <script>
+                    function rowClicked(value) {
+                        location.href = "/policy/" + value;
+                    }
+                </script>
+
             </div>
-        </div>
+        </div>-->
+
+
+
+    <div class="container">
+        <h3>Lista polis</h3>
+        <form th:action="@{/policies}" method="get">
+            <div class="input-field">
+                <input type="text" id="pesel" name="pesel" th:value="${pesel}">
+                <label for="pesel">PESEL</label>
+            </div>
+            <div class="input-field">
+                <input type="text" id="policyNumber" name="policyNumber" th:value="${policyNumber}">
+                <label for="policyNumber">Numer polisy</label>
+            </div>
+            <div class="input-field">
+                <select name="sortBy">
+                    <option value="policyNumber" th:selected="${sortBy == 'policyNumber'}">Numer polisy</option>
+                    <option value="startDate" th:selected="${sortBy == 'startDate'}">Data zawarcia</option>
+                    <option value="endDate" th:selected="${sortBy == 'endDate'}">Data końca</option>
+                </select>
+                <label>Sortuj:</label>
+            </div>
+            <button type="submit" class="btn">Filter</button>
+        </form>
+        <table class="highlight responsive-table">
+            <thead>
+            <tr>
+                <th>Numer polisy</th>
+                <th>Data początku</th>
+                <th>Data końca</th>
+                <th>Produkt</th>
+                <th>Składka</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Pesel</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="policy : ${policiesPage.content}" style="cursor: pointer"
+                th:onclick="'javascript:rowClicked(\'' +  ${policy.id} + '\');'">
+                <td th:text="${policy.policyNumber}"></td>
+                <td th:text="${policy.startDate}"></td>
+                <td th:text="${policy.endDate}"></td>
+                <td th:text="${policy.insuranceProduct.productName}"></td>
+                <td th:text="${policy.premium}"></td>
+                <td th:text="${policy.client.firstName}"></td>
+                <td th:text="${policy.client.lastName}"></td>
+                <td th:text="${policy.client.pesel}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="pagination center">
+            <li th:classappend="${policiesPage.hasPrevious()} ? 'waves-effect' : 'disabled'">
+                <a th:href="@{/policies(page=${policiesPage.number - 1})}"><i class="material-icons">chevron_left</i></a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(0, policiesPage.totalPages - 1)}"
+                th:classappend="${policiesPage.number == i} ? 'active' : 'waves-effect'">
+                <a th:href="@{/policies(page=${i})}" th:text="${i + 1}">1</a>
+            </li>
+            <li th:classappend="${policiesPage.hasNext()} ? 'waves-effect' : 'disabled'">
+                <a th:href="@{/policies(page=${policiesPage.number + 1})}"><i class="material-icons">chevron_right</i></a>
+            </li>
+        </ul>
     </div>
+
+    <script>
+        function rowClicked(value) {
+            location.href = "/policy/" + value;
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </main>
 

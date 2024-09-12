@@ -51,5 +51,86 @@ public class Policy {
         return endDate == null || startDate == null || !endDate.isBefore(startDate);
     }
 
+    public Policy() {
+    }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public @NotNull String getPolicyNumber() {
+        return policyNumber;
+    }
+
+    public void setPolicyNumber(@NotNull String policyNumber) {
+        this.policyNumber = policyNumber;
+    }
+
+    public @NotNull LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(@NotNull LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public @NotNull LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(@NotNull LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public InsuranceProduct getInsuranceProduct() {
+        return insuranceProduct;
+    }
+
+    public void setInsuranceProduct(InsuranceProduct insuranceProduct) {
+        this.insuranceProduct = insuranceProduct;
+    }
+
+    public @NotNull @Positive Double getCoverageAmount() {
+        return coverageAmount;
+    }
+
+    public void setCoverageAmount(@NotNull @Positive Double coverageAmount) {
+        this.coverageAmount = coverageAmount;
+    }
+
+    public @NotNull @Positive Double getReserveAmount() {
+        return reserveAmount;
+    }
+
+    public void setReserveAmount(@NotNull @Positive Double reserveAmount) {
+        this.reserveAmount = reserveAmount;
+    }
+
+    public @NotNull @Positive Double getPremium() {
+        return premium;
+    }
+
+    public void setPremium(@NotNull @Positive Double premium) {
+        this.premium = premium;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Set<Claims> getClaims() {
+        return claims;
+    }
+
+    public void setClaims(Set<Claims> claims) {
+        this.claims = claims;
+    }
 }

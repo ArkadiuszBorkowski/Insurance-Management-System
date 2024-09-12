@@ -50,6 +50,88 @@ public class Client {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "client")
     private Set<Policy> policies;
 
+    public Client() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public @NotNull @Pattern(regexp = "^[a-zA-Z]*$", message = "Firstname must not contain numbers or special characters") String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(@NotNull @Pattern(regexp = "^[a-zA-Z]*$", message = "Firstname must not contain numbers or special characters") String firstName) {
+        this.firstName = firstName;
+    }
+
+    public @NotNull @Pattern(regexp = "^[a-zA-Z]*$", message = "Lastname must not contain numbers or special characters") String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(@NotNull @Pattern(regexp = "^[a-zA-Z]*$", message = "Lastname must not contain numbers or special characters") String lastName) {
+        this.lastName = lastName;
+    }
+
+    public @Pattern(regexp = "\\d{11}", message = "PESEL must be exactly 11 digits") @NotNull String getPesel() {
+        return pesel;
+    }
+
+    public void setPesel(@Pattern(regexp = "\\d{11}", message = "PESEL must be exactly 11 digits") @NotNull String pesel) {
+        this.pesel = pesel;
+    }
+
+    public @NotNull Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(@NotNull Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public @Email(message = "Email should be valid") String getEmail() {
+        return email;
+    }
+
+    public void setEmail(@Email(message = "Email should be valid") String email) {
+        this.email = email;
+    }
+
+    public @NotNull @Pattern(regexp = "\\{9,}", message = "Phone number must be at least 9 digits") String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(@NotNull @Pattern(regexp = "\\{9,}", message = "Phone number must be at least 9 digits") String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public @NotNull String getPassword() {
+        return password;
+    }
+
+    public void setPassword(@NotNull String password) {
+        this.password = password;
+    }
+
+    public Set<Policy> getPolicies() {
+        return policies;
+    }
+
+    public void setPolicies(Set<Policy> policies) {
+        this.policies = policies;
+    }
 }
 
 
