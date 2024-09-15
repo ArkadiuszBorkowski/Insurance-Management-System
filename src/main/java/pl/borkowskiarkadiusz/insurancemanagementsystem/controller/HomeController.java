@@ -8,22 +8,12 @@ class HomeController {
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "redirect:/index";
     }
 
     @GetMapping("/index")
     public String home() {
         return "index";
-    }
-
-    @GetMapping("/products3")
-    public String getProducts() {
-        return "products3";
-    }
-
-    @GetMapping("/products2")
-    public String getProducts2() {
-        return "products";
     }
 
 

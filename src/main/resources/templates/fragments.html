@@ -20,12 +20,12 @@
 
     <!-- - - - - - - - P - O - D - - - M - E - N - U - - - - - - - -->
     <ul id="policy_dropdown" class="dropdown-content">
-        <li><a href="/policies" th:href="@{/policies}">SEKCJA POLIS</a></li>
+        <li><a href="/policies" th:href="@{/policies}">LISTA POLIS</a></li>
         <li><a href="/policy" th:href="@{/policy}">FORMULARZ POLISOWY</a></li>
         <li><a href="/import" th:href="@{/import}">IMPORT POLIS</a></li>
     </ul>
     <ul id="policy_dropdown_mobile" class="dropdown-content">
-        <li><a href="/policies" th:href="@{/policies}">SEKCJA POLIS</a></li>
+        <li><a href="/policies" th:href="@{/policies}">LISTA POLIS</a></li>
         <li><a href="/policy" th:href="@{/policy}">FORMULARZ POLISOWY</a></li>
         <li><a href="/import" th:href="@{/import}">IMPORT POLIS</a></li>
     </ul>
@@ -196,6 +196,61 @@
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('input[data-length]');
             M.CharacterCounter.init(elems);
+        });
+    </script>
+
+    <script>
+        function rowClicked(value) {
+            location.href = "/policy/" + value;
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const productSelect = document.getElementById('insuranceProduct');
+            const riskCounter = document.getElementById('riskCounter');
+            const riskList = document.getElementById('riskList');
+
+            console.log('riskList element:', riskList); // Log elementu riskList
+
+            productSelect.addEventListener('change', function() {
+                const productId = this.value;
+                console.log('Selected product ID:', productId); // Log selected product ID
+                fetch(`/insuranceProduct/${productId}/risks`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Fetched risks:', data); // Log fetched risks
+                        // Update risk counter
+                        riskCounter.value = data.length;
+
+                        // Clear existing risks
+                        if (riskList) {
+                            riskList.innerHTML = '';
+
+                            // Add new risks
+                            data.forEach(risk => {
+                                const riskChip = document.createElement('div');
+                                riskChip.classList.add('chip');
+                                riskChip.innerHTML = `
+                            <i class="material-icons">
+                                <span>${risk.iconName}</span>
+                            </i>
+                            <span>${risk.riskName}</span>
+                        `;
+                                console.log('Created risk chip:', riskChip); // Log created risk chip
+                                riskList.appendChild(riskChip);
+                            });
+                        } else {
+                            console.error('riskList element not found');
+                        }
+                    })
+                    .catch(error => console.error('Error fetching risks:', error));
+            });
         });
     </script>
 

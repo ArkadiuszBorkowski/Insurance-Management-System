@@ -45,6 +45,16 @@ body {
     width: auto !important;
 }
 
+.currency-label {
+    position: absolute;
+    font-size: x-large;
+    right: 15px;
+    top: 30%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #9e9e9e; /* Kolor tekstu */
+}
+
 footer {
     background-color: #00897b;
     color: white;
@@ -58,3 +68,9 @@ footer {
 .label-select {
     margin-top: -7PX;
 }
+
+tr.clickable-row {
+    cursor: pointer;
+}
+
+

@@ -37,7 +37,7 @@ public class Client {
     private String email;
 
     @NotNull
-    @Pattern(regexp = "\\{9,}", message = "Phone number must be at least 9 digits")
+    @Pattern(regexp = "\\d{9,}", message = "Phone number must be at least 9 digits")
     private String mobileNumber;
 
 
@@ -131,6 +131,15 @@ public class Client {
 
     public void setPolicies(Set<Policy> policies) {
         this.policies = policies;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", pesel='" + pesel + '\'' +
+                '}';
     }
 }
 

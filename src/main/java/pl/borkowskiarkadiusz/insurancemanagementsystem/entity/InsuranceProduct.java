@@ -1,5 +1,6 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.Enum.PolicyType;
@@ -25,6 +26,8 @@ public class InsuranceProduct {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "risk_id")
     )
+
+    @JsonIgnore
     private Set<Risk> risks;
 
     public InsuranceProduct() {

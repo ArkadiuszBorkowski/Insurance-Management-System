@@ -15,220 +15,90 @@
 
 <main>
 
-  <!-- - - - - - - - - - K - A - R - T - Y - - - - - - - -  - -->
+    <!--======================================================-->
+    <!-- - - - - - - - - K - A - R - T - Y - - - - - - - -  - -->
+    <!--======================================================-->
 
-  <div class="row">
-    <div class="col s12">
-      <ul class="tabs tabs-fixed-width">
-        <li class="tab col s3"><a class="active" href="#tab1">Polisy</a></li>
-        <li class="tab col s3"><a href="#tab2">Szkody</a></li>
-        <li class="tab col s3"><a href="#tab3">Dokumenty</a></li>
-      </ul>
-    </div>
+    <div class="row">
 
-
-
-    <!-- - - - - - - - K - A - R - T - A - 1 - - - - - - -  - -->
-      <div id="tab1" class="col s12">
-      <br>
-
-      <!-- - - - -  D - A - N - E - - P - O - L - I - S - Y -  - - - -->
-      <div class="container card-panel grey lighten-5">
-        <span class="flow-text grey-text text-darken-2">DANE POLISY</span>
-
-        <div class="row"> <!-- L - I - N - I - A - - 1 -->
-          <!-- - N - U - M - E - R - - P - O - L - I - S - Y - -->
-
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">newspaper</i>
-            <label for="policyNumber">NUMER POLISY</label>
-            <input type="text" id="policyNumber" name="policyNumber" required class="validate"
-                   data-length="10">
-          </div>
-          <!-- D - A - T - A - - Z - A - W - A - R - C - I - A -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">calendar_month</i>
-            <label for="startDate">DATA ZAWARCIA</label>
-            <input type="text" id="startDate" name="startDate" required class="datepicker validate">
-          </div>
-          <!-- - - - D - A - T - A - - K - O - Ń - C - A - - - -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">event_repeat</i>
-            <label for="endDate">DATA WYGAŚNIĘCIA</label>
-            <input type="text" id="endDate" name="endDate" required class="datepicker validate">
-          </div>
-          <!-- - - - - - P - R - O - D - U - K - T - - - - - -->
-          <div class="label-select col s12 m6 l3">
-            <label for="insuranceProduct">PRODUKT UBEZPIECZENIOWY</label>
-            <select id="insuranceProduct" name="insuranceProduct">
-              <option value="" disabled selected>PRODUKT UBEZPIECZENIOWY</option>
-              <option th:each="insuranceProduct : ${Products}" th:value="${insuranceProduct}"
-                      th:text="${insuranceProduct}"></option>
-            </select>
-          </div>
+        <!-- - - - - - Z - A - K - Ł - A - D - K - I  - - - - -->
+        <div class="col s12">
+            <ul class="tabs tabs-fixed-width">
+                <li class="tab col s3"><a class="active" href="#tab1">Polisa</a></li>
+                <li class="tab col s3"><a href="#tab2">Szkody</a></li>
+                <li class="tab col s3"><a href="#tab3">Dokumenty</a></li>
+            </ul>
         </div>
 
-        <div class="row"> <!-- L - I - N - I - A - - 2 -->
 
-          <!-- S - K - Ł - A - D - K - A - - P -O - L - I - S - Y -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">payments</i>
-            <label for="premium">SKŁADKA POLISY</label>
-            <input type="text" id="premium" name="premium" required class="validate"
-                   pattern="^\d+(\.\d{1,2})?$">
-            <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
-          </div>
-          <!-- S - U - M - A - - U - B - E - Z - P - I - E - C - Z - E - N - I - A -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">paid</i>
-            <label for="coverageAmount">SUMA UBEZPIECZENIA</label>
-            <input type="text" id="coverageAmount" name="coverageAmount" required class="validate"
-                   pattern="^\d+(\.\d{1,2})?$">
-            <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
-          </div>
-          <!-- - - - - - - - - - - R - E - Z - E - R - W - A - - - - - - - - - - -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">savings</i>
-            <label for="reserveAmount">REZERWA UBEZPIECZENIOWA</label>
-            <input type="text" id="reserveAmount" name="reserveAmount" required class="validate"
-                   pattern="^\d+(\.\d{1,2})?$">
-            <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
-          </div>
-          <!-- - - - - L - I - C - Z - N - I - K - - R - Y - Z - Y - K - - - - -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">personal_injury</i>
-            <label for="riskCounter">LICZBA RYZYK</label>
-            <input type="text" id="riskCounter" name="riskCounter" class="validate">
-          </div>
+        <!--======================================================-->
+        <!-- - - - - - - - K - A - R - T - A - 1 - - - - - - -  - -->
+        <!--======================================================-->
+
+        <!--======================================================-->
+        <!-- - - - - - - - P - O - L - I - S - A - - - - - - -  - -->
+        <!--======================================================-->
+        <div id="tab1" class="col s12">
+            <br>
+            <form th:action="@{/policy}" th:object="${policy}" method="post">
+
+                <!--===========================================================-->
+                <!-- - - - -  D - A - N - E - - P - O - L - I - S - Y -  - - - -->
+                <!--===========================================================-->
+                <div th:replace="~{policy_data_fragments :: policy_data}"></div>
+
+                <!--===========================================================-->
+                <!-- - - - - - W Y S Z U K I W A R K A   K L I E N T A - - - - -->
+                <!--===========================================================-->
+                <BR><BR>
+                <!-- Sekcja wyszukiwania klienta po PESEL -->
+                <div th:if="${policy.client == null}">
+                    <div class="container card-panel grey lighten-5">
+                        <form th:action="@{/client/search}" method="get">
+                            <div class="row">
+                                <div class="input-field col s12 m6 l3">
+                                    <i class="material-icons prefix">badge</i>
+                                    <label for="peselSearch">WYSZUKAJ PO PESEL</label>
+                                    <input type="text" id="peselSearch" name="pesel" required class="validate"
+                                           pattern="^\d{11}$" data-length="11">
+                                    <span class="helper-text" data-error="PESEL musi mieć dokładnie 11 cyfr"></span>
+                                </div>
+                                <div class="input-field col s12 m6 l3">
+                                    <button class="btn waves-effect waves-light" type="submit">Szukaj</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!--===========================================================-->
+                <!-- - - - - D - A - N - E - - K - L - I - E - N - T - A - - - -->
+                <!--===========================================================-->
+                <BR>
+                <div th:replace="~{policy_data_fragments :: policy_client_data}"></div>
+
+            </form>
+
+            <!--======================================================-->
+            <!-- - - - - - - - K - A - R - T - A - 2 - - - - - - -  - -->
+            <!--======================================================-->
+
+            <!--======================================================-->
+            <!-- - - - - - - - S - Z - K - O - D- Y - - - - - - - - - -->
+            <!--======================================================-->
+            <div id="tab2" class="col s12">
+            </div>
+
+            <!--======================================================-->
+            <!-- - - - - - - - K - A - R - T - A - 3 - - - - - - -  - -->
+            <!--======================================================-->
+            <div id="tab3" class="col s12">
+            </div>
+
 
         </div>
 
-      </div>
-      <BR><BR>
-
-      <!-- D - A - N - E - - U - B - E - Z - P - I - E - C - Z - O - N - E - G -O -->
-      <div class="container card-panel grey lighten-5">
-        <span class="flow-text grey-text text-darken-2">DANE UBEZPIECZONEGO</span>
-
-        <div class="row"> <!-- L - I - N - I - A - - 1 -->
-          <!-- - I - M - I - Ę - - K - L - I - E - N - T - A - -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">person</i>
-            <label for="firstName">IMIE UBEZPIECZONEGO</label>
-            <input type="text" id="firstName" name="firstName" required class="validate"
-                   pattern="^[a-zA-Z]+$">
-            <span class="helper-text" data-error="Imię powinno składać się tylko z liter"></span>
-          </div>
-
-          <!-- - - - - - N - A - Z - W - I - S - K - O - - - - - -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">person</i>
-            <label for="lastName">NAZWISKO UBEZPIECZONEGO</label>
-            <input type="text" id="lastName" name="lastName" required class="validate"
-                   pattern="^[a-zA-Z]+$">
-            <span class="helper-text" data-error="Nazwisko powinno składać się tylko z liter"></span>
-          </div>
-
-          <!-- - - - - - - - - P - E - S - E - L - - - - - - - --->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">badge</i>
-            <label for="pesel">PESEL UBEZPIECZONEGO</label>
-            <input type="text" id="pesel" name="pesel" required class="validate"
-                   pattern="^\d{11}$"
-                   data-length="11">
-            <span class="helper-text" data-error="PESEL powinnien składać się tylko z 11 cyfr"></span>
-          </div>
-
-          <!-- D - A - T - A - - Z - A - W - A - R - C - I - A -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">calendar_month</i>
-            <label for="dateOfBirth">DATA URODZENIA</label>
-            <input type="text" id="dateOfBirth" name="dateOfBirth" required class="datepicker validate">
-          </div>
-
-        </div> <!-- KONIEC: L - I - N - I - A - - 1 -->
-
-        <div class="row"> <!-- L - I - N - I - A - - 2 -->
-
-          <!-- A - D - R - E - S - - E - M - A - I - L -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">alternate_email</i>
-            <label for="email">ADRES EMAIL</label>
-            <input type="email" id="email" name="email" required class="validate">
-            <span class="helper-text" data-error="Wprowadź poprawny adres email"></span>
-          </div>
-
-          <!-- N - U - M - E - R - - T - E - L - E - F - O - N - U -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">phone</i>
-            <label for="mobileNumber">NUMER TELEFONU</label>
-            <input type="tel" id="mobileNumber" name="mobileNumber" required class="validate">
-            <span class="helper-text" data-error="Wprowadź poprawny numer telefonu (9 cyfr)"></span>
-          </div>
-
-          <!-- M - I - A - S -T - O  - Z - A - M - I - E - S - Z - K - A - N - I -A -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">location_city</i>
-            <label for="city">MIASTO ZAMIESZKANIA</label>
-            <input type="TEXT" id="city" name="city" required class="validate">
-            <span class="helper-text" data-error="Wprowadź miasto zamieszkania ubezpieczonego"></span>
-          </div>
-
-          <!-- - - - - - - K - O - D - - -P - O - C - Z - T - O -W - Y - - - - - - -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">pin</i>
-            <label for="zipcode">KOD POCZTOWY</label>
-            <input type="TEXT" id="zipcode" name="zipcode" required class="validate">
-            <span class="helper-text" data-error="Wprowadź  kod pocztowy"></span>
-          </div>
-
-        </div> <!-- KONIEC: L - I - N - I - A - - 2 -->
-
-        <div class="row"> <!-- L - I - N - I - A - - 3 -->
-
-          <!-- - - - N - A - Z - W - A - - U - L - I - C - Y - - - -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">edit_road</i>
-            <label for="street">NAZWA ULICY</label>
-            <input type="TEXT" id="street" name="street" required class="validate">
-            <span class="helper-text" data-error="Wprowadź poprawną nazwe ulicy"></span>
-          </div>
-
-          <!-- - - - N - U - M - E - R - - U - L - I - C - Y - - - -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">signpost</i>
-            <label for="streetNo">NUMER BUDYNKU</label>
-            <input type="TEXT" id="streetNo" name="streetNo" required class="validate">
-            <span class="helper-text" data-error="Wprowadź poprawny numer ulicy"></span>
-          </div>
-
-          <!-- N - U - M - E - R - - M - I - E - S - Z - K - A - N - I - A -->
-          <div class="input-field col s12 m6 l3">
-            <i class="material-icons prefix">signpost</i>
-            <label for="apartmentNo">NUMER MIESZKANIA</label>
-            <input type="TEXT" id="apartmentNo" name="apartmentNo"  class="validate">
-            <span class="helper-text" data-error="Wprowadź poprawny numer mieszkania"></span>
-          </div>
-
-
-        </div>
-      </div>
-
     </div>
-
-    <!-- - - - - - - - K - A - R - T - A - 2 - - - - - - -  - -->
-    <div id="tab2" class="col s12">
-    </div>
-
-    <!-- - - - - - - - K - A - R - T - A - 3 - - - - - - -  - -->
-    <div id="tab3" class="col s12">
-    </div>
-
-
-
-  </div>
-
-
 </main>
 
 <!-- - - - - - - - - S - T - O - P - K - A - - - - - - - - - - -->
