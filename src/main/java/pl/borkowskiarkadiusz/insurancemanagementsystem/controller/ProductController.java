@@ -16,7 +16,6 @@ public class ProductController {
     @Autowired
     private InsuranceProductRepository insuranceProductRepository;
 
-
     @GetMapping("/products")
     public String getProducts(Model model) {
         Iterable<InsuranceProduct> iterableProducts = insuranceProductRepository.findAll();

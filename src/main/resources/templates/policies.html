@@ -13,63 +13,13 @@
 
 <!--Z - A - W - A - R - T - O - Ś - Ć - - S - T - R - O - N - Y-->
 
-<style>
-    tr.clickable-row {
-        cursor: pointer;
-    }
-</style>
-
-
 <main>
 
-
-    <!--<div class="container">
-        <div class="row">
-            &lt;!&ndash; Sekcja kafelków &ndash;&gt;
-            <div class="container">
-                <h1>Policy List</h1>
-
-
-                    <table class="highlight responsive-table">
-                        <thead>
-                        <tr>
-                            <th>Numer polisy</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Premium</th>
-                            <th>Imię</th>
-                            <th>Nazwisko</th>
-                            <th>Pesel</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="policy : ${policies}" style="cursor: pointer"
-                            th:onclick="'javascript:rowClicked(\'' +  ${policy.id} + '\');'">
-
-                            <td th:text="${policy.policyNumber}"></td>
-                            <td th:text="${policy.startDate}"></td>
-                            <td th:text="${policy.endDate}"></td>
-                            <td th:text="${policy.premium}"></td>
-                            <td th:text="${policy.client.firstName}"></td>
-                            <td th:text="${policy.client.lastName}"></td>
-                            <td th:text="${policy.client.pesel}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                <script>
-                    function rowClicked(value) {
-                        location.href = "/policy/" + value;
-                    }
-                </script>
-
-            </div>
-        </div>-->
-
-
-
     <div class="container">
+
         <h3>Lista polis</h3>
+        <!--sekcja filtrowania listy i zawężania rekordów -->
+
         <form th:action="@{/policies}" method="get">
             <div class="input-field">
                 <input type="text" id="pesel" name="pesel" th:value="${pesel}">
@@ -89,6 +39,7 @@
             </div>
             <button type="submit" class="btn">Filter</button>
         </form>
+
         <table class="highlight responsive-table">
             <thead>
             <tr>
@@ -129,28 +80,6 @@
             </li>
         </ul>
     </div>
-
-    <script>
-        function rowClicked(value) {
-            location.href = "/policy/" + value;
-        }
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </main>
 

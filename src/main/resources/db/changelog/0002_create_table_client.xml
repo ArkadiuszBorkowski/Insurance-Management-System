@@ -19,7 +19,7 @@
             <column name="pesel" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="date_of_birth" type="DATETIME">
+            <column name="date_of_birth" type="DATE">
                 <constraints nullable="false"/>
             </column>
             <column name="email" type="VARCHAR(255)"/>

@@ -1,5 +1,6 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -29,6 +30,7 @@ public class Client {
     @NotNull
     private String pesel;
 
+    @Temporal(TemporalType.DATE)  //dodane bo data w formiacie yyyy-mm-dd hh-mm-ss
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     private Date dateOfBirth;
@@ -37,7 +39,7 @@ public class Client {
     private String email;
 
     @NotNull
-    @Pattern(regexp = "\\{9,}", message = "Phone number must be at least 9 digits")
+    @Pattern(regexp = "\\d{9,}", message = "Phone number must be at least 9 digits")
     private String mobileNumber;
 
 
@@ -48,6 +50,7 @@ public class Client {
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "client")
+    @JsonIgnore
     private Set<Policy> policies;
 
     public Client() {
@@ -132,6 +135,8 @@ public class Client {
     public void setPolicies(Set<Policy> policies) {
         this.policies = policies;
     }
+
+
 }
 
 

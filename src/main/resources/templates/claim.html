@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<!-- - - - - - - - - - - H - E - A - D - - - - - - - - - - - - -->
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<!-- - - - - - - - - - - M - E - N - U - - - - - - - - - - - - -->
+<header th:replace="~{fragments :: header}">
+
+</header>
+<!-- - - - W - Y - S - Z - U - K - I - W - A - R - K - A - - - -->
+<nav th:replace="~{fragments :: search}"></nav>
+<br><br>
+
+<!--Z - A - W - A - R - T - O - Ś - Ć - - S - T - R - O - N - Y-->
+
+<main>
+    <!-- ZAWARTOŚĆ STRONY -->
+    <div class="container">
+
+        <form action="/submit" method="post">
+
+            <p>Formularz zgłoszenia<p>
+            <div class="row">
+
+                <div class="input-field col s1 m3">
+                    <label for="claimNumber">Numer zgłoszenia:</label>
+                    <input type="text" id="claimNumber" name="claimNumber" required class="validate">
+                </div>
+
+
+            </div>
+
+            <div class="row">
+
+                <div class="label-select col s1 m3">
+                    <label for="status">Choose a status:</label>
+
+                    <select id="status" name="status">
+                        <option value="" disabled selected>Wybierz status</option>
+                        <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
+                    </select>
+                </div>
+
+                <div class="label-select col s1 m3">
+                    <label for="decision">Choose a decision:</label>
+                    <select id="decision" name="decision">
+                        <option value="" disabled selected>Wybierz decyzje</option>
+                        <option th:each="decision : ${decisions}" th:value="${decision}" th:text="${decision}"></option>
+                    </select><br>
+                </div>
+
+
+        </form>
+    </div>
+</main>
+
+<!-- - - - - - - - - S - T - O - P - K - A - - - - - - - - - - -->
+<footer th:replace="~{fragments :: footer}"></footer>
+
+<!-- - - P - Ł - Y - W - A - J - Ą - C - Y  -  - P - R - Z - Y - C - I - S - K - - -->
+<div th:replace="~{fragments :: floating_btn}"></div>
+
+<!-- - - - - - - - - S - K - R - Y - P - T - Y - - - - - - - - -->
+<div th:replace="~{fragments :: script_js}"></div>
+
+</body>
+</html>

@@ -9,11 +9,11 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.Enum.ClaimStatus;
 @Controller
 class ClaimsController {
 
-    @GetMapping("/claimsform")
+    @GetMapping("/claim")
     public String getClaimsForm(Model model) {
         model.addAttribute("statuses", ClaimStatus.values());
         model.addAttribute("decisions", Decision.values());
-        return "claimsform";
+        return "claim";
     }
 
     @GetMapping("/claims")

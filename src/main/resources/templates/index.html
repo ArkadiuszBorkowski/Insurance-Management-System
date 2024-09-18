@@ -1,7 +1,42 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <!-- - - - - - - - - - - H - E - A - D - - - - - - - - - - - - -->
-<head th:replace="~{fragments :: head}"></head>
+<head th:replace="~{fragments :: head}">
+
+    <style>
+        .material-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .material-table thead tr {
+            background-color: #009688;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .material-table th,
+        .material-table td {
+            padding: 12px 15px;
+        }
+
+        .material-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .material-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .material-table tbody tr:last-of-type {
+            border-bottom: 2px solid #009688;
+        }
+    </style>
+
+</head>
 <body>
 <!-- - - - - - - - - - - M - E - N - U - - - - - - - - - - - - -->
 <header th:replace="~{fragments :: header}"></header>
@@ -11,13 +46,17 @@
 
 <!--Z - A - W - A - R - T - O - Ś - Ć - - S - T - R - O - N - Y-->
 <main>
-    <div class="container">
+    <section class="container">
+        <!-- WELCOME MESSAGE UŻYTKOWNIK APLIKACJI -->
         <div class="row">
+                <h5><span class="teal-text text-lighten-2">Witaj </span><span class="grey-text text-lighten-1">Arkadiusz Borkowski</span></h5>
+        </div>
 
+        <div class="row">
             <!-- SEKCJA KAFELKÓW -->
-            <div class="col s12 m6 l9">
+            <section class="col s12 m6 l9">
                 <div class="row">
-
+                    <!-- POLISY -->
                     <div class="col s12 m6 l3">
                         <div class="card">
                             <div class="card-image">
@@ -29,6 +68,7 @@
                         </div>
                     </div>
 
+                    <!-- SZKODY -->
                     <div class="col s12 m6 l3">
                         <div class="card">
                             <div class="card-image">
@@ -40,6 +80,7 @@
                         </div>
                     </div>
 
+                    <!-- PRODUKTY -->
                     <div class="col s12 m6 l3">
                         <div class="card">
                             <div class="card-image">
@@ -51,41 +92,58 @@
                         </div>
                     </div>
 
+                    <!-- KLIENT -->
                     <div class="col s12 m6 l3">
                         <div class="card">
                             <div class="card-image">
                                 <img src="../static/images/clients.png" th:src="@{/images/clients.jpg}" alt="KLIENT">
                             </div>
                             <div class="card-action">
-                                <a href="/clients" th:href="@{/clients}">Klient</a>
+                                <a href="/clients" th:href="@{/clients}">KLIENT</a>
                             </div>
                         </div>
                     </div>
-
                 </div>
-            </div>
-
-            <!-- SEKCJA SKRÓTY PODSUMOWANIA -->
-            <div class="col s12 m6 l3">
-                <div class="card teal darken-1">
-                    <div class="card-content white-text">
-                        <span class="card-title">Podsumowanie:</span>
-                        <p>Liczba aktywnych polis: 1200</p>
-                        <p>Liczba zgłoszonych szkód: 300</p>
-                        <p>Liczba wypłaconych szkód: 250</p>
-                        <p>Szkody z bliskim terminem: 250</p>
-                        <p>Szkody z bliskim terminem: 250</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="/claims" th:href="@{/claims}">SZKODY</a>
-                        <a href="/policies" th:href="@{/policies}">POLISY</a>
-                    </div>
+            </section>
+            <!-- PODSUMOWANIE -->
+            <section class="col s12 m6 l2">
+                <div class="row">
+                        <table class="material-table">
+                            <thead>
+                            <tr>
+                                <th>Podsumowanie:</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Polisy ogółem:</td>
+                                <td><span th:text="${policyCounter}"></td>
+                            </tr>
+                            <tr>
+                                <td>Szkody ogółem:</td>
+                                <td>30</td>
+                            </tr>
+                            <tr>
+                                <td>Szkody zamkinięte:</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>Szkody pilne:</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>Szkody w tym miesiącu:</td>
+                                <td>1</td>
+                            </tr>
+                            </tbody>
+                        </table>
                 </div>
-            </div>
-
+            </section>
         </div>
-    </div>
+    </section>
 </main>
+
 
 <!-- - - - - - - - - S - T - O - P - K - A - - - - - - - - - - -->
 <footer th:replace="~{fragments :: footer}"></footer>

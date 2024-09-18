@@ -1,5 +1,6 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -15,6 +16,7 @@ public class Risk {
     private String iconName;
 
     @ManyToMany(mappedBy = "risks")
+    @JsonBackReference
     private Set<InsuranceProduct> products;
 
     public Risk() {

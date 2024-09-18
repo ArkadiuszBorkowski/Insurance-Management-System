@@ -1,10 +1,10 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.Enum.PolicyType;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -41,6 +41,7 @@ public class Policy {
     private Double premium;
 
     @ManyToOne
+    @JsonBackReference  //dodane 16.09
     private Client client;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "policy")
