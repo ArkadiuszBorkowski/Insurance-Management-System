@@ -54,16 +54,16 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="policy : ${policiesPage.content}" style="cursor: pointer"
+            <tr th:each="policy : ${policiesPage}" style="cursor: pointer"
                 th:onclick="'javascript:rowClicked(\'' +  ${policy.id} + '\');'">
                 <td th:text="${policy.policyNumber}"></td>
                 <td th:text="${policy.startDate}"></td>
                 <td th:text="${policy.endDate}"></td>
-                <td th:text="${policy.insuranceProduct.productName}"></td>
+                <td th:text="${policy.productName}"></td>
                 <td th:text="${policy.premium}"></td>
-                <td th:text="${policy.client.firstName}"></td>
-                <td th:text="${policy.client.lastName}"></td>
-                <td th:text="${policy.client.pesel}"></td>
+                <td th:text="${policy.clientFirstName}"></td>
+                <td th:text="${policy.clientLastName}"></td>
+                <td th:text="${policy.clientPesel}"></td>
             </tr>
             </tbody>
         </table>
