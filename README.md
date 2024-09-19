@@ -11,9 +11,10 @@
         </div>
         <div>
             <h2>Opis Projektu</h2>
-            <p>System umożliwia zawieranie ubezpieczeń oraz obsługę roszczeń ubezpieczeniowych. Użytkownicy mogą tworzyć profile, które będą obsługiwać system.</p>
+            <p>System umożliwia zawieranie ubezpieczeń oraz obsługę roszczeń ubezpieczeniowych. Użytkownicy mogą tworzyć profile, dzięki, którym będą obsługiwać system.</p>
             <h3>Funkcjonalności</h3>
             <ul>
+                <li>Dynamicznie zaciągane dane na stronie</li>
                 <li>Manualne uzupełnianie modelu klienta i zawieranie polis ubezpieczeniowych</li>
                 <li>Import danych z plików</li>
                 <li>Rezerwa ubezpieczeniowa na pokrycie ewentualnych szkód</li>
@@ -35,7 +36,7 @@
                 <li>Thymeleaf</li>
                 <li>HTML 5.0</li>
                 <li>CSS</li>
-                <li>JavaScript</li>
+                <li>JavaScript, JQuery, Ajax</li>
                 <li>Dev-tools</li>
             </ul>
             <h3>Warstwa Widoku</h3>
