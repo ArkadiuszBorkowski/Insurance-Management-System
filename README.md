@@ -14,7 +14,7 @@
             <p>System umożliwia zawieranie ubezpieczeń oraz obsługę roszczeń ubezpieczeniowych. Użytkownicy mogą tworzyć profile, dzięki, którym będą obsługiwać system.</p>
             <h3>Funkcjonalności</h3>
             <ul>
-                <li>Dynamicznie zaciągane dane na stronie</li>
+                <li>Dynamicznie zaciąganie danych na stronie</li>
                 <li>Manualne uzupełnianie modelu klienta i zawieranie polis ubezpieczeniowych</li>
                 <li>Import danych z plików</li>
                 <li>Rezerwa ubezpieczeniowa na pokrycie ewentualnych szkód</li>
