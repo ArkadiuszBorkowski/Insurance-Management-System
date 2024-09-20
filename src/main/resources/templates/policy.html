@@ -84,6 +84,9 @@
             <section th:if="${policy.client == null}" class="container card-panel grey lighten-5">
                 <button class="btn waves-effect waves-light" type="submit">ZAPISZ NOWĄ POLISĘ</button>
             </section>
+            <section th:if="${policy.client != null}" class="container card-panel grey lighten-5">
+                <button class="btn waves-effect waves-light" type="submit">ZAKTUALIZUJ DANE POLISY</button>
+            </section>
             <BR>
         </div>
 

@@ -29,17 +29,7 @@ class PolicyController {
     @Autowired
     private InsuranceProductRepository insuranceProductRepository;
 
-
     @GetMapping("/policy/{id}")
-    public String getPolicy(@PathVariable Long id, Model model) {
-        Policy policy = policyRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid policy Id:" + id));
-        Iterable<InsuranceProduct> products = insuranceProductRepository.findAll();
-        model.addAttribute("policy", policy);
-        model.addAttribute("products", products);
-        return "policy";
-    }
-
-/*    @GetMapping("/policy/{id}")
     public String getPolicy(@PathVariable Long id, Model model) {
         Policy policy = policyRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid policy Id:" + id));
         Iterable<InsuranceProduct> products = insuranceProductRepository.findAll();
@@ -47,36 +37,18 @@ class PolicyController {
         model.addAttribute("policy", policyDTO);
         model.addAttribute("products", products);
         return "policy";
-    }*/
+    }
 
 
     @GetMapping("/policy")
     public String getEmptyPolicyForm(Model model) {
         Iterable<InsuranceProduct> products = insuranceProductRepository.findAll();
-        System.out.println(products); // Dodaje to, aby sprawdzić, czy produkty są pobierane
-        model.addAttribute("policy", new Policy());
+        /*model.addAttribute("policy", new Policy());*/
+        model.addAttribute("policy", new PolicyDTO());
         model.addAttribute("products", products);
         return "policy";
     }
 
-
-/*    @GetMapping("/policies")
-    public String getPolicies(Model model, @RequestParam(defaultValue = "0") int page) {
-        Page<Policy> policiesPage = policyRepository.findAll(PageRequest.of(page, 10));
-        model.addAttribute("policiesPage", policiesPage);
-        return "policies";
-    }*/
-
-
-    /*@GetMapping("/policies")
-    public String getPolicies(Model model, @RequestParam(defaultValue = "0") int page) {
-        Page<Policy> policiesPage = policyRepository.findAll(PageRequest.of(page, 10));
-        List<PolicyDTO> policyDTOs = policiesPage.stream()
-                .map(PolicyMapper::toDTO)
-                .collect(Collectors.toList());
-        model.addAttribute("policiesPage", policyDTOs);
-        return "policies";
-    }*/
 
     @GetMapping("/policies")
     public String getPolicies(Model model, @RequestParam(defaultValue = "0") int page) {

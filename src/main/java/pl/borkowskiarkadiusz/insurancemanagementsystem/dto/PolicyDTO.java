@@ -1,5 +1,8 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.dto;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 import java.time.LocalDate;
 
 public class PolicyDTO {
@@ -9,9 +12,10 @@ public class PolicyDTO {
     private LocalDate endDate;
     private String productName;
     private Double premium;
-    private String clientFirstName;
-    private String clientLastName;
-    private String clientPesel;
+    private Double coverageAmount;
+    private Double reserveAmount;
+    private ClientDTO client;
+    private InsuranceProductDTO insuranceProduct;
 
     public Long getId() {
         return id;
@@ -61,27 +65,35 @@ public class PolicyDTO {
         this.premium = premium;
     }
 
-    public String getClientFirstName() {
-        return clientFirstName;
+    public Double getCoverageAmount() {
+        return coverageAmount;
     }
 
-    public void setClientFirstName(String clientFirstName) {
-        this.clientFirstName = clientFirstName;
+    public void setCoverageAmount(Double coverageAmount) {
+        this.coverageAmount = coverageAmount;
     }
 
-    public String getClientLastName() {
-        return clientLastName;
+    public Double getReserveAmount() {
+        return reserveAmount;
     }
 
-    public void setClientLastName(String clientLastName) {
-        this.clientLastName = clientLastName;
+    public void setReserveAmount(Double reserveAmount) {
+        this.reserveAmount = reserveAmount;
     }
 
-    public String getClientPesel() {
-        return clientPesel;
+    public ClientDTO getClient() {
+        return client;
     }
 
-    public void setClientPesel(String clientPesel) {
-        this.clientPesel = clientPesel;
+    public void setClient(ClientDTO client) {
+        this.client = client;
+    }
+
+    public InsuranceProductDTO getInsuranceProduct() {
+        return insuranceProduct;
+    }
+
+    public void setInsuranceProduct(InsuranceProductDTO insuranceProduct) {
+        this.insuranceProduct = insuranceProduct;
     }
 }

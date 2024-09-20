@@ -61,9 +61,9 @@
                 <td th:text="${policy.endDate}"></td>
                 <td th:text="${policy.productName}"></td>
                 <td th:text="${policy.premium}"></td>
-                <td th:text="${policy.clientFirstName}"></td>
-                <td th:text="${policy.clientLastName}"></td>
-                <td th:text="${policy.clientPesel}"></td>
+                <td th:text="${policy.getClient().getFirstName()}"></td>
+                <td th:text="${policy.getClient().getLastName()}"></td>
+                <td th:text="${policy.getClient().getPesel()}"></td>
             </tr>
             </tbody>
         </table>

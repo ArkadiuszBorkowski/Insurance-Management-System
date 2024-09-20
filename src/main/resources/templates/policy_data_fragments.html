@@ -22,28 +22,30 @@
       <i class="material-icons prefix">newspaper</i>
       <label for="policyNumber">NUMER POLISY</label>
       <input type="text" id="policyNumber" name="policyNumber" required class="validate"
-             data-length="10" th:value="${policy != null ? policy.policyNumber : ''}">
+             data-length="10" th:value="${policy != null ? policy.policyNumber : ''}"
+             th:disabled="${policy != null && policy.policyNumber != null}">
     </div>
     <!-- D - A - T - A - - Z - A - W - A - R - C - I - A -->
     <div class="input-field col s12 m6 l3">
       <i class="material-icons prefix">calendar_month</i>
       <label for="startDate">DATA ZAWARCIA</label>
       <input type="text" id="startDate" name="startDate" required class="datepicker validate"
-             th:value="${policy != null ? policy.startDate : ''}">
+             th:value="${policy != null ? policy.startDate : ''}"
+             th:disabled="${policy != null && policy.startDate != null}">
     </div>
     <!-- - - - D - A - T - A - - K - O - Ń - C - A - - - -->
     <div class="input-field col s12 m6 l3">
       <i class="material-icons prefix">event_repeat</i>
       <label for="endDate">DATA WYGAŚNIĘCIA</label>
       <input type="text" id="endDate" name="endDate" required class="datepicker validate"
-             th:value="${policy != null ? policy.endDate : ''}">
+             th:value="${policy != null ? policy.endDate : ''}"
+             th:disabled="${policy != null && policy.endDate != null}">
     </div>
 
     <!-- - - - - - P - R - O - D - U - K - T - - - - - -->
-
     <div class="label-select col s12 m6 l3">
       <label for="insuranceProduct">PRODUKT UBEZPIECZENIOWY</label>
-      <select id="insuranceProduct" name="insuranceProduct">
+      <select id="insuranceProduct" name="insuranceProduct" th:disabled="${policy.insuranceProduct != null}">
         <option value="" disabled selected>PRODUKT UBEZPIECZENIOWY</option>
         <option th:each="product : ${products}" th:value="${product.id}"
                 th:text="${product.productName}"
@@ -64,7 +66,8 @@
       <i class="material-icons prefix">payments</i>
       <label for="premium">SKŁADKA POLISY</label>
       <input type="text" id="premium" name="premium" required class="validate"
-             pattern="^\d+(\.\d{1,2})?$" th:value="${policy != null ? policy.premium : ''}">
+             pattern="^\d+(\.\d{1,2})?$" th:value="${policy != null ? policy.premium : ''}"
+             th:disabled="${policy != null && policy.premium != null}">
       <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
       <span id="premium-currency-label" class="currency-label">zł</span>
     </div>
@@ -73,7 +76,8 @@
       <i class="material-icons prefix">paid</i>
       <label for="coverageAmount">SUMA UBEZPIECZENIA</label>
       <input type="text" id="coverageAmount" name="coverageAmount" required class="validate"
-             pattern="^\d+(\.\d{1,2})?$" th:value="${policy != null ? policy.coverageAmount : ''}">
+             pattern="^\d+(\.\d{1,2})?$" th:value="${policy != null ? policy.coverageAmount : ''}"
+             th:disabled="${policy != null && policy.coverageAmount != null}">
       <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
       <span id="coverageAmount-currency-label" class="currency-label">zł</span>
     </div>
@@ -82,26 +86,30 @@
       <i class="material-icons prefix">savings</i>
       <label for="reserveAmount">REZERWA UBEZPIECZENIOWA</label>
       <input type="text" id="reserveAmount" name="reserveAmount" required class="validate"
-             pattern="^\d+(\.\d{1,2})?$" th:value="${policy != null ? policy.reserveAmount : ''}">
+             pattern="^\d+(\.\d{1,2})?$" th:value="${policy != null ? policy.reserveAmount : ''}"
+             th:disabled="${policy != null && policy.reserveAmount != null}">
       <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
       <span id="reserveAmount-currency-label" class="currency-label">zł</span>
     </div>
 
-    <!-- - - - - L - I - C - Z - N - I - K - - R - Y - Z - Y - K - - - --->
-    <div class="input-field col s12 m6 l3">
-      <i class="material-icons prefix">personal_injury</i>
-      <label for="riskCounter">LICZBA RYZYK</label>
-      <input type="text" id="riskCounter" name="riskCounter"
-             th:value="${policy.insuranceProduct != null && policy.insuranceProduct.risks != null ? policy.insuranceProduct.risks.size() : 0}"
-             readonly>
-    </div>
+    <!-- - - - - L - I - C - Z - N - I - K - - R - Y - Z - Y - K - - - - -->
+   <div class="input-field col s12 m6 l3">
+     <i class="material-icons prefix">personal_injury</i>
+     <label for="riskCounter">LICZBA RYZYK</label>
+     <input type="text" id="riskCounter" name="riskCounter"
+            th:value="${policy.insuranceProduct != null && policy.insuranceProduct.risks != null ? policy.insuranceProduct.risks.size() : 0}"
+            readonly
+            th:disabled="${policy != null && policy.reserveAmount != null}">
 
-  </div>
-  <!-- ==== KONIEC:  L - I - N - I - A - 2 ============= - -->
+
+   </div>
+
+ </div>
+ <!-- ==== KONIEC:  L - I - N - I - A - 2 ============= - -->
 
   <!-- ======== L - I - N - I - A - 3 : RYZYKA ========= - -->
   <!-- - - - - L - I - S - T - A - - R - Y - Z - Y - K - - - --->
-  <div class="row">
+ <div class="row">
     <p class="grey-text text-darken-2">
       <b>&nbsp;&nbsp;&nbsp;&nbsp;Ryzyka:</b>
     </p>
