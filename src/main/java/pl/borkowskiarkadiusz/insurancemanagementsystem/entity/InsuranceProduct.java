@@ -3,7 +3,6 @@ package pl.borkowskiarkadiusz.insurancemanagementsystem.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.Enum.PolicyType;
 
 import java.util.Set;
 

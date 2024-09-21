@@ -15,7 +15,6 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-
 .container {
     margin: 0 auto;
     max-width: 1680px;
@@ -61,11 +60,14 @@ footer {
     background-color: #00897b;
     color: white;
     text-align: center;
-    padding: 10px 0;
+    /*padding: 10px 0;*/
     position: fixed;
     bottom: 0;
     width: 100%;
+    height: 60px; /*dodane do testów */
 }
+
+
 
 .label-select {
     margin-top: -7PX;
@@ -100,6 +102,13 @@ tr.clickable-row {
 }
 .material-table tbody tr:last-of-type {
     border-bottom: 2px solid #009688;
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 /* KONIEC STYLI TABELI */

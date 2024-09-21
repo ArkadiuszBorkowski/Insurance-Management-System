@@ -1,4 +1,4 @@
-package pl.borkowskiarkadiusz.insurancemanagementsystem.Enum;
+package pl.borkowskiarkadiusz.insurancemanagementsystem.enums;
 
 public enum PolicyType {
     BEZPIECZNY_DOM,

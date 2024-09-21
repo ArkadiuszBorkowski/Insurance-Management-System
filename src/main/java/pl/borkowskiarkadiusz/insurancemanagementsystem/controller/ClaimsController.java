@@ -3,8 +3,8 @@ package pl.borkowskiarkadiusz.insurancemanagementsystem.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.Enum.Decision;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.Enum.ClaimStatus;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.ClaimStatus;
 
 @Controller
 class ClaimsController {

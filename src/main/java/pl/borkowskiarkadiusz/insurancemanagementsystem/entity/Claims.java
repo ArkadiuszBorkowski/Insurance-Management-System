@@ -3,8 +3,8 @@ package pl.borkowskiarkadiusz.insurancemanagementsystem.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.Enum.Decision;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.Enum.ClaimStatus;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.ClaimStatus;
 
 
 import java.util.Date;
