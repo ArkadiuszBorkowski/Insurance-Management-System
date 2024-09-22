@@ -1,13 +1,19 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.mapper;
 
+import org.springframework.stereotype.Component;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.*;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Address;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Client;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.InsuranceProduct;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Component
 public class PolicyMapper {
-    public static PolicyDTO toDTO(Policy policy) {
+
+    public  PolicyDTO toDTO(Policy policy) {
         PolicyDTO dto = new PolicyDTO();
         dto.setId(policy.getId());
         dto.setPolicyNumber(policy.getPolicyNumber());
@@ -54,5 +60,50 @@ public class PolicyMapper {
         dto.setInsuranceProduct(productDTO);
 
         return dto;
+    }
+
+    public  Policy toEntity(PolicyDTO policyDTO) {
+        if (policyDTO == null) {
+            return null;
+        }
+
+        Policy policy = new Policy();
+        policy.setId(policyDTO.getId());
+        policy.setPolicyNumber(policyDTO.getPolicyNumber());
+        policy.setStartDate(policyDTO.getStartDate());
+        policy.setEndDate(policyDTO.getEndDate());
+        policy.setPremium(policyDTO.getPremium());
+        policy.setCoverageAmount(policyDTO.getCoverageAmount());
+        policy.setReserveAmount(policyDTO.getReserveAmount());
+
+        if (policyDTO.getClient() != null) {
+            Client client = new Client();
+            client.setFirstName(policyDTO.getClient().getFirstName());
+            client.setLastName(policyDTO.getClient().getLastName());
+            client.setPesel(policyDTO.getClient().getPesel());
+            client.setDateOfBirth(policyDTO.getClient().getDateOfBirth());
+            client.setEmail(policyDTO.getClient().getEmail());
+            client.setMobileNumber(policyDTO.getClient().getMobileNumber());
+
+            Address address = new Address();
+            address.setStreet(policyDTO.getClient().getAddress().getStreet());
+            address.setStreetNo(policyDTO.getClient().getAddress().getStreetNo());
+            address.setApartmentNo(policyDTO.getClient().getAddress().getApartmentNo());
+            address.setCity(policyDTO.getClient().getAddress().getCity());
+            address.setZipcode(policyDTO.getClient().getAddress().getZipcode());
+
+            client.setAddress(address);
+            policy.setClient(client);
+        }
+
+        if (policyDTO.getInsuranceProduct() != null) {
+            InsuranceProduct insuranceProduct = new InsuranceProduct();
+            insuranceProduct.setId(policyDTO.getInsuranceProduct().getId());
+            insuranceProduct.setProductName(policyDTO.getInsuranceProduct().getProductName());
+            insuranceProduct.setDescription(policyDTO.getInsuranceProduct().getDescription());
+            policy.setInsuranceProduct(insuranceProduct);
+        }
+
+        return policy;
     }
 }

@@ -28,4 +28,13 @@ public class RiskDTO {
     public void setIconName(String iconName) {
         this.iconName = iconName;
     }
+
+    @Override
+    public String toString() {
+        return "RiskDTO{" +
+                "id=" + id +
+                ", riskName='" + riskName + '\'' +
+                ", iconName='" + iconName + '\'' +
+                '}';
+    }
 }

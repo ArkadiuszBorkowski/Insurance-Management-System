@@ -93,4 +93,20 @@ public class PolicyDTO {
     public void setInsuranceProduct(InsuranceProductDTO insuranceProduct) {
         this.insuranceProduct = insuranceProduct;
     }
+
+    @Override
+    public String toString() {
+        return "PolicyDTO{" +
+                "id=" + id +
+                ", policyNumber='" + policyNumber + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", productName='" + productName + '\'' +
+                ", premium=" + premium +
+                ", coverageAmount=" + coverageAmount +
+                ", reserveAmount=" + reserveAmount +
+                ", client=" + client +
+                ", insuranceProduct=" + insuranceProduct +
+                '}';
+    }
 }

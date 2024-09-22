@@ -39,4 +39,14 @@ public class InsuranceProductDTO {
     public void setRisks(Set<RiskDTO> risks) {
         this.risks = risks;
     }
+
+    @Override
+    public String toString() {
+        return "InsuranceProductDTO{" +
+                "id=" + id +
+                ", productName='" + productName + '\'' +
+                ", description='" + description + '\'' +
+                ", risks=" + risks +
+                '}';
+    }
 }
