@@ -1,5 +1,6 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.service;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.InsuranceProductDTO;
@@ -15,6 +16,23 @@ import java.util.stream.StreamSupport;
 public class InsuranceProductService {
 
     private final InsuranceProductRepository insuranceProductRepository;
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    public InsuranceProductService(InsuranceProductRepository insuranceProductRepository, ModelMapper modelMapper) {
+        this.insuranceProductRepository = insuranceProductRepository;
+        this.modelMapper = modelMapper;
+    }
+
+    public List<InsuranceProductDTO> getAllProducts() {
+        Iterable<InsuranceProduct> products = insuranceProductRepository.findAll();
+        return StreamSupport.stream(products.spliterator(), false)
+                .map(product -> modelMapper.map(product, InsuranceProductDTO.class))
+                .collect(Collectors.toList());
+    }
+}
+
+  /*  private final InsuranceProductRepository insuranceProductRepository;
 
     @Autowired
     public InsuranceProductService(InsuranceProductRepository insuranceProductRepository) {
@@ -26,5 +44,4 @@ public class InsuranceProductService {
         return StreamSupport.stream(products.spliterator(), false)
                 .map(InsuranceProductMapper::toDTO)
                 .collect(Collectors.toList());
-    }
-}
+    }*/

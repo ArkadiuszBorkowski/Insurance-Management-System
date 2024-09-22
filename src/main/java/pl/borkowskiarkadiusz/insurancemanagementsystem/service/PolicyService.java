@@ -1,5 +1,6 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.service;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +19,41 @@ import java.util.stream.Collectors;
 public class PolicyService {
 
     private final PolicyRepository policyRepository;
+    private final ModelMapper modelMapper;
+
+    @Autowired
+    public PolicyService(PolicyRepository policyRepository, ModelMapper modelMapper) {
+        this.policyRepository = policyRepository;
+        this.modelMapper = modelMapper;
+    }
+
+    public long getTotalPolicies() {
+        return policyRepository.count();
+    }
+
+    public PolicyDTO getPolicyById(Long id) {
+        Policy policy = policyRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Invalid policy Id: " + id));
+        return modelMapper.map(policy, PolicyDTO.class);
+    }
+
+    public Page<PolicyDTO> getPolicies(int page) {
+        Page<Policy> policiesPage = policyRepository.findAll(PageRequest.of(page, 10));
+        List<PolicyDTO> policyDTOs = policiesPage.stream()
+                .map(policy -> modelMapper.map(policy, PolicyDTO.class))
+                .collect(Collectors.toList());
+        return new PageImpl<>(policyDTOs, PageRequest.of(page, 10), policiesPage.getTotalElements());
+    }
+
+    public void savePolicy(PolicyDTO policyDTO) {
+        System.out.println("Received PolicyDTO: " + policyDTO);
+        Policy policy = modelMapper.map(policyDTO, Policy.class);
+        System.out.println("Mapped data : " + policy);
+        policyRepository.save(policy);
+    }
+}
+
+/*    private final PolicyRepository policyRepository;
     private final PolicyMapper policyMapper;
 
     @Autowired
@@ -49,6 +85,5 @@ public class PolicyService {
         Policy policy = policyMapper.toEntity(policyDTO);
         System.out.println("Mapped data : " + policy);
         policyRepository.save(policy);
-    }
+    }*/
 
-}
