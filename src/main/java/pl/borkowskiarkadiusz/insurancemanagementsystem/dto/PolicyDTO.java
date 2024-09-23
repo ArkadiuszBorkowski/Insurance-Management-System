@@ -7,6 +7,7 @@ public class PolicyDTO {
     private String policyNumber;
     private LocalDate startDate;
     private LocalDate endDate;
+    //koment
     private String productName;
     private Double premium;
     private Double coverageAmount;
