@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.mapper.PolicyMapper;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyRepository;
 
 import java.util.List;
@@ -45,11 +44,12 @@ public class PolicyService {
         return new PageImpl<>(policyDTOs, PageRequest.of(page, 10), policiesPage.getTotalElements());
     }
 
-    public void savePolicy(PolicyDTO policyDTO) {
+    public PolicyDTO  savePolicy(PolicyDTO policyDTO) {
         System.out.println("Received PolicyDTO: " + policyDTO);
         Policy policy = modelMapper.map(policyDTO, Policy.class);
         System.out.println("Mapped data : " + policy);
-        policyRepository.save(policy);
+        Policy savedPolicy = policyRepository.save(modelMapper.map(policy, Policy.class));
+        return modelMapper.map(savedPolicy, PolicyDTO.class);
     }
 }
 

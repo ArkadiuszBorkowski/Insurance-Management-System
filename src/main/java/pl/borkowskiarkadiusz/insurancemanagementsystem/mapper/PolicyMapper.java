@@ -19,7 +19,6 @@ public class PolicyMapper {
         dto.setPolicyNumber(policy.getPolicyNumber());
         dto.setStartDate(policy.getStartDate());
         dto.setEndDate(policy.getEndDate());
-        dto.setProductName(policy.getInsuranceProduct().getProductName());
         dto.setPremium(policy.getPremium());
         dto.setCoverageAmount(policy.getCoverageAmount());
         dto.setReserveAmount(policy.getReserveAmount());

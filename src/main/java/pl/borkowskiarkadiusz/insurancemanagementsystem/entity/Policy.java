@@ -134,4 +134,20 @@ public class Policy {
     public void setClaims(Set<Claims> claims) {
         this.claims = claims;
     }
+
+    @Override
+    public String toString() {
+        return "Policy{" +
+                "id=" + id +
+                ", policyNumber='" + policyNumber + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", insuranceProduct=" + insuranceProduct +
+                ", coverageAmount=" + coverageAmount +
+                ", reserveAmount=" + reserveAmount +
+                ", premium=" + premium +
+                ", client=" + client +
+                ", claims=" + claims +
+                '}';
+    }
 }

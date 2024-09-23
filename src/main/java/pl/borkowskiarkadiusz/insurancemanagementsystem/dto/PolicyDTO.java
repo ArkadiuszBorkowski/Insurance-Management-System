@@ -101,7 +101,6 @@ public class PolicyDTO {
                 ", policyNumber='" + policyNumber + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", productName='" + productName + '\'' +
                 ", premium=" + premium +
                 ", coverageAmount=" + coverageAmount +
                 ", reserveAmount=" + reserveAmount +

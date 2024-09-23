@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.InsuranceProductDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.InsuranceProduct;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.mapper.InsuranceProductMapper;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.InsuranceProductRepository;
 
@@ -30,18 +31,12 @@ public class InsuranceProductService {
                 .map(product -> modelMapper.map(product, InsuranceProductDTO.class))
                 .collect(Collectors.toList());
     }
+
+    public InsuranceProductDTO getProductById(Long id) {
+        InsuranceProduct product = insuranceProductRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Invalid product Id: " + id));
+        return modelMapper.map(product, InsuranceProductDTO.class);
+    }
 }
 
-  /*  private final InsuranceProductRepository insuranceProductRepository;
 
-    @Autowired
-    public InsuranceProductService(InsuranceProductRepository insuranceProductRepository) {
-        this.insuranceProductRepository = insuranceProductRepository;
-    }
-
-    public List<InsuranceProductDTO> getAllProducts() {
-        Iterable<InsuranceProduct> products = insuranceProductRepository.findAll();
-        return StreamSupport.stream(products.spliterator(), false)
-                .map(InsuranceProductMapper::toDTO)
-                .collect(Collectors.toList());
-    }*/

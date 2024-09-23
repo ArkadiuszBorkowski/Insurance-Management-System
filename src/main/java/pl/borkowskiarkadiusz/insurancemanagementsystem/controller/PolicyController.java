@@ -1,9 +1,11 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.InsuranceProductDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTO;
@@ -51,10 +53,16 @@ class PolicyController {
         return "policies";
     }
 
+
     @PostMapping("/policy")
-    public String savePolicy(@ModelAttribute PolicyDTO policyDTO) {
-        policyService.savePolicy(policyDTO);
-        return "redirect:/policies";
+    public String savePolicy(@Valid @ModelAttribute PolicyDTO policyDTO, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            List<InsuranceProductDTO> productDTOs = insuranceProductService.getAllProducts();
+            model.addAttribute("products", productDTOs);
+            return "policy";
+        }
+        PolicyDTO savedPolicy = policyService.savePolicy(policyDTO);
+        return "redirect:/policy/" + savedPolicy.getId();
     }
 
 }

@@ -46,9 +46,6 @@ public class Client {
     @Embedded
     private Address address;
 
-    @NotNull
-    private String password;
-
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "client")
     @JsonIgnore
     private Set<Policy> policies;
@@ -120,13 +117,6 @@ public class Client {
         this.address = address;
     }
 
-    public @NotNull String getPassword() {
-        return password;
-    }
-
-    public void setPassword(@NotNull String password) {
-        this.password = password;
-    }
 
     public Set<Policy> getPolicies() {
         return policies;

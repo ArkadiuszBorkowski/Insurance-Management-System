@@ -26,9 +26,6 @@
             <column name="mobile_number" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="password" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
             <column name="street" type="VARCHAR(255)"/>
             <column name="street_no" type="VARCHAR(255)"/>
             <column name="apartment_no" type="VARCHAR(255)"/>

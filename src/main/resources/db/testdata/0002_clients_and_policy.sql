@@ -1,20 +1,20 @@
 -- Wstawianie danych do tabeli Client
-INSERT INTO Client (FIRST_NAME, LAST_NAME, PESEL, DATE_OF_BIRTH, EMAIL, MOBILE_NUMBER, PASSWORD, STREET, STREET_NO, APARTMENT_NO, CITY, ZIPCODE) VALUES
-('Jan', 'Kowalski', '44051401359', '1980-05-14', 'jan.kowalski@example.com', '123456789', 'password123', 'Main Street', '1', '10', 'Warszawa', '00-001'),
-('Anna', 'Nowak', '02270803628', '1990-07-08', 'anna.nowak@example.com', '987654321', 'password456', 'Second Street', '2', NULL, 'Kraków', '30-002'),
-('Piotr', 'Wiśniewski', '55010212345', '1975-01-02', 'piotr.wisniewski@example.com', '112233445', 'password789', 'Third Street', '3', '5', 'Gdańsk', '80-003'),
-('Katarzyna', 'Zielińska', '66020312345', '1985-02-03', 'katarzyna.zielinska@example.com', '223344556', 'password123', 'Fourth Street', '4', '6', 'Poznań', '60-004'),
- ('Michał', 'Wójcik', '77030412345', '1995-03-04', 'michal.wojcik@example.com', '334455667', 'password456', 'Fifth Street', '5', NULL, 'Wrocław', '50-005'),
- ('Agnieszka', 'Kwiatkowska', '88040512345', '1988-04-05', 'agnieszka.kwiatkowska@example.com', '445566778', 'password789', 'Sixth Street', '6', '7', 'Łódź', '90-006'),
- ('Tomasz', 'Lewandowski', '99050612345', '1979-05-06', 'tomasz.lewandowski@example.com', '556677889', 'password123', 'Seventh Street', '7', '8', 'Lublin', '20-007'),
- ('Ewa', 'Szymańska', '11060712345', '1981-06-07', 'ewa.szymanska@example.com', '667788990', 'password456', 'Eighth Street', '8', '9', 'Katowice', '40-008'),
- ('Paweł', 'Dąbrowski', '22070812345', '1992-07-08', 'pawel.dabrowski@example.com', '778899001', 'password789', 'Ninth Street', '9', '10', 'Szczecin', '70-009'),
- ('Magdalena', 'Pawlak', '33080912345', '1983-08-09', 'magdalena.pawlak@example.com', '889900112', 'password123', 'Tenth Street', '10', '11', 'Bydgoszcz', '85-010'),
- ('Krzysztof', 'Michalski', '44091012345', '1974-09-10', 'krzysztof.michalski@example.com', '990011223', 'password456', 'Eleventh Street', '11', '12', 'Gdynia', '81-011'),
- ('Joanna', 'Wojciechowska', '55101112345', '1985-10-11', 'joanna.wojciechowska@example.com', '001122334', 'password789', 'Twelfth Street', '12', '13', 'Częstochowa', '42-012'),
- ('Adam', 'Jankowski', '66111212345', '1996-11-12', 'adam.jankowski@example.com', '112233445', 'password123', 'Thirteenth Street', '13', '14', 'Radom', '26-013'),
- ('Dorota', 'Mazur', '77121312345', '1987-12-13', 'dorota.mazur@example.com', '223344556', 'password456', 'Fourteenth Street', '14', '15', 'Toruń', '87-014'),
- ('Rafał', 'Kaczmarek', '88131412345', '1978-01-14', 'rafal.kaczmarek@example.com', '334455667', 'password789', 'Fifteenth Street', '15', '16', 'Rzeszów', '35-015');
+INSERT INTO Client (FIRST_NAME, LAST_NAME, PESEL, DATE_OF_BIRTH, EMAIL, MOBILE_NUMBER, STREET, STREET_NO, APARTMENT_NO, CITY, ZIPCODE) VALUES
+('Jan', 'Kowalski', '44051401359', '1980-05-14', 'jan.kowalski@example.com', '123456789', 'Main Street', '1', '10', 'Warszawa', '00-001'),
+('Anna', 'Nowak', '02270803628', '1990-07-08', 'anna.nowak@example.com', '987654321', 'Second Street', '2', NULL, 'Kraków', '30-002'),
+('Piotr', 'Wiśniewski', '55010212345', '1975-01-02', 'piotr.wisniewski@example.com', '112233445', 'Third Street', '3', '5', 'Gdańsk', '80-003'),
+('Katarzyna', 'Zielińska', '66020312345', '1985-02-03', 'katarzyna.zielinska@example.com', '223344556', 'Fourth Street', '4', '6', 'Poznań', '60-004'),
+('Michał', 'Wójcik', '77030412345', '1995-03-04', 'michal.wojcik@example.com', '334455667', 'Fifth Street', '5', NULL, 'Wrocław', '50-005'),
+('Agnieszka', 'Kwiatkowska', '88040512345', '1988-04-05', 'agnieszka.kwiatkowska@example.com', '445566778', 'Sixth Street', '6', '7', 'Łódź', '90-006'),
+('Tomasz', 'Lewandowski', '99050612345', '1979-05-06', 'tomasz.lewandowski@example.com', '556677889', 'Seventh Street', '7', '8', 'Lublin', '20-007'),
+('Ewa', 'Szymańska', '11060712345', '1981-06-07', 'ewa.szymanska@example.com', '667788990', 'Eighth Street', '8', '9', 'Katowice', '40-008'),
+('Paweł', 'Dąbrowski', '22070812345', '1992-07-08', 'pawel.dabrowski@example.com', '778899001', 'Ninth Street', '9', '10', 'Szczecin', '70-009'),
+('Magdalena', 'Pawlak', '33080912345', '1983-08-09', 'magdalena.pawlak@example.com', '889900112', 'Tenth Street', '10', '11', 'Bydgoszcz', '85-010'),
+('Krzysztof', 'Michalski', '44091012345', '1974-09-10', 'krzysztof.michalski@example.com', '990011223', 'Eleventh Street', '11', '12', 'Gdynia', '81-011'),
+('Joanna', 'Wojciechowska', '55101112345', '1985-10-11', 'joanna.wojciechowska@example.com', '001122334', 'Twelfth Street', '12', '13', 'Częstochowa', '42-012'),
+('Adam', 'Jankowski', '66111212345', '1996-11-12', 'adam.jankowski@example.com', '112233445', 'Thirteenth Street', '13', '14', 'Radom', '26-013'),
+('Dorota', 'Mazur', '77121312345', '1987-12-13', 'dorota.mazur@example.com', '223344556', 'Fourteenth Street', '14', '15', 'Toruń', '87-014'),
+('Rafał', 'Kaczmarek', '88131412345', '1978-01-14', 'rafal.kaczmarek@example.com', '334455667', 'Fifteenth Street', '15', '16', 'Rzeszów', '35-015');
 
 
 -- Wstawianie danych do tabeli Policy
@@ -59,3 +59,5 @@ INSERT INTO Policy (ID, POLICY_NUMBER, START_DATE, END_DATE, INSURANCE_PRODUCT_I
 (38, 'POL123493', '2026-02-01', '2027-02-01', 2, 3800000.00, 190000.00, 45600.00, 8),
 (39, 'POL123494', '2026-03-01', '2027-03-01', 3, 3900000.00, 195000.00, 46800.00, 9),
 (40, 'POL123495', '2026-04-01', '2027-04-01', 1, 4000000.00, 200000.00, 48000.00, 10);
+
+ALTER TABLE policy ALTER COLUMN id RESTART WITH (SELECT MAX(id) + 1 FROM policy);
