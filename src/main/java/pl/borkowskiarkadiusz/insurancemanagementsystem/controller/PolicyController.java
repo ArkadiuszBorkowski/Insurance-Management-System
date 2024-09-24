@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClientDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.InsuranceProductDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.InsuranceProductService;
@@ -41,6 +42,7 @@ class PolicyController {
     public String getEmptyPolicyForm(Model model) {
         List<InsuranceProductDTO> productDTOs = insuranceProductService.getAllProducts();
         model.addAttribute("policy", new PolicyDTO());
+        model.addAttribute("client", new ClientDTO());
         model.addAttribute("products", productDTOs);
         return "policy";
     }
@@ -55,8 +57,14 @@ class PolicyController {
 
 
     @PostMapping("/policy")
-    public String savePolicy(@Valid @ModelAttribute PolicyDTO policyDTO, BindingResult result, Model model) {
+    public String savePolicy(@ModelAttribute PolicyDTO policyDTO, BindingResult result, Model model) {
+
+        if (policyDTO.getClient() == null) {
+            policyDTO.setClient(new ClientDTO());
+        }
+
         if (result.hasErrors()) {
+            result.getAllErrors().forEach(error -> System.out.println(error.toString()));
             List<InsuranceProductDTO> productDTOs = insuranceProductService.getAllProducts();
             model.addAttribute("products", productDTOs);
             return "policy";

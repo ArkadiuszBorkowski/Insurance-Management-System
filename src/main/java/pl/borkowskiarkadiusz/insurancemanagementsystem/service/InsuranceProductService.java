@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.InsuranceProductDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.InsuranceProduct;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.mapper.InsuranceProductMapper;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.InsuranceProductRepository;
 
 import java.util.List;

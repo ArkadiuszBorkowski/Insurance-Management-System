@@ -44,6 +44,17 @@ public class Policy {
     @JsonBackReference  //dodane 16.09
     private Client client;
 
+    public Policy(String policyNumber, LocalDate startDate, LocalDate endDate, InsuranceProduct insuranceProduct, Double coverageAmount, Double reserveAmount, Double premium, Client client) {
+        this.policyNumber = policyNumber;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.insuranceProduct = insuranceProduct;
+        this.coverageAmount = coverageAmount;
+        this.reserveAmount = reserveAmount;
+        this.premium = premium;
+        this.client = client;
+    }
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "policy")
     private Set<Claims> claims;
 

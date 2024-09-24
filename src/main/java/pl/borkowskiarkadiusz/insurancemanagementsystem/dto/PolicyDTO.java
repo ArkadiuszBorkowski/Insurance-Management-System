@@ -7,12 +7,26 @@ public class PolicyDTO {
     private String policyNumber;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String productName;
+    /*private String productName;*/
     private Double premium;
     private Double coverageAmount;
     private Double reserveAmount;
     private ClientDTO client;
     private InsuranceProductDTO insuranceProduct;
+
+    public PolicyDTO() {
+    }
+
+    public PolicyDTO(String policyNumber, LocalDate startDate, LocalDate endDate, Double premium, Double coverageAmount, Double reserveAmount, ClientDTO client, InsuranceProductDTO insuranceProduct) {
+        this.policyNumber = policyNumber;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.premium = premium;
+        this.coverageAmount = coverageAmount;
+        this.reserveAmount = reserveAmount;
+        this.client = client;
+        this.insuranceProduct = insuranceProduct;
+    }
 
     public Long getId() {
         return id;
@@ -46,13 +60,6 @@ public class PolicyDTO {
         this.endDate = endDate;
     }
 
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
 
     public Double getPremium() {
         return premium;

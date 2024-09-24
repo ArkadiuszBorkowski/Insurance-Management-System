@@ -20,6 +20,17 @@ public class Address {
     @Pattern(regexp = "\\d{2}-\\d{3}", message = "Zipcode must be in the format XX-XXX")
     private String zipcode;
 
+    public Address(String street, String streetNo, String apartmentNo, String city, String zipcode) {
+        this.street = street;
+        this.streetNo = streetNo;
+        this.apartmentNo = apartmentNo;
+        this.city = city;
+        this.zipcode = zipcode;
+    }
+
+    public Address() {
+    }
+
     public String getStreet() {
         return street;
     }

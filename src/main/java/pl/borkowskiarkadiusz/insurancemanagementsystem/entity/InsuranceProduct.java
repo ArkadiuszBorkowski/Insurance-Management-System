@@ -16,7 +16,6 @@ public class InsuranceProduct {
     @NotNull
     private String productName;
 
-    @NotNull
     private String description;
 
     @ManyToMany

@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Pattern;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -51,6 +52,16 @@ public class Client {
     private Set<Policy> policies;
 
     public Client() {
+    }
+
+    public Client(String firstName, String lastName, String pesel, Date dateOfBirth, String email, String mobileNumber, Address address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.pesel = pesel;
+        this.dateOfBirth = dateOfBirth;
+        this.email = email;
+        this.mobileNumber = mobileNumber;
+        this.address = address;
     }
 
     public Long getId() {
@@ -126,7 +137,18 @@ public class Client {
         this.policies = policies;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return Objects.equals(id, client.id) && Objects.equals(firstName, client.firstName) && Objects.equals(lastName, client.lastName) && Objects.equals(pesel, client.pesel) && Objects.equals(dateOfBirth, client.dateOfBirth) && Objects.equals(email, client.email) && Objects.equals(mobileNumber, client.mobileNumber) && Objects.equals(address, client.address) && Objects.equals(policies, client.policies);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, pesel, dateOfBirth, email, mobileNumber, address, policies);
+    }
 }
 
 
