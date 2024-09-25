@@ -21,6 +21,7 @@ public class Policy {
 
     @NotNull
     private LocalDate startDate;
+
     @NotNull
     private LocalDate  endDate;
 
@@ -40,9 +41,20 @@ public class Policy {
     @Positive
     private Double premium;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JsonBackReference  //dodane 16.09
     private Client client;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "policy")
+    private Set<Claims> claims;
+
+    @AssertTrue(message = "Last date must be after or equal to first date")
+    public boolean isLastDateValid() {
+        return endDate == null || startDate == null || !endDate.isBefore(startDate);
+    }
+
+    public Policy() {
+    }
 
     public Policy(String policyNumber, LocalDate startDate, LocalDate endDate, InsuranceProduct insuranceProduct, Double coverageAmount, Double reserveAmount, Double premium, Client client) {
         this.policyNumber = policyNumber;
@@ -55,16 +67,6 @@ public class Policy {
         this.client = client;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "policy")
-    private Set<Claims> claims;
-
-    @AssertTrue(message = "Last date must be after or equal to first date")
-    public boolean isLastDateValid() {
-        return endDate == null || startDate == null || !endDate.isBefore(startDate);
-    }
-
-    public Policy() {
-    }
 
     public Long getId() {
         return id;
@@ -146,19 +148,4 @@ public class Policy {
         this.claims = claims;
     }
 
-    @Override
-    public String toString() {
-        return "Policy{" +
-                "id=" + id +
-                ", policyNumber='" + policyNumber + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", insuranceProduct=" + insuranceProduct +
-                ", coverageAmount=" + coverageAmount +
-                ", reserveAmount=" + reserveAmount +
-                ", premium=" + premium +
-                ", client=" + client +
-                ", claims=" + claims +
-                '}';
-    }
 }

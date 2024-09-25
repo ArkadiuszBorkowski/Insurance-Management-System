@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.AddressDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClientDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.InsuranceProductDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTO;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ClientService;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.InsuranceProductService;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.PolicyService;
 
@@ -20,11 +22,13 @@ class PolicyController {
 
     private final PolicyService policyService;
     private final InsuranceProductService insuranceProductService;
+    private final ClientService clientService;
 
     @Autowired
-    PolicyController(PolicyService policyService, InsuranceProductService insuranceProductService) {
+    PolicyController(PolicyService policyService, InsuranceProductService insuranceProductService, ClientService clientService) {
         this.policyService = policyService;
         this.insuranceProductService = insuranceProductService;
+        this.clientService = clientService;
     }
 
 
@@ -57,7 +61,7 @@ class PolicyController {
 
 
     @PostMapping("/policy")
-    public String savePolicy(@ModelAttribute PolicyDTO policyDTO, BindingResult result, Model model) {
+    public String savePolicy(@ModelAttribute PolicyDTO policyDTO, ClientDTO clientDTO, AddressDTO addressDTO, BindingResult result, Model model) {
 
         if (policyDTO.getClient() == null) {
             policyDTO.setClient(new ClientDTO());
@@ -69,6 +73,8 @@ class PolicyController {
             model.addAttribute("products", productDTOs);
             return "policy";
         }
+        policyDTO.setClient(clientDTO);
+        policyDTO.getClient().setAddress(addressDTO);
         PolicyDTO savedPolicy = policyService.savePolicy(policyDTO);
         return "redirect:/policy/" + savedPolicy.getId();
     }

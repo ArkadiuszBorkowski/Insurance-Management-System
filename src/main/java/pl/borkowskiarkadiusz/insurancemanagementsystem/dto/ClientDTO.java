@@ -1,5 +1,6 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -7,7 +8,7 @@ public class ClientDTO {
     private String firstName;
     private String lastName;
     private String pesel;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
     private String email;
     private String mobileNumber;
     private AddressDTO address;
@@ -15,7 +16,7 @@ public class ClientDTO {
     public ClientDTO() {
     }
 
-    public ClientDTO(String firstName, String lastName, String pesel, Date dateOfBirth, String email, String mobileNumber, AddressDTO address) {
+    public ClientDTO(String firstName, String lastName, String pesel, LocalDate dateOfBirth, String email, String mobileNumber, AddressDTO address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.pesel = pesel;
@@ -49,11 +50,11 @@ public class ClientDTO {
         this.pesel = pesel;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

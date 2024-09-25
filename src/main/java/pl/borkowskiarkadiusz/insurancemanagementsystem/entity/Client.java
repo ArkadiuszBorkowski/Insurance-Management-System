@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -20,27 +20,25 @@ public class Client {
     private Long id;
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z]*$", message = "Firstname must not contain numbers or special characters")
+    /*@Pattern(regexp = "^[a-zA-Z]*$", message = "Firstname must not contain numbers or special characters")*/
     private String firstName;
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z]*$", message = "Lastname must not contain numbers or special characters")
+/*    @Pattern(regexp = "^[a-zA-Z]*$", message = "Lastname must not contain numbers or special characters")*/
     private String lastName;
 
-    @Pattern(regexp = "\\d{11}", message = "PESEL must be exactly 11 digits")
+/*    @Pattern(regexp = "\\d{11}", message = "PESEL must be exactly 11 digits")*/
     @NotNull
     private String pesel;
 
-    @Temporal(TemporalType.DATE)  //dodane bo data w formiacie yyyy-mm-dd hh-mm-ss
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @Email(message = "Email should be valid")
     private String email;
 
     @NotNull
-    @Pattern(regexp = "\\d{9,}", message = "Phone number must be at least 9 digits")
+/*    @Pattern(regexp = "\\d{9,}", message = "Phone number must be at least 9 digits")*/
     private String mobileNumber;
 
 
@@ -54,7 +52,7 @@ public class Client {
     public Client() {
     }
 
-    public Client(String firstName, String lastName, String pesel, Date dateOfBirth, String email, String mobileNumber, Address address) {
+    public Client(String firstName, String lastName, String pesel, LocalDate dateOfBirth, String email, String mobileNumber, Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.pesel = pesel;
@@ -72,35 +70,35 @@ public class Client {
         this.id = id;
     }
 
-    public @NotNull @Pattern(regexp = "^[a-zA-Z]*$", message = "Firstname must not contain numbers or special characters") String getFirstName() {
+    public @NotNull String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(@NotNull @Pattern(regexp = "^[a-zA-Z]*$", message = "Firstname must not contain numbers or special characters") String firstName) {
+    public void setFirstName(@NotNull String firstName) {
         this.firstName = firstName;
     }
 
-    public @NotNull @Pattern(regexp = "^[a-zA-Z]*$", message = "Lastname must not contain numbers or special characters") String getLastName() {
+    public @NotNull String getLastName() {
         return lastName;
     }
 
-    public void setLastName(@NotNull @Pattern(regexp = "^[a-zA-Z]*$", message = "Lastname must not contain numbers or special characters") String lastName) {
+    public void setLastName(@NotNull String lastName) {
         this.lastName = lastName;
     }
 
-    public @Pattern(regexp = "\\d{11}", message = "PESEL must be exactly 11 digits") @NotNull String getPesel() {
+    public @NotNull String getPesel() {
         return pesel;
     }
 
-    public void setPesel(@Pattern(regexp = "\\d{11}", message = "PESEL must be exactly 11 digits") @NotNull String pesel) {
+    public void setPesel(@NotNull String pesel) {
         this.pesel = pesel;
     }
 
-    public @NotNull Date getDateOfBirth() {
+    public @NotNull LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(@NotNull Date dateOfBirth) {
+    public void setDateOfBirth(@NotNull LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -112,11 +110,11 @@ public class Client {
         this.email = email;
     }
 
-    public @NotNull @Pattern(regexp = "\\{9,}", message = "Phone number must be at least 9 digits") String getMobileNumber() {
+    public @NotNull String getMobileNumber() {
         return mobileNumber;
     }
 
-    public void setMobileNumber(@NotNull @Pattern(regexp = "\\{9,}", message = "Phone number must be at least 9 digits") String mobileNumber) {
+    public void setMobileNumber(@NotNull String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 
@@ -126,28 +124,6 @@ public class Client {
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-
-    public Set<Policy> getPolicies() {
-        return policies;
-    }
-
-    public void setPolicies(Set<Policy> policies) {
-        this.policies = policies;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Client client = (Client) o;
-        return Objects.equals(id, client.id) && Objects.equals(firstName, client.firstName) && Objects.equals(lastName, client.lastName) && Objects.equals(pesel, client.pesel) && Objects.equals(dateOfBirth, client.dateOfBirth) && Objects.equals(email, client.email) && Objects.equals(mobileNumber, client.mobileNumber) && Objects.equals(address, client.address) && Objects.equals(policies, client.policies);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, pesel, dateOfBirth, email, mobileNumber, address, policies);
     }
 }
 
