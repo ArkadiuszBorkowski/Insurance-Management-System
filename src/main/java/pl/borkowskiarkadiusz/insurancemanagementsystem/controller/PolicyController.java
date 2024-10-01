@@ -1,8 +1,8 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.controller;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,16 +41,22 @@ class PolicyController {
         return "policy";
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<PolicyDTO> getPolicy(@PathVariable Long id) {
+        PolicyDTO policyDTO = policyService.getPolicyById(id);
+        return ResponseEntity.ok(policyDTO);
+    }
+
 
     @GetMapping("/policy")
     public String getEmptyPolicyForm(Model model) {
         List<InsuranceProductDTO> productDTOs = insuranceProductService.getAllProducts();
         model.addAttribute("policy", new PolicyDTO());
-        model.addAttribute("client", new ClientDTO());
         model.addAttribute("products", productDTOs);
         return "policy";
     }
 
+/*
 
     @GetMapping("/policies")
     public String getPolicies(Model model, @RequestParam(defaultValue = "0") int page) {
@@ -58,21 +64,21 @@ class PolicyController {
         model.addAttribute("policiesPage", policyDTOPage);
         return "policies";
     }
+*/
+
+    @GetMapping("/policies")
+    public String getPolicies(Model model,
+                              @RequestParam(defaultValue = "0") int page,
+                              @RequestParam(required = false) String pesel,
+                              @RequestParam(required = false) String policyNumber) {
+        Page<PolicyDTO> policyDTOPage = policyService.getPoliciesByPeselOrPolicyNumber(pesel, policyNumber, page);
+        model.addAttribute("policiesPage", policyDTOPage);
+        return "policies";
+    }
 
 
     @PostMapping("/policy")
     public String savePolicy(@ModelAttribute PolicyDTO policyDTO, ClientDTO clientDTO, AddressDTO addressDTO, BindingResult result, Model model) {
-
-        if (policyDTO.getClient() == null) {
-            policyDTO.setClient(new ClientDTO());
-        }
-
-        if (result.hasErrors()) {
-            result.getAllErrors().forEach(error -> System.out.println(error.toString()));
-            List<InsuranceProductDTO> productDTOs = insuranceProductService.getAllProducts();
-            model.addAttribute("products", productDTOs);
-            return "policy";
-        }
         policyDTO.setClient(clientDTO);
         policyDTO.getClient().setAddress(addressDTO);
         PolicyDTO savedPolicy = policyService.savePolicy(policyDTO);

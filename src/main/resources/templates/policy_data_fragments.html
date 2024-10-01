@@ -45,7 +45,7 @@
     <!-- - - - - - P - R - O - D - U - K - T - - - - - -->
     <div class="label-select col s12 m6 l3">
       <label for="insuranceProduct">PRODUKT UBEZPIECZENIOWY</label>
-      <select id="insuranceProduct" name="insuranceProduct" th:disabled="${policy.insuranceProduct != null}">
+      <select id="insuranceProduct" name="insuranceProduct" required th:disabled="${policy.insuranceProduct != null}">
         <option value="" disabled selected>PRODUKT UBEZPIECZENIOWY</option>
         <option th:each="product : ${products}" th:value="${product.id}"
                 th:text="${product.productName}"

@@ -68,7 +68,6 @@ footer {
 }
 
 
-
 .label-select {
     margin-top: -7PX;
 }
@@ -110,6 +109,10 @@ tr.clickable-row {
     align-items: center;
     flex-direction: column;
 }
+input[type=text]:not(.browser-default):disabled {
+    color: black; !important; /* Kolor tekstu */
+}
+
 
 /* KONIEC STYLI TABELI */
 

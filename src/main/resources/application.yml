@@ -5,5 +5,11 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: true
+logging:
+  file:
+    path: \logs
+    name: info.log
+
+
 
 

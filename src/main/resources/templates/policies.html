@@ -17,28 +17,39 @@
 
     <div class="container">
 
-        <h3>Lista polis</h3>
+        <h4>Lista polis</h4>
         <!--sekcja filtrowania listy i zawężania rekordów -->
 
-        <form th:action="@{/policies}" method="get">
-            <div class="input-field">
-                <input type="text" id="pesel" name="pesel" th:value="${pesel}">
-                <label for="pesel">PESEL</label>
-            </div>
-            <div class="input-field">
-                <input type="text" id="policyNumber" name="policyNumber" th:value="${policyNumber}">
-                <label for="policyNumber">Numer polisy</label>
-            </div>
-            <div class="input-field">
-                <select name="sortBy">
-                    <option value="policyNumber" th:selected="${sortBy == 'policyNumber'}">Numer polisy</option>
-                    <option value="startDate" th:selected="${sortBy == 'startDate'}">Data zawarcia</option>
-                    <option value="endDate" th:selected="${sortBy == 'endDate'}">Data końca</option>
-                </select>
-                <label>Sortuj:</label>
-            </div>
-            <button type="submit" class="btn">Filter</button>
-        </form>
+        <ul class="collapsible">
+            <li>
+                <div class="collapsible-header"><i class="material-icons">filter_list</i>Filtry i sortowanie</div>
+                <div class="collapsible-body">
+
+                    <form th:action="@{/policies}" method="get">
+                        <div class="input-field">
+                            <input type="text" id="pesel" name="pesel" th:value="${pesel}">
+                            <label for="pesel">PESEL</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="text" id="policyNumber" name="policyNumber" th:value="${policyNumber}">
+                            <label for="policyNumber">Numer polisy</label>
+                        </div>
+                        <div class="input-field">
+                            <select name="sortBy">
+                                <option value="policyNumber" th:selected="${sortBy == 'policyNumber'}">Numer polisy</option>
+                                <option value="startDate" th:selected="${sortBy == 'startDate'}">Data zawarcia</option>
+                                <option value="endDate" th:selected="${sortBy == 'endDate'}">Data końca</option>
+                            </select>
+                            <label>Sortuj na podstawie:</label>
+                        </div>
+                        <button type="submit" class="btn">Wykonaj filtrowanie</button>
+                    </form>
+
+                </div>
+            </li>
+        </ul>
+
+
 
         <table class="highlight responsive-table">
             <thead>

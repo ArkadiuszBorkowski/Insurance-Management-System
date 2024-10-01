@@ -41,45 +41,40 @@
 
         <div id="tab1" class="col s12">
 
-            <br>
-            <!--===========================================================-->
-            <!-- - - - -  D - A - N - E - - P - O - L - I - S - Y -  - - - -->
-            <!--===========================================================-->
-            <form th:action="@{/policy}" th:object="${policy}" method="post">
-                <section th:replace="~{policy_data_fragments :: policy_data}"></section>
+            <BR>
+            <!--Sekcja wyszukiwania klienta po PESEL -->
+            <section th:if="${policy.client == null}" class="container card-panel grey lighten-5">
 
-                <!--&lt;!&ndash;===========================================================&ndash;&gt;
-                &lt;!&ndash; - - - - - W Y S Z U K I W A R K A   K L I E N T A - - - - &ndash;&gt;
-                &lt;!&ndash;===========================================================&ndash;&gt;
-                <BR>
-                &lt;!&ndash; Sekcja wyszukiwania klienta po PESEL -->
-              <!--  <section th:if="${policy.client == null}" class="container card-panel grey lighten-5">
-
-                    <form id="peselSearchForm">
-                        <div class="row">
-                            <div class="input-field col s12 m6 l3">
-                                <i class="material-icons prefix">badge</i>
-                                <label for="peselSearch">WYSZUKAJ PO PESEL</label>
-                                <input type="text" id="peselSearch" name="pesel" class="validate" pattern="^\d{11}$"
-                                       data-length="11">
-                                <span class="helper-text" data-error="PESEL musi mieć dokładnie 11 cyfr"></span>
-                            </div>
-                            <div class="input-field col s12 m6 l3">
-                                <button class="btn waves-effect waves-light" type="submit">Szukaj</button>
-                            </div>
-                            <div id="messageContainer" class="card-panel red lighten-4" style="display: none;">
-                                <span id="messageText" class="red-text text-darken-4"></span>
-                            </div>
+                <form id="peselSearchForm">
+                    <div class="row">
+                        <div class="input-field col s12 m6 l3">
+                            <i class="material-icons prefix">badge</i>
+                            <label for="peselSearch">WYSZUKAJ PO PESEL</label>
+                            <input type="text" id="peselSearch" name="pesel" class="validate" pattern="^\d{11}$"
+                                   data-length="11">
+                            <span class="helper-text" data-error="PESEL musi mieć dokładnie 11 cyfr"></span>
                         </div>
-                    </form>-->
+                        <div class="input-field col s12 m6 l3">
+                            <button class="btn waves-effect waves-light" type="submit">Szukaj</button>
+                        </div>
+                        <div id="messageContainer" class="card-panel red lighten-4" style="display: none;">
+                            <span id="messageText" class="red-text text-darken-4"></span>
+                        </div>
+                    </div>
+                </form>
 
-                </section>
-                <BR>
+            </section>
+
+            <form th:action="@{/policy}" th:object="${policy}" method="post">
                 <!--===========================================================-->
                 <!-- - - - - D - A - N - E - - K - L - I - E - N - T - A - - - -->
                 <!--===========================================================-->
                 <section th:replace="~{policy_client_fragments :: policy_client_data}"></section>
-
+                <BR>
+                <!--===========================================================-->
+                <!-- - - - -  D - A - N - E - - P - O - L - I - S - Y -  - - - -->
+                <!--===========================================================-->
+                <section th:replace="~{policy_data_fragments :: policy_data}"></section>
                 <BR>
                 <section th:if="${policy.client == null}" class="container card-panel grey lighten-5">
                     <button class="btn waves-effect waves-light" type="submit">ZAPISZ NOWĄ POLISĘ</button>

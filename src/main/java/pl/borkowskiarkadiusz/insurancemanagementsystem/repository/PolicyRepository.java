@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
 
 public interface PolicyRepository extends JpaRepository<Policy, Long> {
-    Page<Policy> findAll(Pageable pageable);
-    Page<Policy> findByClientPeselContaining(String pesel, Pageable pageable);
-    Page<Policy> findByPolicyNumberContaining(String policyNumber, Pageable pageable);
+    Page<Policy> findByClientPesel(String pesel, Pageable pageable);
+    Page<Policy> findByPolicyNumber(String policyNumber, Pageable pageable);
 }

@@ -3,10 +3,16 @@ package pl.borkowskiarkadiusz.insurancemanagementsystem.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class InsuranceProduct {
 
     @Id
@@ -28,39 +34,5 @@ public class InsuranceProduct {
     @JsonIgnore
     private Set<Risk> risks;
 
-    public InsuranceProduct() {
-    }
-
-    public @NotNull String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(@NotNull String productName) {
-        this.productName = productName;
-    }
-
-    public @NotNull String getDescription() {
-        return description;
-    }
-
-    public void setDescription(@NotNull String description) {
-        this.description = description;
-    }
-
-    public Set<Risk> getRisks() {
-        return risks;
-    }
-
-    public void setRisks(Set<Risk> risks) {
-        this.risks = risks;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
 }
