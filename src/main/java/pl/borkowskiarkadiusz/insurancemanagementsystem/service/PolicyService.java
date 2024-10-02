@@ -38,7 +38,9 @@ public class PolicyService {
     public PolicyDTO getPolicyById(Long id) {
         Policy policy = policyRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Invalid policy Id: " + id));
-        return modelMapper.map(policy, PolicyDTO.class);
+        PolicyDTO policyDTO = modelMapper.map(policy, PolicyDTO.class);
+        return policyDTO;
+
     }
 
     public Page<PolicyDTO> getPolicies(int page) {

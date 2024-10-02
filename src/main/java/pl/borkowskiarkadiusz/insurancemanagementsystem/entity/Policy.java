@@ -58,7 +58,4 @@ public class Policy {
     public boolean isLastDateValid() {
         return endDate == null || startDate == null || !endDate.isBefore(startDate);
     }
-
-
-
 }

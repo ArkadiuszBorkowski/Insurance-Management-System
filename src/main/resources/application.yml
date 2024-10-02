@@ -7,9 +7,6 @@ spring:
     show-sql: true
 logging:
   file:
-    path: \logs
-    name: info.log
-
-
-
+    path: ./logback
+    name: application.log
 

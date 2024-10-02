@@ -113,6 +113,25 @@ input[type=text]:not(.browser-default):disabled {
     color: black; !important; /* Kolor tekstu */
 }
 
+.hidden-column {
+    display: none;
+}
+
+span.badge {
+    min-width: 3rem;
+    padding: 0 6px;
+    margin-left: 14px;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 22px;
+    height: 22px;
+    float: right;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #fff;
+    background-color: darkred;
+
+}
 
 /* KONIEC STYLI TABELI */
 

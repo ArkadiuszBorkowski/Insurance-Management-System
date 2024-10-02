@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,6 +20,7 @@ public class PolicyDTO {
     private Double reserveAmount;
     private ClientDTO client;
     private InsuranceProductDTO insuranceProduct;
+    private List<ClaimsDTO> claims; // Dodane pole
 
 
 }

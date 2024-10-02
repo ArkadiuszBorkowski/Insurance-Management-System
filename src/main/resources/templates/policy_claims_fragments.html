@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--===========================================================-->
+<!-- - - - - D - A - N - E - - K - L - I - E - N - T - A - - - -->
+<!--===========================================================-->
+
+<section class="container card-panel grey lighten-5" th:fragment="policy_claims_data">
+    <span class="flow-text grey-text text-darken-2">Lista szkód ubezpieczonego:</span>
+    <br>
+
+    <table class="highlight responsive-table">
+        <thead>
+        <tr>
+            <th class="hidden-column">ID</th> <!-- Dodana klasa -->
+            <th>Opis</th>
+            <th>Data zgłoszenia</th>
+            <th>Status</th>
+            <th>Decyzja</th>
+            <th>Akcja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="claim : ${policy.claims}">
+            <td class="hidden-column" th:text="${claim.id}"></td> <!-- Dodana klasa -->
+            <td th:text="${claim.description}"></td>
+            <td th:text="${claim.claimDate}"></td>
+            <td th:text="${claim.claimStatus}"></td>
+            <td th:text="${claim.decision}"></td>
+            <td><a th:href="@{'/claim/' + ${claim.id}}">OTWÓRZ</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+</section>
+
+<section class="container card-panel grey lighten-5" th:fragment="policy_claims_data">
+    <span class="flow-text grey-text text-darken-2">Nowa szkoda?</span>
+    <BR>
+    <a class="waves-effect waves-light btn-large"><i class="material-icons left">how_to_reg</i>ZAREJESTRUJ NOWĄ SZKODĘ</a>
+
+</section>
+
+
+</body>
+</html>

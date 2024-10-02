@@ -4,3 +4,7 @@ spring:
   liquibase:
     contexts: dev
     change-log: classpath:db/changelog/master.xml
+logging:
+  file:
+    path: ./logback
+    name: application.log

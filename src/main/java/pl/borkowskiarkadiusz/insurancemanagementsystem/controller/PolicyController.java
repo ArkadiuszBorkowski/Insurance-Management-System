@@ -56,15 +56,6 @@ class PolicyController {
         return "policy";
     }
 
-/*
-
-    @GetMapping("/policies")
-    public String getPolicies(Model model, @RequestParam(defaultValue = "0") int page) {
-        Page<PolicyDTO> policyDTOPage = policyService.getPolicies(page);
-        model.addAttribute("policiesPage", policyDTOPage);
-        return "policies";
-    }
-*/
 
     @GetMapping("/policies")
     public String getPolicies(Model model,
