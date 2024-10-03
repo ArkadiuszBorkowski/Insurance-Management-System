@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Ogólne Warunki Ubezpieczenia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      width: 50px;
+    }
+    .logo-text {
+      margin-left: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    td {
+      padding: 8px;
+      border: 1px solid #ddd;
+    }
+    .label {
+      font-weight: bold;
+      width: 25%;
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">
+    <img src="../static/images/logo.png" th:src="@{/images/logo.png}" alt="Logo">
+    <div class="logo-text">BEZPIECZNA PRZYSZŁOŚĆ</div>
+  </div>
+</div>
+<div class="content">
+  <h1>Ogólne Warunki Ubezpieczenia</h1>
+  <div class="section">
+    <h2>Postanowienia Ogólne</h2>
+    <p>Ogólne Warunki Ubezpieczenia (OWU) określają zasady zawierania i wykonywania umów ubezpieczenia, prawa i obowiązki stron umowy oraz zasady ustalania i wypłaty świadczeń.</p>
+  </div>
+  <div class="section">
+    <h2>Definicje</h2>
+    <p>W OWU użyte są następujące definicje:</p>
+    <ul>
+      <li><strong>Ubezpieczyciel:</strong> Bezpieczna Przyszłość S.A.</li>
+      <li><strong>Ubezpieczony:</strong> Osoba fizyczna, na rzecz której zawarto umowę ubezpieczenia.</li>
+      <li><strong>Polisa:</strong> Dokument potwierdzający zawarcie umowy ubezpieczenia.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h2>Zakres Ochrony</h2>
+    <p>Ubezpieczenie obejmuje ochronę w zakresie określonym w polisie, w tym:</p>
+    <ul>
+      <li>Ochrona zdrowia i życia ubezpieczonego.</li>
+      <li>Ochrona mienia ubezpieczonego.</li>
+      <li>Ochrona odpowiedzialności cywilnej ubezpieczonego.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h2>Wyłączenia Odpowiedzialności</h2>
+    <p>Ubezpieczyciel nie ponosi odpowiedzialności za szkody powstałe w wyniku:</p>
+    <ul>
+      <li>Działań wojennych, aktów terrorystycznych.</li>
+      <li>Samobójstwa ubezpieczonego w ciągu pierwszych dwóch lat trwania umowy.</li>
+      <li>Umyślnego działania ubezpieczonego.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h2>Obowiązki Ubezpieczonego</h2>
+    <p>Ubezpieczony zobowiązany jest do:</p>
+    <ul>
+      <li>Niezwłocznego zgłaszania wszelkich zmian dotyczących stanu zdrowia oraz adresu zamieszkania.</li>
+      <li>Zgłoszenia szkody w ciągu 7 dni od jej wystąpienia.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h2>Postanowienia Końcowe</h2>
+    <p>Umowa może zostać rozwiązana przez każdą ze stron z zachowaniem 30-dniowego okresu wypowiedzenia. W przypadku rozwiązania umowy przed upływem okresu ubezpieczenia, ubezpieczonemu przysługuje zwrot proporcjonalnej części składki.</p>
+  </div>
+  <div class="section">
+    <h2>Kontakt z Ubezpieczycielem</h2>
+    <p>Wszelkie zgłoszenia i zapytania należy kierować na adres: kontakt@bezpiecznaprzyszlosc.pl lub telefonicznie pod numerem: +48 123 456 789.</p>
+  </div>
+</div>
+</body>
+</html>

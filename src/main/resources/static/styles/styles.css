@@ -130,7 +130,13 @@ span.badge {
     box-sizing: border-box;
     color: #fff;
     background-color: darkred;
+}
 
+.iframe-container {
+    width: 100%;
+    height: 1000px;
+    background-color: white;
+    border-bottom: 1px solid #000;
 }
 
 /* KONIEC STYLI TABELI */

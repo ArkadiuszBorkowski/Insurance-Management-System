@@ -15,7 +15,10 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ClientService;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.InsuranceProductService;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.PolicyService;
 
+import java.io.File;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 class PolicyController {
@@ -31,23 +34,28 @@ class PolicyController {
         this.clientService = clientService;
     }
 
-
+    //pobieranie konkretnej polisy
     @GetMapping("/policy/{id}")
     public String getPolicy(@PathVariable Long id, Model model) {
         PolicyDTO policyDTO = policyService.getPolicyById(id);
         List<InsuranceProductDTO> productDTOs = insuranceProductService.getAllProducts();
+        List<String> templateNames = policyService.getTemplateNames();
+
         model.addAttribute("policy", policyDTO);
         model.addAttribute("products", productDTOs);
+        model.addAttribute("templateNames", templateNames);
+
         return "policy";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PolicyDTO> getPolicy(@PathVariable Long id) {
-        PolicyDTO policyDTO = policyService.getPolicyById(id);
-        return ResponseEntity.ok(policyDTO);
+    @GetMapping("/templates/policy_documents/{templateName}")
+    public String getTemplate(@PathVariable String templateName, @RequestParam Long policyId, Model model) {
+        PolicyDTO policyDTO = policyService.getPolicyById(policyId);
+        model.addAttribute("policy", policyDTO);
+        return "policy_documents/" + templateName;
     }
 
-
+    //pobieranie formularza polisy
     @GetMapping("/policy")
     public String getEmptyPolicyForm(Model model) {
         List<InsuranceProductDTO> productDTOs = insuranceProductService.getAllProducts();
@@ -56,7 +64,7 @@ class PolicyController {
         return "policy";
     }
 
-
+    //pobieranie listy polis
     @GetMapping("/policies")
     public String getPolicies(Model model,
                               @RequestParam(defaultValue = "0") int page,
@@ -67,7 +75,7 @@ class PolicyController {
         return "policies";
     }
 
-
+    //zapisywanie formularza
     @PostMapping("/policy")
     public String savePolicy(@ModelAttribute PolicyDTO policyDTO, ClientDTO clientDTO, AddressDTO addressDTO, BindingResult result, Model model) {
         policyDTO.setClient(clientDTO);

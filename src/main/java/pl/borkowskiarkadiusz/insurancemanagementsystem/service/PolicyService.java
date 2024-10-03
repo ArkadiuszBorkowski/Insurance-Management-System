@@ -14,6 +14,8 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFou
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.ClientRepository;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyRepository;
 
+import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +42,6 @@ public class PolicyService {
                 .orElseThrow(() -> new ResourceNotFoundException("Invalid policy Id: " + id));
         PolicyDTO policyDTO = modelMapper.map(policy, PolicyDTO.class);
         return policyDTO;
-
     }
 
     public Page<PolicyDTO> getPolicies(int page) {
@@ -77,6 +78,15 @@ public class PolicyService {
             logger.error("Error saving policy: {}", policyDTO, e);
             throw e;
         }
+    }
+
+    public List<String> getTemplateNames() {
+        File folder = new File("src/main/resources/templates/policy_documents/");
+        File[] listOfFiles = folder.listFiles();
+        return Arrays.stream(listOfFiles)
+                .filter(file -> file.isFile() && file.getName().endsWith(".html"))
+                .map(File::getName)
+                .collect(Collectors.toList());
     }
 
 

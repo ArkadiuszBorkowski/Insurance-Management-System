@@ -21,6 +21,4 @@ public class PolicyDTO {
     private ClientDTO client;
     private InsuranceProductDTO insuranceProduct;
     private List<ClaimsDTO> claims; // Dodane pole
-
-
 }
