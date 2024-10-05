@@ -190,10 +190,11 @@
         <!-- SEKCJA WALIDACJI DŁUGOŚCI POLA by https://materializecss.com/ -->
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                var elems = document.querySelectorAll('input[data-length]');
+                var elems = document.querySelectorAll('input[data-length], textarea[data-length]');
                 M.CharacterCounter.init(elems);
             });
         </script>
+
 
         <!-- SEKCJA DYNAMICZNEJ LISTY- ODNOŚNIKI WIERSZY  by https://materializecss.com/ -->
         <script>

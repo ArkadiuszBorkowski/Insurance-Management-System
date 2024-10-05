@@ -17,7 +17,7 @@
   <!-- ============= L - I - N - I - A - 1 ============= - -->
   <div class="row">
 
-    //informacyjne pole
+    <!--informacyjne pole -->
     <input type="hidden" id="policyId" name="policyId" th:value="${policy != null ? policy.id : ''}"/>
 
     <!-- - N - U - M - E - R - - P - O - L - I - S - Y - -->
@@ -103,8 +103,6 @@
             th:value="${policy.insuranceProduct != null && policy.insuranceProduct.risks != null ? policy.insuranceProduct.risks.size() : 0}"
             readonly
             th:disabled="${policy != null && policy.reserveAmount != null}">
-
-
    </div>
 
  </div>

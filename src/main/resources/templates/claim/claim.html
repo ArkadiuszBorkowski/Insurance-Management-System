@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<!-- - - - - - - - - - - H - E - A - D - - - - - - - - - - - - -->
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<!-- - - - - - - - - - - M - E - N - U - - - - - - - - - - - - -->
+<header th:replace="~{fragments :: header}">
+
+</header>
+<!-- - - - W - Y - S - Z - U - K - I - W - A - R - K - A - - - -->
+<nav th:replace="~{fragments :: search}"></nav>
+<br><br>
+
+<!--Z - A - W - A - R - T - O - Ś - Ć - - S - T - R - O - N - Y-->
+
+<main>
+    <!-- ZAWARTOŚĆ STRONY -->
+    <section class="container card-panel grey lighten-5" th:fragment="claim_data">
+        <span class="flow-text grey-text text-darken-2">FORMULARZ ZGŁOSZENIA ROSZCZEŃ</span>
+
+        <!-- ============= L - I - N - I - A - 1 ============= - -->
+        <div class="row">
+
+            <!-- NUMER ROSZCZENIA -->
+            <div class="input-field col s12 m6 l3">
+                <i class="material-icons prefix">newspaper</i>
+                <label for="id">NUMER ROSZCZENIA</label>
+                <input type="text" id="id" name="id" required class="validate"
+                       th:value="${claims != null ? claims.id : ''}"
+                       th:disabled="${claims != null && claims.id != null}">
+            </div>
+
+            <!-- DATA ROSZCZENIA -->
+            <div class="input-field col s12 m6 l3">
+                <i class="material-icons prefix">calendar_month</i>
+                <label for="claimDate">DATA ROSZCZENIA</label>
+                <input type="text" id="claimDate" name="claimDate" required class="datepicker validate"
+                       th:value="${claims != null ? claims.claimDate : ''}"
+                       th:disabled="${claims != null && claims.claimDate != null}">
+            </div>
+
+<!--     &lt;!&ndash; PRODUKT UBEZPIECZENIOWY &ndash;&gt;
+            <div class="input-field col s12 m6 l3">
+                <i class="material-icons prefix">calendar_month</i>
+                <label for="products">PRODUKT UBEZPIECZENIOWY</label>
+                <input type="text" id="products" name="products" required class="datepicker validate"
+                       th:value="${claims != null && policy.insuranceProduct.productName != null ? policy.insuranceProduct.productName : ''}"
+                       th:disabled="${claims != null && policy.insuranceProduct != null}">
+            </div>-->
+
+<!--            &lt;!&ndash; - - - - - P - R - O - D - U - K - T - - - - - &ndash;&gt;
+            <div class="label-select col s12 m6 l3">
+                <label for="insuranceProduct">PRODUKT UBEZPIECZENIOWY</label>
+                <select id="insuranceProduct" name="insuranceProduct" required th:disabled="${policy.insuranceProduct != null}">
+                    <option value="" disabled selected>PRODUKT UBEZPIECZENIOWY</option>
+                    <option th:each="product : ${products}" th:value="${product.id}"
+                            th:text="${product.productName}"
+                            th:selected="${product.id == (policy.insuranceProduct != null ? policy.insuranceProduct.id : -1)}">
+                    </option>
+                </select>
+            </div>-->
+
+     <!--       &lt;!&ndash; POLISA &ndash;&gt;
+            <div class="input-field col s12 m6 l3">
+                <i class="material-icons prefix">policy</i>
+                <label for="policyNumber">POLISA</label>
+                <input type="text" id="policyNumber" name="policyNumber" required class="validate"
+                       th:value="${claims != null && policy.policyNumber !=null ? policy.policyNumber : ''}"
+                       th:disabled="${claims != null && policy.policyNumber != null}">
+            </div>-->
+
+     <!--       &lt;!&ndash; DATA ROSZCZENIA &ndash;&gt;
+            <div class="input-field col s12 m6 l3">
+                <i class="material-icons prefix">calendar_month</i>
+                <label for="startDate">DATA POCZĄTKU POLISY</label>
+                <input type="text" id="startDate" name="startDate" required class="datepicker validate"
+                       th:value="${claims != null && policy.startDate != null ? policy.startDate : ''}"
+                       th:disabled="${claims != null && policy.startDate != null}">
+            </div>
+
+            &lt;!&ndash; DATA ROSZCZENIA &ndash;&gt;
+            <div class="input-field col s12 m6 l3">
+                <i class="material-icons prefix">calendar_month</i>
+                <label for="endDate">DATA POCZĄTKU POLISY</label>
+                <input type="text" id="endDate" name="endDate" required class="datepicker validate"
+                       th:value="${claims != null && policy.endDate != null ? policy.endDate : ''}"
+                       th:disabled="${claims != null && policy.endDate != null}">
+            </div>
+
+            &lt;!&ndash; STATUS POLISY &ndash;&gt;
+            <div class="label-select col s12 m6 l3">
+                <label for="policyStatus">STATUS POLISY</label>
+                <select id="policyStatus" name="policyStatus">
+                    <i class="material-icons prefix">personal_injury</i>
+                    <option value="" disabled selected>STATUS POLISY</option>
+                    <option th:each="status : ${policyStatus}" th:value="${status}"
+                            th:text="${status}">
+                    </option>
+                </select>
+            </div>
+-->
+
+
+        </div>
+
+        <div class="row">
+            <!-- OPIS ROSZCZENIA -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">description</i>
+                    <textarea id="description" name="description" data-length="500" class="materialize-textarea" required validate
+                              th:text="${claims != null ? claims.description : ''}"
+                              th:disabled="${claims != null && claims.description != null}"></textarea>
+                    <label for="description">OPIS ROSZCZENIA</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+
+            <div class="label-select col s12 m6 l3">
+                <label for="decision">Decyzja</label>
+                <select id="decision" name="decision" required>
+                    <option value="" disabled selected>Wybierz decyzję</option>
+                    <option th:each="decision : ${decisions}"
+                            th:value="${decision}" th:text="${decision}"
+                            th:selected="${decision} == ${claims.decision}"></option>
+                </select>
+            </div>
+
+
+
+            <!-- Status Roszczenia -->
+            <div class="label-select col s12 m6 l3">
+                <label for="claimStatus">STATUS ROSZCZENIA</label>
+                <select id="claimStatus" name="claimStatus" required>
+                    <option value="" disabled selected>Wybierz status</option>
+                    <option th:each="status : ${statuses}"
+                            th:value="${status}" th:text="${status}"
+                            th:selected="${status} == ${claims.claimStatus}"></option>
+                </select>
+            </div>
+
+
+            <!-- Przycisk Zatwierdź -->
+            <div class="input-field col s12 m6 l3">
+                <button class="btn waves-effect waves-light" type="submit" name="action">ZAREJESTRUJ SZKODĘ
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+
+        </div>
+
+    <section>
+
+</main>
+
+<!-- - - - - - - - - S - T - O - P - K - A - - - - - - - - - - -->
+<footer th:replace="~{fragments :: footer}"></footer>
+
+<!-- - - P - Ł - Y - W - A - J - Ą - C - Y  -  - P - R - Z - Y - C - I - S - K - - -->
+<div th:replace="~{fragments :: floating_btn}"></div>
+
+<!-- - - - - - - - - S - K - R - Y - P - T - Y - - - - - - - - -->
+<div th:replace="~{fragments :: script_js}"></div>
+
+</body>
+</html>

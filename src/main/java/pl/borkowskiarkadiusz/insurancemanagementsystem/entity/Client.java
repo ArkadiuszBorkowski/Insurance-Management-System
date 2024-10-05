@@ -25,11 +25,11 @@ public class Client {
     private Long id;
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z]*$", message = "Firstname must not contain numbers or special characters")
+    @Pattern(regexp = "^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+$", message = "Firstname must not contain numbers or special characters")
     private String firstName;
 
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z]*$", message = "Lastname must not contain numbers or special characters")
+    @Pattern(regexp = "^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+$", message = "Lastname must not contain numbers or special characters")
     private String lastName;
 
     @Pattern(regexp = "\\d{11}", message = "PESEL must be exactly 11 digits")

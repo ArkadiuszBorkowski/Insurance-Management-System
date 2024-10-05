@@ -42,10 +42,10 @@
 
             <BR>
             <!--Sekcja wyszukiwania klienta po PESEL -->
-            <section th:if="${policy.client == null}" class="container card-panel grey lighten-5">
+            <section th:if="${policy.client == null}" class="container card-panel grey lighten-5" style="margin-bottom: 20px">
 
                 <form id="peselSearchForm">
-                    <div class="row">
+                    <div class="row" style="margin-bottom: 1px">
                         <div class="input-field col s12 m6 l3">
                             <i class="material-icons prefix">badge</i>
                             <label for="peselSearch">WYSZUKAJ PO PESEL</label>
@@ -68,12 +68,12 @@
                 <!--===========================================================-->
                 <!-- - - - - D - A - N - E - - K - L - I - E - N - T - A - - - -->
                 <!--===========================================================-->
-                <section th:replace="~{policy_client_fragments :: policy_client_data}"></section>
+                <section th:replace="~{policy/policy_client_fragments :: policy_client_data}"></section>
                 <BR>
                 <!--===========================================================-->
                 <!-- - - - -  D - A - N - E - - P - O - L - I - S - Y -  - - - -->
                 <!--===========================================================-->
-                <section th:replace="~{policy_data_fragments :: policy_data}"></section>
+                <section th:replace="~{policy/policy_data_fragments :: policy_data}"></section>
                 <BR>
                 <section th:if="${policy.client == null}" class="container card-panel grey lighten-5">
                     <button class="btn waves-effect waves-light" type="submit">ZAPISZ NOWĄ POLISĘ</button>
@@ -93,7 +93,7 @@
 
         <div id="tab2" class="col s12">
             <br>
-            <div th:replace="~{policy_claims_fragments :: policy_claims_data}"></div>
+            <div th:replace="~{policy/policy_claims_fragments :: policy_claims_data}"></div>
         </div>
 
         <!--======================================================-->
@@ -102,7 +102,7 @@
         <!--======================================================-->
         <div id="tab3" class="col s12">
             <br>
-            <div th:replace="~{policy_documents_fragments :: policy_documents_data}"></div>
+            <div th:replace="~{policy/policy_documents_fragments :: policy_documents_data}"></div>
         </div>
 
 

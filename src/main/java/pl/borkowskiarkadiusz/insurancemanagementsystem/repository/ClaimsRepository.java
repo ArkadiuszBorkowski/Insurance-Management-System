@@ -6,6 +6,6 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Client;
 
 import java.util.Optional;
 
-public interface ClaimsRepository extends JpaRepository<Claims, Integer> {
+public interface ClaimsRepository extends JpaRepository<Claims, Long> {
     Optional<Claims> findByPolicyId(Long policyId);
 }

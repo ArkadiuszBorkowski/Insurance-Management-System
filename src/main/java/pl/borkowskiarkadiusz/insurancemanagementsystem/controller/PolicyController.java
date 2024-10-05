@@ -2,6 +2,9 @@ package pl.borkowskiarkadiusz.insurancemanagementsystem.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,30 +14,27 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.AddressDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClientDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.InsuranceProductDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTO;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ClientService;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.InsuranceProductService;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.service.PdfService;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.PolicyService;
 
-import java.io.File;
-import java.util.Arrays;
+import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 class PolicyController {
 
     private final PolicyService policyService;
     private final InsuranceProductService insuranceProductService;
-    private final ClientService clientService;
+    private final PdfService pdfService;
 
     @Autowired
-    PolicyController(PolicyService policyService, InsuranceProductService insuranceProductService, ClientService clientService) {
+    PolicyController(PolicyService policyService, InsuranceProductService insuranceProductService, PdfService pdfService) {
         this.policyService = policyService;
         this.insuranceProductService = insuranceProductService;
-        this.clientService = clientService;
+        this.pdfService = pdfService;
     }
 
-    //pobieranie konkretnej polisy
     @GetMapping("/policy/{id}")
     public String getPolicy(@PathVariable Long id, Model model) {
         PolicyDTO policyDTO = policyService.getPolicyById(id);
@@ -44,8 +44,7 @@ class PolicyController {
         model.addAttribute("policy", policyDTO);
         model.addAttribute("products", productDTOs);
         model.addAttribute("templateNames", templateNames);
-
-        return "policy";
+        return "policy/policy";
     }
 
     @GetMapping("/templates/policy_documents/{templateName}")
@@ -61,7 +60,7 @@ class PolicyController {
         List<InsuranceProductDTO> productDTOs = insuranceProductService.getAllProducts();
         model.addAttribute("policy", new PolicyDTO());
         model.addAttribute("products", productDTOs);
-        return "policy";
+        return "policy/policy";
     }
 
     //pobieranie listy polis
@@ -72,7 +71,7 @@ class PolicyController {
                               @RequestParam(required = false) String policyNumber) {
         Page<PolicyDTO> policyDTOPage = policyService.getPoliciesByPeselOrPolicyNumber(pesel, policyNumber, page);
         model.addAttribute("policiesPage", policyDTOPage);
-        return "policies";
+        return "policy/policies";
     }
 
     //zapisywanie formularza
@@ -82,6 +81,20 @@ class PolicyController {
         policyDTO.getClient().setAddress(addressDTO);
         PolicyDTO savedPolicy = policyService.savePolicy(policyDTO);
         return "redirect:/policy/" + savedPolicy.getId();
+    }
+
+    @GetMapping("/download/pdf")
+    public ResponseEntity<byte[]> downloadPdf(@RequestParam String templateName, @RequestParam Long policyId) throws IOException {
+        PolicyDTO policyDTO = policyService.getPolicyById(policyId);
+        String htmlContent = policyService.getHtmlContent(templateName, policyDTO);
+
+        byte[] pdfBytes = pdfService.generatePdfFromHtml(htmlContent);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "document.pdf");
+
+        return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     }
 
 }

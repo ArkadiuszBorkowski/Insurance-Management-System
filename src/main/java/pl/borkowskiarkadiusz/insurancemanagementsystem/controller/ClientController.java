@@ -1,26 +1,26 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Client;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.ClientRepository;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.InsuranceProductRepository;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClientDTO;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ClientService;
 
 @Controller
 class ClientController {
 
-    @Autowired
-    private ClientRepository clientRepository;
+    private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
+    private final ClientService clientService;
 
     @Autowired
-    private InsuranceProductRepository insuranceProductRepository;
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
 
     @GetMapping("/clients")
     public String getClients() {
@@ -29,22 +29,12 @@ class ClientController {
 
     @GetMapping("/client/search")
     @ResponseBody
-    public ResponseEntity<Client> searchClientByPesel(@RequestParam String pesel) {
-        System.out.println("Received request for PESEL: " + pesel);
-        Client client = clientRepository.findByPesel(pesel)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid PESEL: " + pesel));
-        System.out.println("Response: " + client);
-        return ResponseEntity.ok(client);
+    public ResponseEntity<ClientDTO> searchClientByPesel(@RequestParam String pesel) {
+        logger.info("Received request for PESEL: {}", pesel);
+        ClientDTO clientDTO = clientService.searchClientByPesel(pesel);
+        logger.info("Response: {}", clientDTO);
+        return ResponseEntity.ok(clientDTO);
     }
-
-/*    @GetMapping("/client/search")
-    public String searchClientByPesel(@RequestParam String pesel, @ModelAttribute Policy policy, Model model) {
-        Client client = clientRepository.findByPesel(pesel)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid PESEL: " + pesel));
-        policy.setClient(client);
-        model.addAttribute("policy", policy);
-        return "policy";
-    }*/
 
 }
 

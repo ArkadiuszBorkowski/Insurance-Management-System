@@ -8,10 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.ClientRepository;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyRepository;
 
 import java.io.File;
@@ -24,13 +25,17 @@ import java.util.stream.Collectors;
 public class PolicyService {
 
     private static final Logger logger = LoggerFactory.getLogger(PolicyService.class);
+
     private final PolicyRepository policyRepository;
     private final ModelMapper modelMapper;
+    private final SpringTemplateEngine templateEngine;
+
 
     @Autowired
-    public PolicyService(PolicyRepository policyRepository, ModelMapper modelMapper) {
+    public PolicyService(PolicyRepository policyRepository, ModelMapper modelMapper, SpringTemplateEngine templateEngine) {
         this.policyRepository = policyRepository;
         this.modelMapper = modelMapper;
+        this.templateEngine = templateEngine;
     }
 
     public long getTotalPolicies() {
@@ -87,6 +92,12 @@ public class PolicyService {
                 .filter(file -> file.isFile() && file.getName().endsWith(".html"))
                 .map(File::getName)
                 .collect(Collectors.toList());
+    }
+
+    public String getHtmlContent(String templateName, PolicyDTO policyDTO) {
+        Context context = new Context();
+        context.setVariable("policy", policyDTO);
+        return templateEngine.process("policy_documents/" + templateName, context);
     }
 
 
