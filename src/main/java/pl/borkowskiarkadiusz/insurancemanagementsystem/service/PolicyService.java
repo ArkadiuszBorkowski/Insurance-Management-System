@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTO;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTOWithoutClaims;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyRepository;
@@ -18,6 +19,7 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyReposito
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -98,6 +100,12 @@ public class PolicyService {
         Context context = new Context();
         context.setVariable("policy", policyDTO);
         return templateEngine.process("policy_documents/" + templateName, context);
+    }
+
+
+    public Optional<PolicyDTOWithoutClaims> checkPolicyNumber(String policyNumber) {
+        return policyRepository.findByPolicyNumber(policyNumber)
+                .map(policy -> modelMapper.map(policy, PolicyDTOWithoutClaims.class));
     }
 
 

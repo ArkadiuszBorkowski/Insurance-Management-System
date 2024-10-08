@@ -46,18 +46,10 @@ public class Client {
     @Pattern(regexp = "\\d{9,}", message = "Phone number must be at least 9 digits")
     private String mobileNumber;
 
-
     @Embedded
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "client")
     @JsonIgnore
     private Set<Policy> policies;
-
-
 }
-
-
-
-
-

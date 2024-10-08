@@ -58,7 +58,7 @@
                 <th>Data początku</th>
                 <th>Data końca</th>
                 <th>Produkt</th>
-                <th>Składka</th>
+                <th>Status polisy</th>
                 <th>Imię</th>
                 <th>Nazwisko</th>
                 <th>Pesel</th>
@@ -71,7 +71,7 @@
                 <td th:text="${policy.startDate}"></td>
                 <td th:text="${policy.endDate}"></td>
                 <td th:text="${policy.insuranceProduct.productName}"></td>
-                <td th:text="${policy.premium}"></td>
+                <td th:text="${policy.policyStatus}"></td>
                 <td th:text="${policy.getClient().getFirstName()}"></td>
                 <td th:text="${policy.getClient().getLastName()}"></td>
                 <td th:text="${policy.getClient().getPesel()}"></td>

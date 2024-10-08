@@ -26,5 +26,4 @@ public class Address {
     @Pattern(regexp = "\\d{2}-\\d{3}", message = "Zipcode must be in the format XX-XXX")
     private String zipcode;
 
-
 }

@@ -255,9 +255,80 @@
                     messageText.className = `${color}-text text-darken-4`;
                     messageContainer.style.display = 'block';
                 }
-
             });
         </script>
+
+        <!-- ZACZYTYWANIE POLISY DO SEKCJI SZKÓD, STYL KOUMNIKATÓW -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.getElementById('policyNumberSearchForm');
+                form.addEventListener('submit', async function (event) {
+                    event.preventDefault();
+                    const policyNumber = document.getElementById('policyNumberSearch').value;
+
+                    try {
+                        const response = await fetch(`/checkPolicyNumber?policyNumber=${policyNumber}`);
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                            showMessage('Polisa nie została odnaleziona.', 'red');
+                        }
+                        const data = await response.json();
+                        document.getElementById('policyId').value = data.id;
+                        document.getElementById('policyNumber').value = data.policyNumber;
+                        document.getElementById('startDate').value = data.startDate;
+                        document.getElementById('endDate').value = data.endDate;
+                        document.getElementById('premium').value = data.premium;
+                        document.getElementById('coverageAmount').value = data.coverageAmount;
+                        document.getElementById('reserveAmount').value = data.reserveAmount;
+                        document.getElementById('insuranceProduct').value = data.insuranceProduct.productName;
+                        document.getElementById('policyStatus').textContent = data.policyStatus ? `DANE POLISY: ${data.policyStatus}` : 'DANE POLISY: ';
+
+
+                        // Aktualizacja etykiet
+                        M.updateTextFields();
+                        showMessage(`Polisa o numerze:  ${data.policyNumber} zawarta przez  ${data.client.firstName} ${data.client.lastName} została odnaleziona. Dane z polisy zostaną zaczytane.`, 'green');
+
+                        // Pokaż sekcję claim_data
+                        document.getElementById('claim_data').style.display = 'block';
+                        document.getElementById('search_data').style.display = 'none';
+                        // Zmień kroki w formularzu
+                        document.getElementById('steps_2').classList.remove('inactive-step');
+                        document.getElementById('steps_2').classList.add('active-step');
+
+
+                    } catch (error) {
+                        console.error('There was a problem with the fetch operation:', error);
+                        showMessage('Polisa nie została odnaleziona. Utwórz lub zaimportuj polisę by utworzyć szkodę.', 'red');
+                    }
+                });
+
+                function showMessage(message, color) {
+                    M.toast({html: message, classes: `${color} rounded`});
+                }
+            });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const policyNumberInput = document.getElementById('policyNumber');
+                const claimDataSection = document.getElementById('claim_data');
+
+                function checkPolicyNumber() {
+                    if (policyNumberInput.value.trim() === '') {
+                        claimDataSection.style.display = 'none';
+                    } else {
+                        claimDataSection.style.display = 'block';
+                    }
+                }
+
+                // Sprawdź wartość pola input przy ładowaniu strony
+                checkPolicyNumber();
+
+                // Sprawdź wartość pola input przy każdej zmianie
+                policyNumberInput.addEventListener('input', checkPolicyNumber);
+
+            });
+        </script>-->
 
         <!-- ZACZYTYWANIE PRODUKTÓW DO SEKCJI FORMULARZA POLISOWEGO -->
         <script>

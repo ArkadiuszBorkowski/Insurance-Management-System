@@ -17,16 +17,16 @@
 
 <main>
 
-    <section class="container card-panel red lighten-1" style="margin-bottom: 20px">
+    <section class="container card-panel orange darken-4" style="margin-bottom: 20px">
         <div id="steps_1" class="steps active-step">WERYFIKACJA POLISY</div>
         <div id="steps_2" class="steps inactive-step">REJESTRACJA ROSZCZENIA</div>
         <div id="steps_3" class="steps inactive-step">PODJĘCIE DECYZJI</div>
-        <div id="steps_4" class="steps inactive-step">WYPŁATA ODSZKODOWANIA</div>
     </section>
 
     <BR>
     <!--Sekcja wyszukiwania polisy po numerze polisy -->
-    <section id="search_data"  th:if="${policy.client == null}" class="container card-panel green lighten-5" style="margin-bottom: 20px">
+    <section id="search_data" th:if="${policy.client == null}" class="container card-panel green lighten-5"
+             style="margin-bottom: 20px">
         <span class="flow-text grey-text text-darken-2">ABY ZAREJESTROWAĆ SZKODĘ SPRAWDŹ CZY UBEZPIECZONY POSIADA POLISE:</span>
         <form id="policyNumberSearchForm">
             <div class="row" style="margin-bottom: 1px">
@@ -46,28 +46,16 @@
         </form>
     </section>
 
-    <form id="claimForm" th:action="@{/claim}" th:object="${claim}" method="post">
+    <form th:action="@{/claim}" th:object="${claim}" method="post">
 
         <section id="claim_data" class="container card-panel grey lighten-5">
-            <!--<span id="policyStatus" th:if="${policy.policyStatus != null}" class="flow-text grey-text text-darken-2" th:text="'DANE POLISY: ' + ${policy.policyStatus}"></span>-->
-            <span id="policyStatus" class="flow-text grey-text text-darken-2">DANE POLISY:</span>
-
-
+            <span class="flow-text grey-text text-darken-2">DANE POLISY</span>
             <!-- sekcja 1 -->
             <!-- ZAWARTOŚĆ CZĘŚCI POLISOWEJ -->
             <section th:fragment="claim_policy_data">
                 <!-- ============= L - I - N - I - A - 1 ============= - -->
                 <div class="row">
-                    <!-- P - O - L - I - C - Y - - I D -->
-                    <div class="input-field col s12 m6 l3">
-                        <i class="material-icons prefix">policy id</i>
-                        <label for="policyId">ID POLISY</label>
-                        <input type="text" id="policyId" name="policyId" required class="validate" readonly
-                               th:value="${claims != null && claims.policy !=null ? claims.policy.id : ''}"
-                               th:disabled="${claims != null && policy.id != null}">
-                    </div>
-
-                    <!-- P -O - L - I - S - A -->
+                    <!-- POLISA -->
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">policy</i>
                         <label for="policyNumber">POLISA</label>
@@ -76,10 +64,19 @@
                                th:disabled="${claims != null && policy.policyNumber != null}">
                     </div>
 
+                    <!-- POLISA -->
+                    <div class="input-field col s12 m6 l3">
+                        <i class="material-icons prefix">policy id</i>
+                        <label for="policyID">POLISA</label>
+                        <input type="text" id="policyID" name="policyID" required class="validate" readonly
+                               th:value="${claims != null && policy.id !=null ? policy.id : ''}"
+                               th:disabled="${claims != null && policy.id != null}">
+                    </div>
+
                     <!-- D - A - T - A - - Z - A - W - A - R - C - I - A -->
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">calendar_month</i>
-                        <label for="startDate">DATA ZAWARCIA POLISY</label>
+                        <label for="startDate">DATA ZAWARCIA</label>
                         <input type="text" id="startDate" name="startDate" required class="validate" readonly
                                th:value="${claims != null && policy.startDate !=null ? policy.startDate : ''}"
                                th:disabled="${policy != null && policy.startDate != null}">
@@ -88,77 +85,52 @@
                     <!-- - - - D - A - T - A - - K - O - Ń - C - A - - - -->
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">event_repeat</i>
-                        <label for="endDate">DATA WYGAŚNIĘCIA POLISY</label>
+                        <label for="endDate">DATA WYGAŚNIĘCIA</label>
                         <input type="text" id="endDate" name="endDate" required class="validate" readonly
                                th:value="${policy != null ? policy.endDate : ''}"
                                th:disabled="${policy != null && policy.endDate != null}">
                     </div>
-                </div>
-                <div class="row">
-
-                    <!-- S - K - Ł - A - D - K - A - - P -O - L - I - S - Y -->
-                    <div class="input-field col s12 m6 l3">
-                        <i class="material-icons prefix">payments</i>
-                        <label for="premium">SKŁADKA POLISY</label>
-                        <input type="text" id="premium" name="premium" required class="validate"
-                               pattern="^\d+(\.\d{1,2})?$" th:value="${policy != null ? policy.premium : ''}"
-                               th:disabled="${policy != null && policy.premium != null}">
-                        <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
-                        <span id="premium-currency-label" class="currency-label">zł</span>
-                    </div>
-                    <!-- S - U - M - A - - U - B - E - Z - P - I - E - C - Z - E - N - I - A -->
-                    <div class="input-field col s12 m6 l3">
-                        <i class="material-icons prefix">paid</i>
-                        <label for="coverageAmount">SUMA UBEZPIECZENIA</label>
-                        <input type="text" id="coverageAmount" name="coverageAmount" required class="validate"
-                               pattern="^\d+(\.\d{1,2})?$" th:value="${policy != null ? policy.coverageAmount : ''}"
-                               th:disabled="${policy != null && policy.coverageAmount != null}">
-                        <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
-                        <span id="coverageAmount-currency-label" class="currency-label">zł</span>
-                    </div>
-                    <!-- - - - - - - - - - - R - E - Z - E - R - W - A - - - - - - - - - - -->
-                    <div class="input-field col s12 m6 l3">
-                        <i class="material-icons prefix">savings</i>
-                        <label for="reserveAmount">REZERWA UBEZPIECZENIOWA</label>
-                        <input type="text" id="reserveAmount" name="reserveAmount" required class="validate"
-                               pattern="^\d+(\.\d{1,2})?$" th:value="${policy != null ? policy.reserveAmount : ''}"
-                               th:disabled="${policy != null && policy.reserveAmount != null}">
-                        <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
-                        <span id="reserveAmount-currency-label" class="currency-label">zł</span>
-                    </div>
 
                     <div class="label-select col s12 m6 l3">
-                        <label for="insuranceProduct">PRODUKT UBEZPIECZENIOWY</label>
-                        <input type="text" id="insuranceProduct" name="insuranceProduct" required th:disabled="${policy.insuranceProduct != null}" th:value="${policy.insuranceProduct != null ? policy.insuranceProduct.productName : ''}">
+                        <label for="policyStatus">STATUS POLISY</label>
+                        <select id="policyStatus" name="policyStatus">
+                            <i class="material-icons prefix">personal_injury</i>
+                            <option value="" disabled selected>STATUS POLISY</option>
+                            <option th:each="status : ${policyStatus}" th:value="${status}"
+                                    th:text="${status}">
+                            </option>
+                        </select>
                     </div>
 
-
-
-
                 </div>
-
             </section>
 
             <!-- sekcja 2 -->
             <!-- ZAWARTOŚĆ STRONY -->
             <section th:fragment="claim_data">
-                <span class="flow-text grey-text text-darken-2">DANE SZKODY</span>
 
                 <!-- ============= L - I - N - I - A - 1 ============= - -->
                 <div class="row">
 
-             <!--       &lt;!&ndash; Status Roszczenia &ndash;&gt;
-                    <div class="label-select col s12 m6 l3">
-                        <label for="claimStatus">STATUS ROSZCZENIA</label>
-                        <select id="claimStatus" name="claimStatus" required>
-                            <option value="" disabled selected>NOWE_ROSZCZENIE</option>
-                            <option th:each="status : ${statuses}"
-                                    th:value="${status}" th:text="${status}"
-                                    th:selected="${status} == ${claims.claimStatus}"></option>
-                        </select>
-                    </div>
--->
 
+                    <!--             &lt;!&ndash; NUMER ROSZCZENIA &ndash;&gt;
+                                 <div class="input-field col s12 m6 l3">
+                                     <i class="material-icons prefix">newspaper</i>
+                                     <label for="id">ID ROSZCZENIA</label>
+                                     <input type="text" id="id" name="id" class="validate" readonly
+                                            th:value="${claims != null ? claims.id : ''}"
+                                            th:disabled="${claims != null && claims.id != null}">
+                                 </div>-->
+
+
+                    <!-- NUMER ROSZCZENIA -->
+                    <div class="input-field col s12 m6 l3">
+                        <i class="material-icons prefix">newspaper</i>
+                        <label for="claimsNumber">NUMER ROSZCZENIA</label>
+                        <input type="text" id="claimsNumber" name="claimsNumber" class="validate" readonly
+                               th:value="${claims != null ? claims.claimNumber : ''}"
+                               th:disabled="${claims != null && claims.claimNumber != null}">
+                    </div>
 
                     <!-- DATA REJESTRACJI ROSZCZENIA -->
                     <div class="input-field col s12 m6 l3">
@@ -179,14 +151,33 @@
                                th:disabled="${claims != null && claims.claimDate != null}">
                     </div>
 
-                    <!-- NUMER ROSZCZENIA -->
-                    <div class="input-field col s12 m6 l3">
-                        <i class="material-icons prefix">newspaper</i>
-                        <label for="claimsNumber">NUMER ROSZCZENIA</label>
-                        <input type="text" id="claimsNumber" name="claimsNumber" class="validate" readonly
-                               th:value="${claims != null ? claims.claimNumber : ''}"
-                               th:disabled="${claims != null && claims.claimNumber != null}">
-                    </div>
+
+                    <!--     &lt;!&ndash; PRODUKT UBEZPIECZENIOWY &ndash;&gt;
+                                <div class="input-field col s12 m6 l3">
+                                    <i class="material-icons prefix">calendar_month</i>
+                                    <label for="products">PRODUKT UBEZPIECZENIOWY</label>
+                                    <input type="text" id="products" name="products" required class="datepicker validate"
+                                           th:value="${claims != null && policy.insuranceProduct.productName != null ? policy.insuranceProduct.productName : ''}"
+                                           th:disabled="${claims != null && policy.insuranceProduct != null}">
+                                </div>-->
+
+                    <!--            &lt;!&ndash; - - - - - P - R - O - D - U - K - T - - - - - &ndash;&gt;
+                                <div class="label-select col s12 m6 l3">
+                                    <label for="insuranceProduct">PRODUKT UBEZPIECZENIOWY</label>
+                                    <select id="insuranceProduct" name="insuranceProduct" required th:disabled="${policy.insuranceProduct != null}">
+                                        <option value="" disabled selected>PRODUKT UBEZPIECZENIOWY</option>
+                                        <option th:each="product : ${products}" th:value="${product.id}"
+                                                th:text="${product.productName}"
+                                                th:selected="${product.id == (policy.insuranceProduct != null ? policy.insuranceProduct.id : -1)}">
+                                        </option>
+                                    </select>
+                                </div>-->
+
+
+
+
+
+
 
                 </div>
 
@@ -203,7 +194,7 @@
                         </div>
                     </div>
                 </div>
- <!--               <div class="row">
+                <div class="row">
 
 
                     <div class="label-select col s12 m6 l3">
@@ -217,7 +208,7 @@
                     </div>
 
 
-                    &lt;!&ndash; Status Roszczenia &ndash;&gt;
+                    <!-- Status Roszczenia -->
                     <div class="label-select col s12 m6 l3">
                         <label for="claimStatus">STATUS ROSZCZENIA</label>
                         <select id="claimStatus" name="claimStatus" required>
@@ -228,8 +219,8 @@
                         </select>
                     </div>
 
-                </div>-->
 
+                </div>
                 <!-- Przycisk Zatwierdź -->
                 <div class="input-field col s12 m6 l3">
                     <button class="btn waves-effect waves-light" type="submit" name="action">ZAREJESTRUJ SZKODĘ

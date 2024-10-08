@@ -18,6 +18,7 @@
         <thead>
         <tr>
             <th class="hidden-column">ID</th> <!-- Dodana klasa -->
+            <th>Numer szkody</th>
             <th>Opis</th>
             <th>Data zgłoszenia</th>
             <th>Status</th>
@@ -28,6 +29,7 @@
         <tbody>
         <tr th:each="claim : ${policy.claims}">
             <td class="hidden-column" th:text="${claim.id}"></td> <!-- Dodana klasa -->
+            <td th:text="${claim.claimNumber}"></td>
             <td th:text="${claim.description}"></td>
             <td th:text="${claim.claimDate}"></td>
             <td th:text="${claim.claimStatus}"></td>

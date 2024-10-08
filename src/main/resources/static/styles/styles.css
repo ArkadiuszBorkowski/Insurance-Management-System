@@ -11,6 +11,7 @@ nav .brand-logo {
     display: contents;
 }
 
+
 body {
     font-family: 'Roboto', sans-serif;
 }
@@ -137,6 +138,36 @@ span.badge {
     height: 1000px;
     background-color: white;
     border-bottom: 1px solid #000;
+}
+
+.steps {
+    font-size: 25px;
+    color: white;
+    display: inline-block;
+}
+
+.steps:before {
+    content: '\E5CC';
+    color: rgba(255, 255, 255, 0.7);
+    vertical-align: top;
+    display: inline-block;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 25px;
+    margin: 0 10px 0 8px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.steps:first-child:before {
+    display: none
+}
+
+.active-step {
+    color: white;
+}
+.inactive-step {
+    color: #c94444;
 }
 
 /* KONIEC STYLI TABELI */

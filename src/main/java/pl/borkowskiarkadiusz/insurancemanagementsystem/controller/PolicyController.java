@@ -10,16 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.AddressDTO;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClientDTO;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.InsuranceProductDTO;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTO;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.*;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.PolicyStatus;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.InsuranceProductService;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.PdfService;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.PolicyService;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 class PolicyController {
@@ -40,10 +39,11 @@ class PolicyController {
         PolicyDTO policyDTO = policyService.getPolicyById(id);
         List<InsuranceProductDTO> productDTOs = insuranceProductService.getAllProducts();
         List<String> templateNames = policyService.getTemplateNames();
-
+        policyDTO.updatePolicyStatus();
         model.addAttribute("policy", policyDTO);
         model.addAttribute("products", productDTOs);
         model.addAttribute("templateNames", templateNames);
+
         return "policy/policy";
     }
 
@@ -59,6 +59,7 @@ class PolicyController {
     public String getEmptyPolicyForm(Model model) {
         List<InsuranceProductDTO> productDTOs = insuranceProductService.getAllProducts();
         model.addAttribute("policy", new PolicyDTO());
+        model.addAttribute("policyStatusList", PolicyStatus.values());
         model.addAttribute("products", productDTOs);
         return "policy/policy";
     }
@@ -79,6 +80,7 @@ class PolicyController {
     public String savePolicy(@ModelAttribute PolicyDTO policyDTO, ClientDTO clientDTO, AddressDTO addressDTO, BindingResult result, Model model) {
         policyDTO.setClient(clientDTO);
         policyDTO.getClient().setAddress(addressDTO);
+        policyDTO.updatePolicyStatus();
         PolicyDTO savedPolicy = policyService.savePolicy(policyDTO);
         return "redirect:/policy/" + savedPolicy.getId();
     }
@@ -95,6 +97,15 @@ class PolicyController {
         headers.setContentDispositionFormData("attachment", "document.pdf");
 
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/checkPolicyNumber")
+    @ResponseBody
+    public ResponseEntity<PolicyDTOWithoutClaims> checkPolicyNumber(@RequestParam String policyNumber) {
+        Optional<PolicyDTOWithoutClaims> policyDTO = policyService.checkPolicyNumber(policyNumber);
+        return policyDTO.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
 }

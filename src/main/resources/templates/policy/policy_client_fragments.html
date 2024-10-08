@@ -21,7 +21,7 @@
       <i class="material-icons prefix">person</i>
       <label for="firstName">IMIE UBEZPIECZONEGO</label>
       <input type="text" id="firstName" name="firstName" required class="validate"
-             pattern="^[a-zA-Z]+$" th:value="${policy.client != null ? policy.client.firstName : ''}">
+             pattern="^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+$" th:value="${policy.client != null ? policy.client.firstName : ''}">
 
       <span class="helper-text" data-error="Imię powinno składać się tylko z liter"></span>
     </div>
@@ -32,7 +32,7 @@
       <i class="material-icons prefix">person</i>
       <label for="lastName">NAZWISKO UBEZPIECZONEGO</label>
       <input type="text" id="lastName" name="lastName" required class="validate"
-             pattern="^[a-zA-Z]+$" th:value="${policy.client != null ? policy.client.lastName : ''}">
+             pattern="^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+$" th:value="${policy.client != null ? policy.client.lastName : ''}">
       <span class="helper-text" data-error="Nazwisko powinno składać się tylko z liter"></span>
     </div>
 

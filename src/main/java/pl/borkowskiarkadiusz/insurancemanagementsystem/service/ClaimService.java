@@ -6,7 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClaimsDTO;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Claims;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.ClaimsRepository;
 
@@ -29,6 +31,17 @@ public class ClaimService {
                 .orElseThrow(() -> new ResourceNotFoundException("Invalid policy Id: " + id));
         ClaimsDTO claimsDTO = modelMapper.map(claims, ClaimsDTO.class);
         return claimsDTO;
+    }
+
+    public ClaimsDTO saveClaims(ClaimsDTO claimsDTO) {
+        try {
+            Claims claims = modelMapper.map(claimsDTO, Claims.class);
+            Claims savedClaims = claimsRepository.save(claims);
+            return modelMapper.map(savedClaims, ClaimsDTO.class);
+        } catch (Exception e) {
+            logger.error("Error saving policy: {}", claimsDTO, e);
+            throw e;
+        }
     }
 
 
