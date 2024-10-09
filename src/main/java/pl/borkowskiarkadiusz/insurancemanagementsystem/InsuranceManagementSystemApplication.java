@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 public class InsuranceManagementSystemApplication {
 
     public static void main(String[] args) {
-        log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXX started");
+        //log.info("XXXXXXXXXXXXXXXXXXXXXXXXXXXX started");
         SpringApplication.run(InsuranceManagementSystemApplication.class, args);
     }
 

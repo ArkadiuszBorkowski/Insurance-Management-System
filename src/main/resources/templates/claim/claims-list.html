@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<!-- - - - - - - - - - - H - E - A - D - - - - - - - - - - - - -->
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<!-- - - - - - - - - - - M - E - N - U - - - - - - - - - - - - -->
+<header th:replace="~{fragments :: header}">
+
+</header>
+<!-- - - - W - Y - S - Z - U - K - I - W - A - R - K - A - - - -->
+<nav th:replace="~{fragments :: search}"></nav>
+<br><br>
+
+<!--Z - A - W - A - R - T - O - Ś - Ć - - S - T - R - O - N - Y-->
+
+<main>
+    <div class="container">
+
+        <h4>Lista szkód</h4>
+        <!-- Sekcja filtrowania listy i zawężania rekordów -->
+
+        <ul class="collapsible">
+            <li>
+                <div class="collapsible-header"><i class="material-icons">filter_list</i>Filtry i sortowanie</div>
+                <div class="collapsible-body">
+
+                    <form th:action="@{/claims}" method="get">
+                        <div class="input-field">
+                            <input type="text" id="pesel" name="pesel" th:value="${pesel}">
+                            <label for="pesel">PESEL</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="text" id="claimNumber" name="claimNumber" th:value="${claimNumber}">
+                            <label for="claimNumber">Numer szkody</label>
+                        </div>
+                        <div class="input-field">
+                            <select name="sortBy">
+                                <option value="claimNumber" th:selected="${sortBy == 'claimNumber'}">Numer szkody</option>
+                                <option value="claimDate" th:selected="${sortBy == 'claimDate'}">Data szkody</option>
+                                <option value="claimRegistrationDate" th:selected="${sortBy == 'claimRegistrationDate'}">Data rejestracji</option>
+                                <option value="claimStatus" th:selected="${sortBy == 'claimStatus'}">Status szkody</option>
+                                <option value="decision" th:selected="${sortBy == 'decision'}">Decyzja</option>
+                            </select>
+                            <label>Sortuj na podstawie:</label>
+                        </div>
+                        <button type="submit" class="btn">Wykonaj filtrowanie</button>
+                    </form>
+
+                </div>
+            </li>
+        </ul>
+
+        <table class="highlight responsive-table">
+            <thead>
+            <tr>
+                <th>Numer szkody</th>
+                <th>Opis</th>
+                <th>Data szkody</th>
+                <th>Data rejestracji</th>
+                <th>Status szkody</th>
+                <th>Decyzja</th>
+                <th>Numer polisy</th>
+                <th>PESEL klienta</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="claim : ${claimsPage}" style="cursor: pointer"
+                th:data-url="@{/claims/{id}(id=${claim.id})}"
+                th:onclick="'javascript:rowClicked(this);'">
+                <td th:text="${claim.claimNumber}"></td>
+                <td th:text="${claim.description}"></td>
+                <td th:text="${claim.claimDate}"></td>
+                <td th:text="${claim.claimRegistrationDate}"></td>
+                <td th:text="${claim.claimStatus}"></td>
+                <td th:text="${claim.decision}"></td>
+                <td th:text="${claim.policy.policyNumber}"></td>
+                <td th:text="${claim.policy.client.pesel}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="pagination center">
+            <li th:classappend="${claimsPage.hasPrevious()} ? 'waves-effect' : 'disabled'">
+                <a th:href="@{/claims(page=${claimsPage.number - 1}, sortBy=${sortBy})}"><i class="material-icons">chevron_left</i></a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(0, claimsPage.totalPages - 1)}"
+                th:classappend="${claimsPage.number == i} ? 'active' : 'waves-effect'">
+                <a th:href="@{/claims(page=${i}, sortBy=${sortBy})}" th:text="${i + 1}">1</a>
+            </li>
+            <li th:classappend="${claimsPage.hasNext()} ? 'waves-effect' : 'disabled'">
+                <a th:href="@{/claims(page=${claimsPage.number + 1}, sortBy=${sortBy})}"><i class="material-icons">chevron_right</i></a>
+            </li>
+        </ul>
+    </div>
+
+</main>
+
+<!-- - - - - - - - - S - T - O - P - K - A - - - - - - - - - - -->
+<footer th:replace="~{fragments :: footer}"></footer>
+
+<!-- - - P - Ł - Y - W - A - J - Ą - C - Y  -  - P - R - Z - Y - C - I - S - K - - -->
+<div th:replace="~{fragments :: floating_btn}"></div>
+
+<!-- - - - - - - - - S - K - R - Y - P - T - Y - - - - - - - - -->
+<div th:replace="~{fragments :: script_js}"></div>
+
+</body>
+</html>

@@ -21,7 +21,7 @@
     <div class="container">
 
         <h4>Lista polis</h4>
-        <!--sekcja filtrowania listy i zawężania rekordów -->
+        <!-- Sekcja filtrowania listy i zawężania rekordów -->
 
         <ul class="collapsible">
             <li>
@@ -42,6 +42,7 @@
                                 <option value="policyNumber" th:selected="${sortBy == 'policyNumber'}">Numer polisy</option>
                                 <option value="startDate" th:selected="${sortBy == 'startDate'}">Data zawarcia</option>
                                 <option value="endDate" th:selected="${sortBy == 'endDate'}">Data końca</option>
+                                <option value="policyStatus" th:selected="${sortBy == 'policyStatus'}">Status polisy</option>
                             </select>
                             <label>Sortuj na podstawie:</label>
                         </div>
@@ -51,8 +52,6 @@
                 </div>
             </li>
         </ul>
-
-
 
         <table class="highlight responsive-table">
             <thead>
@@ -69,7 +68,8 @@
             </thead>
             <tbody>
             <tr th:each="policy : ${policiesPage}" style="cursor: pointer"
-                th:onclick="'javascript:rowClicked(\'' +  ${policy.id} + '\');'">
+                th:data-url="@{/policy/{id}(id=${policy.id})}"
+                th:onclick="'javascript:rowClicked(this);'">
                 <td th:text="${policy.policyNumber}"></td>
                 <td th:text="${policy.startDate}"></td>
                 <td th:text="${policy.endDate}"></td>
@@ -83,14 +83,14 @@
         </table>
         <ul class="pagination center">
             <li th:classappend="${policiesPage.hasPrevious()} ? 'waves-effect' : 'disabled'">
-                <a th:href="@{/policies(page=${policiesPage.number - 1})}"><i class="material-icons">chevron_left</i></a>
+                <a th:href="@{/policies(page=${policiesPage.number - 1}, sortBy=${sortBy})}"><i class="material-icons">chevron_left</i></a>
             </li>
             <li th:each="i : ${#numbers.sequence(0, policiesPage.totalPages - 1)}"
                 th:classappend="${policiesPage.number == i} ? 'active' : 'waves-effect'">
-                <a th:href="@{/policies(page=${i})}" th:text="${i + 1}">1</a>
+                <a th:href="@{/policies(page=${i}, sortBy=${sortBy})}" th:text="${i + 1}">1</a>
             </li>
             <li th:classappend="${policiesPage.hasNext()} ? 'waves-effect' : 'disabled'">
-                <a th:href="@{/policies(page=${policiesPage.number + 1})}"><i class="material-icons">chevron_right</i></a>
+                <a th:href="@{/policies(page=${policiesPage.number + 1}, sortBy=${sortBy})}"><i class="material-icons">chevron_right</i></a>
             </li>
         </ul>
     </div>

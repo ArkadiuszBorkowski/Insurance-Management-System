@@ -197,9 +197,16 @@
 
 
     <!-- SEKCJA DYNAMICZNEJ LISTY- ODNOŚNIKI WIERSZY  by https://materializecss.com/ -->
-    <script>
+  <!--  <script>
         function rowClicked(value) {
             location.href = "/policy/" + value;
+        }
+    </script>-->
+
+    <script>
+        function rowClicked(element) {
+            var url = element.getAttribute("data-url");
+            location.href = url;
         }
     </script>
 
@@ -345,30 +352,6 @@
             }
         });
     </script>
-
-
-    <!--        <script>-->
-    <!--            document.addEventListener('DOMContentLoaded', function () {-->
-    <!--                const policyNumberInput = document.getElementById('policyNumber');-->
-    <!--                const claimDataSection = document.getElementById('claim_data');-->
-
-    <!--                function checkPolicyNumber() {-->
-    <!--                    if (policyNumberInput.value.trim() === '') {-->
-    <!--                        claimDataSection.style.display = 'none';-->
-
-    <!--                    } else {-->
-    <!--                        claimDataSection.style.display = 'block';-->
-    <!--                    }-->
-    <!--                }-->
-
-    <!--                // Sprawdź wartość pola input przy ładowaniu strony-->
-    <!--                checkPolicyNumber();-->
-
-    <!--                // Sprawdź wartość pola input przy każdej zmianie-->
-    <!--                policyNumberInput.addEventListener('input', checkPolicyNumber);-->
-
-    <!--            });-->
-    <!--        </script>-->
 
     <!-- ZACZYTYWANIE PRODUKTÓW DO SEKCJI FORMULARZA POLISOWEGO -->
     <script>

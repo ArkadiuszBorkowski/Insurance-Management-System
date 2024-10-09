@@ -4,9 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -60,7 +58,7 @@ public class PolicyService {
     }
 
 
-    public Page<PolicyDTO> getPoliciesByPeselOrPolicyNumber(String pesel, String policyNumber, int page) {
+ /*   public Page<PolicyDTO> getPoliciesByPeselOrPolicyNumber(String pesel, String policyNumber, int page) {
         Page<Policy> policiesPage;
         if (pesel != null && !pesel.isEmpty()) {
             policiesPage = policyRepository.findByClientPesel(pesel, PageRequest.of(page, 10));
@@ -73,6 +71,25 @@ public class PolicyService {
                 .map(policy -> modelMapper.map(policy, PolicyDTO.class))
                 .collect(Collectors.toList());
         return new PageImpl<>(policyDTOs, PageRequest.of(page, 10), policiesPage.getTotalElements());
+    }*/
+
+    public Page<PolicyDTO> getPoliciesByPeselOrPolicyNumber(String pesel, String policyNumber, String sortBy, int page) {
+        Page<Policy> policiesPage;
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sortBy));
+
+        if (pesel != null && !pesel.isEmpty()) {
+            policiesPage = policyRepository.findByClientPesel(pesel, pageable);
+        } else if (policyNumber != null && !policyNumber.isEmpty()) {
+            policiesPage = policyRepository.findByPolicyNumber(policyNumber, pageable);
+        } else {
+            policiesPage = policyRepository.findAll(pageable);
+        }
+
+        List<PolicyDTO> policyDTOs = policiesPage.stream()
+                .map(policy -> modelMapper.map(policy, PolicyDTO.class))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(policyDTOs, pageable, policiesPage.getTotalElements());
     }
 
 

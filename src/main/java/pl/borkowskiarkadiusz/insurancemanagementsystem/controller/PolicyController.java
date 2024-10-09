@@ -65,14 +65,17 @@ class PolicyController {
         return "policy/policy";
     }
 
-    //pobieranie listy polis
     @GetMapping("/policies")
     public String getPolicies(Model model,
                               @RequestParam(defaultValue = "0") int page,
                               @RequestParam(required = false) String pesel,
-                              @RequestParam(required = false) String policyNumber) {
-        Page<PolicyDTO> policyDTOPage = policyService.getPoliciesByPeselOrPolicyNumber(pesel, policyNumber, page);
+                              @RequestParam(required = false) String policyNumber,
+                              @RequestParam(defaultValue = "policyNumber") String sortBy) {
+        Page<PolicyDTO> policyDTOPage = policyService.getPoliciesByPeselOrPolicyNumber(pesel, policyNumber, sortBy, page);
         model.addAttribute("policiesPage", policyDTOPage);
+        model.addAttribute("pesel", pesel);
+        model.addAttribute("policyNumber", policyNumber);
+        model.addAttribute("sortBy", sortBy);
         return "policy/policies";
     }
 

@@ -1,12 +1,12 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.controller;
 
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClaimsDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTO;
@@ -64,19 +64,48 @@ class ClaimsController {
         initializeModelAttributes(model, claimsDTO, policyDTO);
         return viewNames.get("CLAIM_FORM");
     }
-
+    
     // ZAPIS SZKODY
     @PostMapping()
     public String saveClaims(@ModelAttribute ClaimsDTO claimsDTO, @RequestParam Long policyId)  {
 
         PolicyDTOWithoutClaims policyDTO = policyService.getPolicyById(policyId);
         claimsDTO.setPolicy(policyDTO);
-        claimsDTO.setClaimNumber(claimsNumberGenerator.generateClaimsNumber());
+        claimsDTO.setClaimNumber(ClaimsNumberGenerator.generateClaimsNumber());
         claimsDTO.setClaimRegistrationDate(LocalDate.now());
 
         ClaimsDTO savedClaims = claimService.saveClaims(claimsDTO);
         return "redirect:/claims/" + savedClaims.getId();
     }
 
+/*    //pobieranie listy polis
+    @GetMapping
+    public String getClaims(
+            @RequestParam(required = false) String pesel,
+            @RequestParam(required = false) String claimNumber,
+            @RequestParam(defaultValue = "0") int page,
+            Model model) {
+
+        Page<ClaimsDTO> claimsPage = claimService.getClaimsByPeselOrClaimsNumber(pesel, claimNumber, page);
+        model.addAttribute("claimsPage", claimsPage);
+        model.addAttribute("pesel", pesel);
+        model.addAttribute("claimNumber", claimNumber);
+        model.addAttribute("sortBy", "claimNumber"); // domyślne sortowanie
+        return viewNames.get("CLAIM_LIST");
+    }*/
+
+    @GetMapping
+    public String getClaims(Model model,
+                            @RequestParam(defaultValue = "0") int page,
+                            @RequestParam(required = false) String pesel,
+                            @RequestParam(required = false) String claimNumber,
+                            @RequestParam(defaultValue = "claimNumber") String sortBy) {
+        Page<ClaimsDTO> claimsPage = claimService.getClaimsByPeselOrClaimNumber(pesel, claimNumber, sortBy, page);
+        model.addAttribute("claimsPage", claimsPage);
+        model.addAttribute("pesel", pesel);
+        model.addAttribute("claimNumber", claimNumber);
+        model.addAttribute("sortBy", sortBy);
+        return viewNames.get("CLAIM_LIST");
+    }
 
 }

@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClaimsDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTO;
@@ -11,6 +12,9 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Claims;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.ClaimsRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClaimService {
@@ -46,5 +50,44 @@ public class ClaimService {
             throw new RuntimeException("Error saving claim", e);
         }
     }
+
+/*    public Page<ClaimsDTO> getClaimsByPeselOrClaimsNumber(String pesel, String claimNumber, int page) {
+        Page<Claims> claimsPage;
+        Pageable pageable = PageRequest.of(page, 10);
+
+        if (pesel != null && !pesel.isEmpty()) {
+            claimsPage = claimsRepository.findByPolicyClientPesel(pesel, pageable);
+        } else if (claimNumber != null && !claimNumber.isEmpty()) {
+            claimsPage = claimsRepository.findByClaimNumber(claimNumber, pageable);
+        } else {
+            claimsPage = claimsRepository.findAll(pageable);
+        }
+
+        List<ClaimsDTO> claimsDTos = claimsPage.stream()
+                .map(claim -> modelMapper.map(claim, ClaimsDTO.class))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(claimsDTos, pageable, claimsPage.getTotalElements());
+    }*/
+
+    public Page<ClaimsDTO> getClaimsByPeselOrClaimNumber(String pesel, String claimNumber, String sortBy, int page) {
+        Page<Claims> claimsPage;
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sortBy));
+
+        if (pesel != null && !pesel.isEmpty()) {
+            claimsPage = claimsRepository.findByPolicyClientPesel(pesel, pageable);
+        } else if (claimNumber != null && !claimNumber.isEmpty()) {
+            claimsPage = claimsRepository.findByClaimNumber(claimNumber, pageable);
+        } else {
+            claimsPage = claimsRepository.findAll(pageable);
+        }
+
+        List<ClaimsDTO> claimsDTos = claimsPage.stream()
+                .map(claim -> modelMapper.map(claim, ClaimsDTO.class))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(claimsDTos, pageable, claimsPage.getTotalElements());
+    }
+
 
 }
