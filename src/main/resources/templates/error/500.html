@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}">
+</head>
+<body>
+
+
+<header th:replace="~{fragments :: header}">
+</header>
+<nav th:replace="~{fragments :: search}"></nav>
+<br><br>
+
+<main class="main-content">
+    <h1><span class="teal-text text-lighten-2">500</span></h1>
+    <h3><span class="grey-text text-darken-4">Strona nie została odnaleziona</span></h3>
+    <a href="/" class="btn-large waves-effect waves-light">Powrót do strony głównej</a>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+<div th:replace="~{fragments :: floating_btn}"></div>
+<div th:replace="~{fragments :: script_js}"></div>
+
+</body>
+</html>

@@ -35,4 +35,5 @@ public class PolicyDTO extends PolicyDTOWithoutClaims {
             this.policyStatus = PolicyStatus.ZAMKNIĘTA;
         }
     }
+
 }

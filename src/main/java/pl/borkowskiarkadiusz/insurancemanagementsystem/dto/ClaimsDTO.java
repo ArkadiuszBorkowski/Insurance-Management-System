@@ -1,12 +1,12 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.dto;
 
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.ClaimStatus;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ClaimsNumberGenerator;
 
 import java.time.LocalDate;
 
@@ -22,5 +22,13 @@ public class ClaimsDTO {
     private LocalDate claimRegistrationDate;
     private ClaimStatus claimStatus;
     private Decision decision;
-    private PolicyDTO policy;
+    private PolicyDTOWithoutClaims policy;
+
+
+    public void initializeDefaultValues() {
+        this.claimRegistrationDate = LocalDate.now();
+        this.claimStatus = ClaimStatus.NOWE_ROSZCZENIE;
+        this.decision = Decision.ANALIZA;
+        this.claimNumber = ClaimsNumberGenerator.generateClaimsNumber();
+    }
 }

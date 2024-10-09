@@ -28,7 +28,10 @@ public class ClaimService {
 
     public ClaimsDTO getClaimsById(Long id) {
         Claims claims  = claimsRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Invalid policy Id: " + id));
+                .orElseThrow(() -> {
+                            logger.error("Claims not found with id {}" , id);
+                            return new ResourceNotFoundException("Claim not found with id " + id);
+                        });
         ClaimsDTO claimsDTO = modelMapper.map(claims, ClaimsDTO.class);
         return claimsDTO;
     }
@@ -40,9 +43,8 @@ public class ClaimService {
             return modelMapper.map(savedClaims, ClaimsDTO.class);
         } catch (Exception e) {
             logger.error("Error saving policy: {}", claimsDTO, e);
-            throw e;
+            throw new RuntimeException("Error saving claim", e);
         }
     }
-
 
 }

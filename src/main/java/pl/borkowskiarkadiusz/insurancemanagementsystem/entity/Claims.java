@@ -1,14 +1,14 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.entity;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.ClaimStatus;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
 import java.time.LocalDate;
 
 
@@ -22,17 +22,17 @@ public class Claims {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@Column(unique = true)
+    @Column(unique = true)
     private String claimNumber;
 
-    //@NotNull
+    @NotNull
     private String description;
 
-    //@PastOrPresent(message = "The claim date cannot be in the future")
-    //@NotNull
+    @PastOrPresent(message = "The claim date cannot be in the future")
+    @NotNull
     private LocalDate claimDate;
 
-    //NotNull
+    @NotNull
     private LocalDate claimRegistrationDate;
 
     @Enumerated(EnumType.STRING)

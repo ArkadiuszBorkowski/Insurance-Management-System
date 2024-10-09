@@ -14,6 +14,7 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.*;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.PolicyStatus;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.InsuranceProductService;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.PdfService;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.service.PolicyNumberGenerator;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.PolicyService;
 
 import java.io.IOException;
@@ -81,6 +82,7 @@ class PolicyController {
         policyDTO.setClient(clientDTO);
         policyDTO.getClient().setAddress(addressDTO);
         policyDTO.updatePolicyStatus();
+        policyDTO.setPolicyNumber(PolicyNumberGenerator.generatePolicyNumber());
         PolicyDTO savedPolicy = policyService.savePolicy(policyDTO);
         return "redirect:/policy/" + savedPolicy.getId();
     }

@@ -170,6 +170,14 @@ span.badge {
     color: #c94444;
 }
 
+.hidden {
+    display: none;
+}
+
+.next-line {
+    margin-bottom: 20px;
+}
+
 /* KONIEC STYLI TABELI */
 
 

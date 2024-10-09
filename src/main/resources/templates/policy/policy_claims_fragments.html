@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -34,7 +34,7 @@
             <td th:text="${claim.claimDate}"></td>
             <td th:text="${claim.claimStatus}"></td>
             <td th:text="${claim.decision}"></td>
-            <td><a th:href="@{'/claim/' + ${claim.id}}">OTWÓRZ</a></td>
+            <td><a th:href="@{'/claims/' + ${claim.id}}">OTWÓRZ</a></td>
         </tr>
         </tbody>
     </table>

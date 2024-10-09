@@ -5,8 +5,8 @@
                                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd"
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
 
-    <changeSet id="1728373042464-1"
-               author="Arkadiusz">
+    <changeSet id="0003-1"
+               author="Arkadiusz Borkowski">
         <createTable tableName="policy">
             <column autoIncrement="true"
                     name="id"
@@ -47,86 +47,16 @@
                     type="BIGINT"/>
         </createTable>
     </changeSet>
-    <changeSet id="1728373042464-2"
-               author="Arkadiusz">
-        <addForeignKeyConstraint baseColumnNames="client_id"
-                                 baseTableName="policy"
-                                 constraintName="FK_POLICY_ON_CLIENT"
-                                 referencedColumnNames="id"
-                                 referencedTableName="client"/>
-    </changeSet>
-    <changeSet id="1728373042464-3"
-               author="Arkadiusz">
-        <addForeignKeyConstraint baseColumnNames="insurance_product_id"
-                                 baseTableName="policy"
-                                 constraintName="FK_POLICY_ON_INSURANCE_PRODUCT"
-                                 referencedColumnNames="id"
-                                 referencedTableName="insurance_product"/>
-    </changeSet>
-
-</databaseChangeLog>
-
-
-<!--
-<databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd"
-        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
-
-    <changeSet id="1728308549180-1"
+    <changeSet id="0003-2"
                author="Arkadiusz Borkowski">
-        <createTable tableName="policy">
-            <column autoIncrement="true"
-                    name="id"
-                    type="BIGINT">
-                <constraints nullable="false"
-                             primaryKey="true"
-                             primaryKeyName="pk_policy"/>
-            </column>
-            <column name="policy_number"
-                    type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="start_date"
-                    type="DATE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="end_date"
-                    type="DATE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="insurance_product_id"
-                    type="BIGINT"/>
-            <column name="coverage_amount"
-                    type="DOUBLE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="reserve_amount"
-                    type="DOUBLE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="premium"
-                    type="DOUBLE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="policy_status"
-                    type="VARCHAR(255)"/>
-            <column name="client_id"
-                    type="BIGINT"/>
-        </createTable>
-    </changeSet>
-    <changeSet id="1728308549180-2"
-               author="Arkadiusz">
         <addForeignKeyConstraint baseColumnNames="client_id"
                                  baseTableName="policy"
                                  constraintName="FK_POLICY_ON_CLIENT"
                                  referencedColumnNames="id"
                                  referencedTableName="client"/>
     </changeSet>
-    <changeSet id="1728308549180-3"
-               author="Arkadiusz">
+    <changeSet id="0003-3"
+               author="Arkadiusz Borkowski">
         <addForeignKeyConstraint baseColumnNames="insurance_product_id"
                                  baseTableName="policy"
                                  constraintName="FK_POLICY_ON_INSURANCE_PRODUCT"
@@ -136,52 +66,3 @@
 
 </databaseChangeLog>
 
-
-
-&lt;!&ndash;
-<?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd"
-        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
-    <changeSet id="0003-1" author="Arkadiusz Borkowski">
-        <createTable tableName="policy">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_policy"/>
-            </column>
-            <column name="policy_number" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="start_date" type="DATE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="end_date" type="DATE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="coverage_amount" type="DOUBLE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="reserve_amount" type="DOUBLE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="premium" type="DOUBLE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="client_id" type="BIGINT"/>
-            <column name="insurance_product_id" type="BIGINT"/>
-        </createTable>
-    </changeSet>
-    <changeSet id="0003-2" author="Arkadiusz Borkowski">
-        <addForeignKeyConstraint baseColumnNames="client_id" baseTableName="policy" constraintName="FK_POLICY_ON_CLIENT"
-                                 referencedColumnNames="id" referencedTableName="client"/>
-    </changeSet>
-    <changeSet id="0003-3" author="Arkadiusz Borkowski">
-        <addForeignKeyConstraint baseColumnNames="insurance_product_id" baseTableName="policy"
-                                 constraintName="FK_POLICY_ON_INSURANCE_PRODUCT" referencedColumnNames="id"
-                                 referencedTableName="insurance_product"/>
-    </changeSet>
-
-</databaseChangeLog>&ndash;&gt;
--->
