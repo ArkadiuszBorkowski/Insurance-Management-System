@@ -51,25 +51,6 @@ public class ClaimService {
         }
     }
 
-/*    public Page<ClaimsDTO> getClaimsByPeselOrClaimsNumber(String pesel, String claimNumber, int page) {
-        Page<Claims> claimsPage;
-        Pageable pageable = PageRequest.of(page, 10);
-
-        if (pesel != null && !pesel.isEmpty()) {
-            claimsPage = claimsRepository.findByPolicyClientPesel(pesel, pageable);
-        } else if (claimNumber != null && !claimNumber.isEmpty()) {
-            claimsPage = claimsRepository.findByClaimNumber(claimNumber, pageable);
-        } else {
-            claimsPage = claimsRepository.findAll(pageable);
-        }
-
-        List<ClaimsDTO> claimsDTos = claimsPage.stream()
-                .map(claim -> modelMapper.map(claim, ClaimsDTO.class))
-                .collect(Collectors.toList());
-
-        return new PageImpl<>(claimsDTos, pageable, claimsPage.getTotalElements());
-    }*/
-
     public Page<ClaimsDTO> getClaimsByPeselOrClaimNumber(String pesel, String claimNumber, String sortBy, int page) {
         Page<Claims> claimsPage;
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sortBy));

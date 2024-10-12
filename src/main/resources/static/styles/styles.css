@@ -177,7 +177,15 @@ span.badge {
 .next-line {
     margin-bottom: 20px;
 }
+/* style tekstu */
+.label {
+    color: #616161; /* Kolor dla "DANE POLISY:" */
 
+}
+
+.value {
+    color: #00897b; /* Inny kolor dla wartości po ":" */
+}
 /* KONIEC STYLI TABELI */
 
 

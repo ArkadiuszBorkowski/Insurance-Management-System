@@ -35,7 +35,6 @@ class ClientController {
         logger.info("Response: {}", clientDTO);
         return ResponseEntity.ok(clientDTO);
     }
-
 }
 
 

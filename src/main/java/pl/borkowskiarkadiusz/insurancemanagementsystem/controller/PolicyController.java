@@ -22,29 +22,28 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-class PolicyController {
+public class PolicyController {
 
     private final PolicyService policyService;
     private final InsuranceProductService insuranceProductService;
     private final PdfService pdfService;
 
     @Autowired
-    PolicyController(PolicyService policyService, InsuranceProductService insuranceProductService, PdfService pdfService) {
+    public PolicyController(PolicyService policyService, InsuranceProductService insuranceProductService, PdfService pdfService) {
         this.policyService = policyService;
         this.insuranceProductService = insuranceProductService;
         this.pdfService = pdfService;
     }
+
 
     @GetMapping("/policy/{id}")
     public String getPolicy(@PathVariable Long id, Model model) {
         PolicyDTO policyDTO = policyService.getPolicyById(id);
         List<InsuranceProductDTO> productDTOs = insuranceProductService.getAllProducts();
         List<String> templateNames = policyService.getTemplateNames();
-        policyDTO.updatePolicyStatus();
         model.addAttribute("policy", policyDTO);
         model.addAttribute("products", productDTOs);
         model.addAttribute("templateNames", templateNames);
-
         return "policy/policy";
     }
 

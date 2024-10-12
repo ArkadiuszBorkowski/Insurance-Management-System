@@ -8,6 +8,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
+
 public class RiskDTO {
     private Long id;
     private String riskName;

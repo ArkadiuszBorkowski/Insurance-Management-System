@@ -78,21 +78,6 @@ class ClaimsController {
         return "redirect:/claims/" + savedClaims.getId();
     }
 
-/*    //pobieranie listy polis
-    @GetMapping
-    public String getClaims(
-            @RequestParam(required = false) String pesel,
-            @RequestParam(required = false) String claimNumber,
-            @RequestParam(defaultValue = "0") int page,
-            Model model) {
-
-        Page<ClaimsDTO> claimsPage = claimService.getClaimsByPeselOrClaimsNumber(pesel, claimNumber, page);
-        model.addAttribute("claimsPage", claimsPage);
-        model.addAttribute("pesel", pesel);
-        model.addAttribute("claimNumber", claimNumber);
-        model.addAttribute("sortBy", "claimNumber"); // domyślne sortowanie
-        return viewNames.get("CLAIM_LIST");
-    }*/
 
     @GetMapping
     public String getClaims(Model model,
