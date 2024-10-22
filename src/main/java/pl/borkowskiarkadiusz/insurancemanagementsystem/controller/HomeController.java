@@ -29,7 +29,4 @@ class HomeController {
         model.addAttribute("policyCounter", policyCounter);
         return "index";
     }
-
-
-
 }

@@ -8,6 +8,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClaimsDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTO;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTOWithoutClaims;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Claims;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
@@ -22,11 +23,13 @@ public class ClaimService {
     private static final Logger logger = LoggerFactory.getLogger(ClaimService.class);
 
     private final ClaimsRepository claimsRepository;
+    private final PolicyService policyService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public ClaimService(ClaimsRepository claimsRepository, ModelMapper modelMapper) {
+    public ClaimService(ClaimsRepository claimsRepository, PolicyService policyService, ModelMapper modelMapper) {
         this.claimsRepository = claimsRepository;
+        this.policyService = policyService;
         this.modelMapper = modelMapper;
     }
 
@@ -49,6 +52,17 @@ public class ClaimService {
             logger.error("Error saving policy: {}", claimsDTO, e);
             throw new RuntimeException("Error saving claim", e);
         }
+    }
+
+    public ClaimsDTO updateClaims(Long id, ClaimsDTO claimsDTO) {
+
+        Claims existingClaims = claimsRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Claims not found"));
+        Long policyId = existingClaims.getPolicy().getId();
+        modelMapper.map(claimsDTO, existingClaims);
+        PolicyDTOWithoutClaims policyDTO = policyService.getPolicyById(policyId);
+        existingClaims.setPolicy(modelMapper.map(policyDTO, Policy.class));
+        Claims updatedClaims = claimsRepository.save(existingClaims);
+        return modelMapper.map(updatedClaims, ClaimsDTO.class);
     }
 
     public Page<ClaimsDTO> getClaimsByPeselOrClaimNumber(String pesel, String claimNumber, String sortBy, int page) {

@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.ClaimStatus;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ClaimsNumberGenerator;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.service.generator.ClaimsNumberGenerator;
 
 import java.time.LocalDate;
 
@@ -29,6 +29,6 @@ public class ClaimsDTO {
         this.claimRegistrationDate = LocalDate.now();
         this.claimStatus = ClaimStatus.NOWE_ROSZCZENIE;
         this.decision = Decision.ANALIZA;
-        this.claimNumber = ClaimsNumberGenerator.generateClaimsNumber();
+        //this.claimNumber = ClaimsNumberGenerator.generateClaimsNumber();
     }
 }

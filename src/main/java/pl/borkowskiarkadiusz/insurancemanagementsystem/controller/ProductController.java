@@ -7,39 +7,47 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.InsuranceProductDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.RiskDTO;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.service.InsuranceProductService;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ProductService;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
+@RequestMapping("/products")
 public class ProductController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
-    private final InsuranceProductService insuranceProductService;
+    private final ProductService productService;
+    private final Map<String, String> viewNames;
 
     @Autowired
-    public ProductController(InsuranceProductService insuranceProductService) {
-        this.insuranceProductService = insuranceProductService;
+    public ProductController(ProductService productService, Map viewNames) {
+        this.productService = productService;
+        this.viewNames = viewNames;
     }
 
-    @GetMapping("/products")
+    @GetMapping()
     public String getProducts(Model model) {
         logger.info("Received request to fetch all products");
-        List<InsuranceProductDTO> products = insuranceProductService.getAllProducts();
+        List<InsuranceProductDTO> products = productService.getAllProducts();
         logger.info("Fetched products: {}", products);
         model.addAttribute("products", products);
-        return "products/products";
+        return viewNames.get("PRODUCTS_LIST");
     }
 
-    @GetMapping("/insuranceProduct/{id}/risks")
+    //UŻYCIE NA FORMULARZU POLISY DO ASYNCHRONICZNEGO POBRANIA LISTY RYZYK PRZY ZMIANIE PRODUKTU W POLU TYPU SELECT.
+    //DANE POBIERANE PRZEZ AJAX W SKRYPTACH JS.
+
+    @GetMapping("/{id}/risks")
     @ResponseBody
     public List<RiskDTO> getRisksByProductId(@PathVariable Long id) {
         logger.info("Received request for insurance product ID: {}", id);
-        List<RiskDTO> risks = insuranceProductService.getRisksByProductId(id);
+        List<RiskDTO> risks = productService.getRisksByProductId(id);
         logger.info("Response: {}", risks);
         return risks;
     }

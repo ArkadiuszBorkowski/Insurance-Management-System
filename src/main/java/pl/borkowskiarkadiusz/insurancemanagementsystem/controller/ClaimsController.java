@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,7 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.ClaimStatus;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.PolicyStatus;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ClaimService;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ClaimsNumberGenerator;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.service.generator.ClaimsNumberGenerator;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.PolicyService;
 
 import java.time.LocalDate;
@@ -39,7 +38,7 @@ class ClaimsController {
         this.viewNames = viewNames;
     }
 
-    // NOWA SZKODA
+    //new claim
     @GetMapping("/new")
     public String newClaim(Model model) {
         ClaimsDTO claimsDTO = new ClaimsDTO();
@@ -56,7 +55,8 @@ class ClaimsController {
         model.addAttribute("policy", policyDTO);
         model.addAttribute("policyStatus", PolicyStatus.values());
     }
-    // SZKODA ZAPISANA {ID}
+
+    //claim {ID}
     @GetMapping("/{id}")
     public String getPolicy(@PathVariable Long id, Model model) {
         ClaimsDTO claimsDTO = claimService.getClaimsById(id);
@@ -64,13 +64,14 @@ class ClaimsController {
         initializeModelAttributes(model, claimsDTO, policyDTO);
         return viewNames.get("CLAIM_FORM");
     }
-    
-    // ZAPIS SZKODY
+
+    //save claims
     @PostMapping()
     public String saveClaims(@ModelAttribute ClaimsDTO claimsDTO, @RequestParam Long policyId)  {
 
         PolicyDTOWithoutClaims policyDTO = policyService.getPolicyById(policyId);
         claimsDTO.setPolicy(policyDTO);
+        claimsDTO.initializeDefaultValues();
         claimsDTO.setClaimNumber(ClaimsNumberGenerator.generateClaimsNumber());
         claimsDTO.setClaimRegistrationDate(LocalDate.now());
 
@@ -78,7 +79,15 @@ class ClaimsController {
         return "redirect:/claims/" + savedClaims.getId();
     }
 
+    //save claims
+    @PostMapping("/{id}")
+    public String updateClaims(@PathVariable Long id, @ModelAttribute ClaimsDTO claimsDTO) {
+        ClaimsDTO updatedClaims = claimService.updateClaims(id, claimsDTO);
+        return "redirect:/claims/" + updatedClaims.getId();
+    }
 
+
+    //claims list
     @GetMapping
     public String getClaims(Model model,
                             @RequestParam(defaultValue = "0") int page,

@@ -47,9 +47,10 @@
         <div class="input-field col s12 m6 l3">
             <i class="material-icons prefix">event_repeat</i>
             <label for="endDate">DATA WYGAŚNIĘCIA</label>
-            <input type="text" id="endDate" name="endDate" required class="datepicker validate"
+            <input type="text" id="endDate" name="endDate" class="validate" placeholder="Data generowana systemowo" readonly
                    th:value="${policy != null ? policy.endDate : ''}"
                    th:disabled="${policy != null && policy.endDate != null}">
+            <div th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="red-text"></div>
         </div>
 
         <!-- - - - - - P - R - O - D - U - K - T - - - - - -->
@@ -57,7 +58,7 @@
             <label for="insuranceProduct">PRODUKT UBEZPIECZENIOWY</label>
             <select id="insuranceProduct" name="insuranceProduct" required
                     th:disabled="${policy.insuranceProduct != null}">
-                <option value="" disabled selected>PRODUKT UBEZPIECZENIOWY</option>
+                <option value="" disabled selected>WYBIERZ PRODUKT UBEZPIECZENIOWY</option>
                 <option th:each="product : ${products}" th:value="${product.id}"
                         th:text="${product.productName}"
                         th:selected="${product.id == (policy.insuranceProduct != null ? policy.insuranceProduct.id : -1)}">

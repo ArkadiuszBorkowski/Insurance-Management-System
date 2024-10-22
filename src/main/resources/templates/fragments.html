@@ -219,10 +219,10 @@
                 const pesel = document.getElementById('peselSearch').value;
 
                 try {
-                    const response = await fetch(`/client/search?pesel=${pesel}`);
+                    const response = await fetch(`/clients/search?pesel=${pesel}`);
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
-                        showMessage('Klient nie został odnaleziony. Dane klienta nie zostały zastąpione.', 'red');
+                        showMessage('Klient nie został odnaleziony. Dane klienta nie zostały wczytane.', 'red');
                     }
                     const data = await response.json();
                     document.getElementById('firstName').value = data.firstName;
@@ -239,7 +239,7 @@
 
                     // Aktualizacja etykiet
                     M.updateTextFields();
-                    showMessage(`Klient ${data.firstName} ${data.lastName} został odnaleziony. Dane klienta zostały zastąpione.`, 'green');
+                    showMessage(`Klient ${data.firstName} ${data.lastName} został odnaleziony. Dane klienta zostały wczytane.`, 'green');
                 } catch (error) {
                     console.error('There was a problem with the fetch operation:', error);
                     showMessage('Klient nie został odnaleziony. Dane klienta nie zostały zastąpione.', 'red');
@@ -365,7 +365,7 @@
             productSelect.addEventListener('change', function () {
                 const productId = this.value;
                 console.log('Selected product ID:', productId); // Log wybrany produkt ID
-                fetch(`/insuranceProduct/${productId}/risks`)
+                fetch(`/products/${productId}/risks`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok');

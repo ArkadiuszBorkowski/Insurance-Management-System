@@ -9,41 +9,43 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.InsuranceProductDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.RiskDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.InsuranceProduct;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.InsuranceProductRepository;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.ProductRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
-public class InsuranceProductService {
+public class ProductService {
 
-    private static final Logger logger = LoggerFactory.getLogger(InsuranceProductService.class);
-    private final InsuranceProductRepository insuranceProductRepository;
+    private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
+    private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public InsuranceProductService(InsuranceProductRepository insuranceProductRepository, ModelMapper modelMapper) {
-        this.insuranceProductRepository = insuranceProductRepository;
+    public ProductService(ProductRepository productRepository, ModelMapper modelMapper) {
+        this.productRepository = productRepository;
         this.modelMapper = modelMapper;
     }
 
     public List<InsuranceProductDTO> getAllProducts() {
-        Iterable<InsuranceProduct> products = insuranceProductRepository.findAll();
-        return StreamSupport.stream(products.spliterator(), false)
+        logger.info("Fetching all products");
+        Iterable<InsuranceProduct> products = productRepository.findAll();
+        List<InsuranceProductDTO> productDTOs = StreamSupport.stream(products.spliterator(), false)
                 .map(product -> modelMapper.map(product, InsuranceProductDTO.class))
                 .collect(Collectors.toList());
+        logger.info("Fetched {} products", productDTOs.size());
+        return productDTOs;
     }
 
-    public InsuranceProductDTO getProductById(Long id) {
-        InsuranceProduct product = insuranceProductRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Invalid product Id: " + id));
-        return modelMapper.map(product, InsuranceProductDTO.class);
+    public Optional<InsuranceProductDTO> getProductById(long id) {
+        return productRepository.findById(id).map(product -> modelMapper.map(product, InsuranceProductDTO.class));
     }
 
     public List<RiskDTO> getRisksByProductId(Long id) {
         logger.debug("Searching for insurance product with ID: {}", id);
-        InsuranceProduct product = insuranceProductRepository.findById(id)
+        InsuranceProduct product = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product Id: " + id));
         logger.debug("Found insurance product: {}", product);
         return product.getRisks().stream()

@@ -188,6 +188,11 @@ span.badge {
 }
 /* KONIEC STYLI TABELI */
 
+.select-dropdown li.disabled>span {
+    color: red;
+}
+
+
 
 
 

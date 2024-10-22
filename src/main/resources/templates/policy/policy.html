@@ -39,7 +39,7 @@
         <!-- - - - - - - - P - O - L - I - S - A - - - - - - -  - -->
         <!--======================================================-->
 
-        <div id="tab1" class="col s12">
+        <div  id="tab1" class="col s12">
 
             <BR>
             <!--Sekcja wyszukiwania klienta po PESEL -->
@@ -65,7 +65,9 @@
 
             </section>
 
-            <form th:action="@{/policy}" th:object="${policy}" method="post">
+            <!--<form th:action="@{/policy}" th:object="${policy}" method="post">-->
+            <form th:action="${policy.id == null} ? @{/policy} : @{/policy/{id}(id=${policy.id})}" th:object="${policy}" method="post">
+
                 <!--===========================================================-->
                 <!-- - - - - D - A - N - E - - K - L - I - E - N - T - A - - - -->
                 <!--===========================================================-->

@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClientDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ClientService;
 
 @Controller
+@RequestMapping("/clients")
 class ClientController {
 
     private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
@@ -22,12 +24,12 @@ class ClientController {
         this.clientService = clientService;
     }
 
-    @GetMapping("/clients")
+    @GetMapping()
     public String getClients() {
         return "clients";
     }
 
-    @GetMapping("/client/search")
+    @GetMapping("/search")
     @ResponseBody
     public ResponseEntity<ClientDTO> searchClientByPesel(@RequestParam String pesel) {
         logger.info("Received request for PESEL: {}", pesel);

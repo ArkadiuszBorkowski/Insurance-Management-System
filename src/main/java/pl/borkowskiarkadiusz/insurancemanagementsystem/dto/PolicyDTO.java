@@ -1,5 +1,7 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.dto;
 
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,5 +37,11 @@ public class PolicyDTO extends PolicyDTOWithoutClaims {
             this.policyStatus = PolicyStatus.ZAMKNIĘTA;
         }
     }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+        this.endDate = startDate.plusYears(1);
+    }
+
 
 }

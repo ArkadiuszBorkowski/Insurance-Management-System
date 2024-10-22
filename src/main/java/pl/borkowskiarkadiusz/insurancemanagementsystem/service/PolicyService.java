@@ -1,8 +1,10 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.service;
 
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyRepository;
 
+import javax.swing.text.html.Option;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
@@ -43,35 +46,20 @@ public class PolicyService {
     }
 
     public PolicyDTO getPolicyById(Long id) {
-        Policy policy = policyRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Invalid policy Id: " + id));
-        PolicyDTO policyDTO = modelMapper.map(policy, PolicyDTO.class);
-        return policyDTO;
+        return policyRepository.findById(id)
+                .map(policy -> modelMapper.map(policy, PolicyDTO.class))
+                .orElseThrow(() -> new ResourceNotFoundException("Brak polisy o numerze id: " + id));
     }
 
     public Page<PolicyDTO> getPolicies(int page) {
-        Page<Policy> policiesPage = policyRepository.findAll(PageRequest.of(page, 10));
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<Policy> policiesPage = policyRepository.findAll(pageable);
         List<PolicyDTO> policyDTOs = policiesPage.stream()
                 .map(policy -> modelMapper.map(policy, PolicyDTO.class))
                 .collect(Collectors.toList());
-        return new PageImpl<>(policyDTOs, PageRequest.of(page, 10), policiesPage.getTotalElements());
+        return new PageImpl<>(policyDTOs, pageable, policiesPage.getTotalElements());
     }
 
-
- /*   public Page<PolicyDTO> getPoliciesByPeselOrPolicyNumber(String pesel, String policyNumber, int page) {
-        Page<Policy> policiesPage;
-        if (pesel != null && !pesel.isEmpty()) {
-            policiesPage = policyRepository.findByClientPesel(pesel, PageRequest.of(page, 10));
-        } else if (policyNumber != null && !policyNumber.isEmpty()) {
-            policiesPage = policyRepository.findByPolicyNumber(policyNumber, PageRequest.of(page, 10));
-        } else {
-            policiesPage = policyRepository.findAll(PageRequest.of(page, 10));
-        }
-        List<PolicyDTO> policyDTOs = policiesPage.stream()
-                .map(policy -> modelMapper.map(policy, PolicyDTO.class))
-                .collect(Collectors.toList());
-        return new PageImpl<>(policyDTOs, PageRequest.of(page, 10), policiesPage.getTotalElements());
-    }*/
 
     public Page<PolicyDTO> getPoliciesByPeselOrPolicyNumber(String pesel, String policyNumber, String sortBy, int page) {
         Page<Policy> policiesPage;
@@ -104,6 +92,18 @@ public class PolicyService {
         }
     }
 
+
+    public Optional<PolicyDTO> updatePolicy(Long id, PolicyDTO policyDTO) {
+        if (!policyRepository.existsById(id)) {
+            return Optional.empty();
+        }
+        policyDTO.setId(id);
+        Policy policy = modelMapper.map(policyDTO, Policy.class);
+        Policy savedPolicy = policyRepository.save(policy);
+        return Optional.of(modelMapper.map(savedPolicy, PolicyDTO.class));
+    }
+
+
     public List<String> getTemplateNames() {
         File folder = new File("src/main/resources/templates/policy_documents/");
         File[] listOfFiles = folder.listFiles();
@@ -116,7 +116,7 @@ public class PolicyService {
     public String getHtmlContent(String templateName, PolicyDTO policyDTO) {
         Context context = new Context();
         context.setVariable("policy", policyDTO);
-        return templateEngine.process("policy_documents/" + templateName, context);
+        return templateEngine.process("/policy_documents/" + templateName, context);
     }
 
 
@@ -124,6 +124,7 @@ public class PolicyService {
         return policyRepository.findByPolicyNumber(policyNumber)
                 .map(policy -> modelMapper.map(policy, PolicyDTOWithoutClaims.class));
     }
+
 
 
 }

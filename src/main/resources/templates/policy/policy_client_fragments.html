@@ -50,7 +50,7 @@
     <div class="input-field col s12 m6 l3">
       <i class="material-icons prefix">calendar_month</i>
       <label for="dateOfBirth">DATA URODZENIA</label>
-      <input type="text" id="dateOfBirth" name="dateOfBirth" required class="datepicker validate"
+      <input type="text" id="dateOfBirth" name="dateOfBirth" required class="validate" placeholder="Data generowana na pods. pesel" readonly
              th:value="${policy.client != null ? policy.client.dateOfBirth : ''}">
     </div>
   </div>
