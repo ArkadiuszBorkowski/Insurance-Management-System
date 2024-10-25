@@ -34,7 +34,7 @@ class ClaimsController {
     private static final Logger logger = LoggerFactory.getLogger(ClaimsController.class);
 
     @Autowired
-    public ClaimsController(ClaimService claimService, ClaimsNumberGenerator claimsNumberGenerator, PolicyService policyService, Map viewNames) {
+    public ClaimsController(ClaimService claimService, PolicyService policyService, Map viewNames) {
         this.claimService = claimService;
         this.policyService = policyService;
         this.viewNames = viewNames;
@@ -78,6 +78,7 @@ class ClaimsController {
         claimsDTO.initializeDefaultValues();
         claimsDTO.setClaimNumber(ClaimsNumberGenerator.generateClaimsNumber());
         claimsDTO.setClaimRegistrationDate(LocalDate.now());
+
         ClaimsDTO savedClaims = claimService.saveClaims(claimsDTO);
         return "redirect:/claims/" + savedClaims.getId();
     }

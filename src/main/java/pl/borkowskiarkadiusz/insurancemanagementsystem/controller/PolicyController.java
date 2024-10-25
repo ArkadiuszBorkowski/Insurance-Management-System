@@ -37,7 +37,7 @@ public class PolicyController {
     private final Map<String, String> viewNames;
 
     @Autowired
-    public PolicyController(PolicyService policyService, ProductService productService, PdfService pdfService, Map<String, String> viewNames, ModelMapper modelMapper) {
+    public PolicyController(PolicyService policyService, ProductService productService, PdfService pdfService, Map<String, String> viewNames) {
         this.policyService = policyService;
         this.productService = productService;
         this.pdfService = pdfService;
@@ -90,7 +90,7 @@ public class PolicyController {
 
     //update
     @PostMapping("/policy/{id}")
-    public String updatePolicy(@PathVariable Long id, @ModelAttribute PolicyDTO policyDTO, ClientDTO clientDTO, AddressDTO addressDTO, BindingResult result, Model model) {
+    public String updatePolicy(@PathVariable Long id, @ModelAttribute PolicyDTO policyDTO, ClientDTO clientDTO, AddressDTO addressDTO, Model model) {
         try {
             PolicyDTO existingPolicy = policyService.getPolicyById(id);
             ClientDTO existingClient = existingPolicy.getClient();

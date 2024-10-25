@@ -7,12 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClaimsDTO;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClientDTO;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTO;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.PolicyDTOWithoutClaims;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Claims;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Client;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.ClaimsRepository;
 
@@ -29,7 +24,7 @@ public class ClaimService {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public ClaimService(ClaimsRepository claimsRepository, PolicyService policyService, ModelMapper modelMapper) {
+    public ClaimService(ClaimsRepository claimsRepository, ModelMapper modelMapper) {
         this.claimsRepository = claimsRepository;
         this.modelMapper = modelMapper;
     }
