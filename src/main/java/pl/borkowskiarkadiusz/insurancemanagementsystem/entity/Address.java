@@ -23,7 +23,6 @@ public class Address {
     private String city;
 
     @NotNull
-    @Pattern(regexp = "\\d{2}-\\d{3}", message = "Zipcode must be in the format XX-XXX")
     private String zipcode;
 
 }

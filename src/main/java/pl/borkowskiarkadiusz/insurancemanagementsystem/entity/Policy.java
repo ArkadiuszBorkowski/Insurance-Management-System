@@ -44,7 +44,7 @@ public class Policy {
     @NotNull
     @Positive
     private Double premium;
-    @NotNull
+
     private PolicyStatus policyStatus;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonBackReference

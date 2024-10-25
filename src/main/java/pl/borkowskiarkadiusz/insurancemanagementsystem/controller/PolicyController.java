@@ -92,10 +92,12 @@ public class PolicyController {
     @PostMapping("/policy/{id}")
     public String updatePolicy(@PathVariable Long id, @ModelAttribute PolicyDTO policyDTO, ClientDTO clientDTO, AddressDTO addressDTO, BindingResult result, Model model) {
         try {
-        PolicyDTO modifiedExistingPolicy = policyService.getPolicyById(id);
-            modifiedExistingPolicy.setClient(clientDTO);
-            modifiedExistingPolicy.getClient().setAddress(addressDTO);
-        Optional<PolicyDTO> updatedPolicyOpt = policyService.updatePolicy(id, modifiedExistingPolicy);
+            PolicyDTO existingPolicy = policyService.getPolicyById(id);
+            ClientDTO existingClient = existingPolicy.getClient();
+            existingPolicy.setClient(clientDTO);
+            existingPolicy.getClient().setAddress(addressDTO);
+
+            Optional<PolicyDTO> updatedPolicyOpt = policyService.updatePolicy(id, existingPolicy);
             if (updatedPolicyOpt.isPresent()) {
                 PolicyDTO updatedPolicy = updatedPolicyOpt.get();
                 return "redirect:/policy/" + updatedPolicy.getId();

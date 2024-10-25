@@ -50,13 +50,15 @@
         </form>
     </section>
 
-    <form id="claimForm" th:action="${claims.id == null} ? @{/claims} : @{/claims/{id}(id=${claims.id})}" th:object="${claim}" method="post">
-<!--    <form id="claimForm" th:action="@{/claims}" th:object="${claim}" method="post">-->
+
+    <form id="claimForm" th:action="${claims.id == null} ? @{/claims} : @{/claims/{id}(id=${claims.id})}" th:object="${claims}" method="post">
         <section id="claim_data" th:classappend="${policy.id == null} ? 'hidden' : ''">
+
 
             <!-- sekcja 1 -->
             <!-- ZAWARTOŚĆ CZĘŚĆI SZKODOWEJ -->
             <section th:fragment="claim_data" class="container card-panel grey lighten-5">
+
                 <span class="flow-text grey-text text-darken-2">DANE SZKODY</span>
 
                 <!-- ============= L - I - N - I - A - 1 ============= - -->
@@ -67,25 +69,23 @@
                         <i class="material-icons prefix">policy id</i>
                         <label for="claimsID" class="red-text">ID SZKODY</label>
                         <input type="text" id="claimsID" name="claimsID" placeholder="ID generowany systemowo" readonly
-                               th:value="${claims != null && claims.policy !=null ? claims.id : ''}">
+                               th:field="*{id}">
                     </div>
 
                     <!-- N - U - M - E - R - - S - Z - K - O - D - Y -->
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">newspaper</i>
-                        <label for="claimsNumber" class="red-text">NUMER ROSZCZENIA</label>
-                        <input type="text" id="claimsNumber" name="claimsNumber" placeholder="Numer generowany systemowo" readonly
-                               th:value="${claims != null ? claims.claimNumber : ''}"
-                               th:disabled="${claims != null && claims.claimNumber != null}">
+                        <label for="claimNumber" class="red-text">NUMER ROSZCZENIA</label>
+                        <input type="text" id="claimNumber" name="claimNumber" placeholder="Numer generowany systemowo" readonly
+                               th:field="*{claimNumber}">
                     </div>
 
                     <!-- D - A - T - A - - R - E - J - E - S - T - R - A - C - J - I -->
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">calendar_month</i>
                         <label for="claimRegistrationDate">DATA REJESTRACJI ROSZCZENIA</label>
-                        <input type="text" id="claimRegistrationDate" name="claimRegistrationDate" required class="validate datepicker"
-                               th:value="${claims != null ? claims.claimRegistrationDate : ''}"
-                               th:disabled="${claims != null && claims.claimRegistrationDate != null}">
+                        <input type="text" id="claimRegistrationDate" name="claimRegistrationDate" required class="validate datepicker" readonly
+                               th:field="*{claimRegistrationDate}">
                     </div>
 
                     <!-- D - A - T - A - - R - O - S - Z - C - Z - E - N - I - A -->
@@ -93,10 +93,11 @@
                         <i class="material-icons prefix">calendar_month</i>
                         <label for="claimDate">DATA ROSZCZENIA</label>
                         <input type="text" id="claimDate" name="claimDate" required class="datepicker validate"
-                               th:value="${claims != null ? claims.claimDate : ''}"
-                               th:disabled="${claims != null && claims.claimDate != null}">
+                               th:field="*{claimDate}">
                         <span class="helper-text" data-error="Data roszczenia nie może być późniejsza lub taka sama jak data rejestracji roszczenia."></span>
                     </div>
+
+
 
 
                 </div>
@@ -107,9 +108,9 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">description</i>
-                            <textarea id="description" name="description" data-length="500" class="materialize-textarea"
-                                      required validate
-                                      th:text="${claims != null ? claims.description : ''}"></textarea>
+                            <textarea id="description" name="description" data-length="500" class="materialize-textarea" required validate
+                                      th:field="*{description}">
+                            </textarea>
                             <label for="description">OPIS ROSZCZENIA</label>
                         </div>
                     </div>
@@ -122,41 +123,33 @@
                     <!-- S - T - A - T - U - S - - S - Z - K - O - D - Y -->
                     <div class="label-select col s12 m6 l3">
                         <label for="claimStatus">STATUS ROSZCZENIA</label>
-                        <select id="claimStatus" name="claimStatus" required
-                                th:disabled="${claims.id == null}">
-                            <option th:each="status : ${statuses}" th:value="${status.name()}"
-                                    th:text="${status}"
-                                    th:selected="${status} == ${claims.claimStatus}"></option>
+                        <select id="claimStatus" th:field="*{claimStatus}" required th:readonly="${claims.id == null}">
+                            <option th:each="status : ${statuses}" th:value="${status.name()}" th:text="${status}"></option>
                         </select>
                     </div>
 
                     <!-- D - E - C - Y - Z - J - A -->
-                   <div class="label-select col s12 m6 l3" th:if="${claims.id != null}">
-                       <label for="decision">DECYZJA</label>
-                       <select id="decision" name="decision" required>
-                           <option value="" disabled selected>Wybierz decyzję</option>
-                           <option th:each="decision : ${decisions}"
-                                   th:value="${decision}" th:text="${decision}"
-                                   th:selected="${decision} == ${claims.decision}"></option>
-                       </select>
-                   </div>
+                    <div class="label-select col s12 m6 l3" th:if="${claims.id != null}">
+                        <label for="decision">DECYZJA</label>
+                        <select id="decision" th:field="*{decision}" required>
+                            <option value="" disabled selected>Wybierz decyzję</option>
+                            <option th:each="decision : ${decisions}" th:value="${decision}" th:text="${decision}"></option>
+                        </select>
+                    </div>
 
-                    <!-- K - W - O - T - A - - W - Y - P - Ł - A - T - Y -->
+                    <!-- Dodatkowe pola do wykonania akcji -->
                     <div class="input-field col s12 m6 l3" th:if="${claims.id != null}">
                         <i class="material-icons prefix">payments</i>
-                        <label for="payment_amount">KWOTA ODSZKODOWANIA</label>
-                        <input type="text" id="payment_amount" name="payment_amount" class="validate" readonly
-                               pattern="^\d+(\.\d{1,2})?$">
+                        <label for="payment_amount">KWOTA REZERWY</label>
+                        <input type="text" id="payment_amount" name="payment_amount" class="validate" pattern="^\d+(\.\d{1,2})?$">
                         <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
                         <span id="payment_amount-currency-label" class="currency-label">zł</span>
                     </div>
 
-                    <!-- D - A - T - A - - W - Y- P - Ł - A - T -Y -->
                     <div class="input-field col s12 m6 l3" th:if="${claims.id != null}">
                         <i class="material-icons prefix">calendar_month</i>
-                        <label for="claimPaymentDate">DATA REJESTRACJI ROSZCZENIA</label>
-                        <input type="text" id="claimPaymentDate" name="claimPaymentDate"
-                               class="validate">
+                        <label for="claimPaymentDate">DATA WYPŁATY</label>
+                        <input type="text" id="claimPaymentDate" name="claimPaymentDate" class="validate datepicker">
                     </div>
 
                 </div>
@@ -186,22 +179,19 @@
 
                 <!-- ============= L - I - N - I - A - 1 ============= - -->
                 <div class="row">
+
                     <!-- I - D - - P - O - L - I - S - Y -->
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">policy id</i>
                         <label for="policyId">ID POLISY</label>
-                        <input type="text" id="policyId" name="policyId" required class="validate" readonly
-                               th:value="${claims != null && claims.policy !=null ? claims.policy.id : ''}"
-                               th:disabled="${claims != null && policy.id != null}">
+                        <input type="text" id="policyId" name="policyId" th:field="*{policy.id}" required class="validate" readonly>
                     </div>
 
-                    <!-- P -O - L - I - C - Y -->
+                    <!-- N - U - M - E - R - - P - O - L - I - S - Y -->
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">policy</i>
                         <label for="policyNumber">NUMER POLISY</label>
-                        <input type="text" id="policyNumber" name="policyNumber" required class="validate" readonly
-                               th:value="${claims != null && policy.policyNumber !=null ? policy.policyNumber : ''}"
-                               th:disabled="${claims != null && policy.policyNumber != null}">
+                        <input type="text" id="policyNumber"   name="policyNumber" th:field="*{policy.policyNumber}" required class="validate" readonly>
                     </div>
 
                     <!-- D - A - T - A - - Z - A - W - A - R - C - I - A -->
@@ -209,8 +199,7 @@
                         <i class="material-icons prefix">calendar_month</i>
                         <label for="startDate">DATA ZAWARCIA POLISY</label>
                         <input type="text" id="startDate" name="startDate" required class="validate" readonly
-                               th:value="${claims != null && policy.startDate !=null ? policy.startDate : ''}"
-                               th:disabled="${policy != null && policy.startDate != null}">
+                               th:field="*{policy.startDate}">
                     </div>
 
                     <!-- - - - D - A - T - A - - K - O - Ń - C - A - - - -->
@@ -218,8 +207,7 @@
                         <i class="material-icons prefix">event_repeat</i>
                         <label for="endDate">DATA WYGAŚNIĘCIA POLISY</label>
                         <input type="text" id="endDate" name="endDate" required class="validate" readonly
-                               th:value="${policy != null ? policy.endDate : ''}"
-                               th:disabled="${policy != null && policy.endDate != null}">
+                               th:field="*{policy.endDate}">
                     </div>
                 </div>
                 
@@ -231,18 +219,20 @@
                         <i class="material-icons prefix">payments</i>
                         <label for="premium">SKŁADKA POLISY</label>
                         <input type="text" id="premium" name="premium" required class="validate" readonly
-                               pattern="^\d+(\.\d{1,2})?$" th:value="${policy != null ? policy.premium : ''}"
-                               th:disabled="${policy != null && policy.premium != null}">
+                               pattern="^\d+(\.\d{1,2})?$"
+                               th:field="*{policy.premium}">
                         <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
                         <span id="premium-currency-label" class="currency-label">zł</span>
                     </div>
+
+
                     <!-- S - U - M - A - - U - B - E - Z - P - I - E - C - Z - E - N - I - A -->
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">paid</i>
                         <label for="coverageAmount">SUMA UBEZPIECZENIA</label>
                         <input type="text" id="coverageAmount" name="coverageAmount" required class="validate" readonly
-                               pattern="^\d+(\.\d{1,2})?$" th:value="${policy != null ? policy.coverageAmount : ''}"
-                               th:disabled="${policy != null && policy.coverageAmount != null}">
+                               pattern="^\d+(\.\d{1,2})?$"
+                               th:field="*{policy.coverageAmount}">
                         <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
                         <span id="coverageAmount-currency-label" class="currency-label">zł</span>
                     </div>
@@ -251,15 +241,16 @@
                         <i class="material-icons prefix">savings</i>
                         <label for="reserveAmount">REZERWA UBEZPIECZENIOWA</label>
                         <input type="text" id="reserveAmount" name="reserveAmount" required class="validate"
-                               pattern="^\d+(\.\d{1,2})?$" th:value="${policy != null ? policy.reserveAmount : ''}"
-                               th:disabled="${policy != null && policy.reserveAmount != null}">
+                               pattern="^\d+(\.\d{1,2})?$"
+                               th:field="*{policy.reserveAmount}">
                         <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
                         <span id="reserveAmount-currency-label" class="currency-label">zł</span>
                     </div>
                     <!-- - - - - - - - - - - P - R - O - D - U - K - T - - - - - - - - - - -->
                     <div class="label-select col s12 m6 l3">
                         <label for="insuranceProduct">PRODUKT UBEZPIECZENIOWY</label>
-                        <input type="text" id="insuranceProduct" name="insuranceProduct" required readonly th:disabled="${policy.insuranceProduct != null}" th:value="${policy.insuranceProduct != null ? policy.insuranceProduct.productName : ''}">
+                        <input type="text" id="insuranceProduct" name="insuranceProduct" required readonly
+                               th:field="*{policy.insuranceProduct.productName}">
                     </div>
                 </div>
 
@@ -295,7 +286,8 @@
                         <i class="material-icons prefix">person</i>
                         <label for="firstName">IMIE UBEZPIECZONEGO</label>
                         <input type="text" id="firstName" name="firstName" required class="validate"
-                               pattern="^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+$" th:value="${policy.client != null ? policy.client.firstName : ''}">
+                               pattern="^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+$"
+                               th:field="*{policy.client.firstName}">
                         <span class="helper-text" data-error="Imię powinno składać się tylko z liter"></span>
                     </div>
 
@@ -305,7 +297,8 @@
                         <i class="material-icons prefix">person</i>
                         <label for="lastName">NAZWISKO UBEZPIECZONEGO</label>
                         <input type="text" id="lastName" name="lastName" required class="validate"
-                               pattern="^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+$" th:value="${policy.client != null ? policy.client.lastName : ''}">
+                               pattern="^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+$"
+                               th:field="*{policy.client.lastName}">
                         <span class="helper-text" data-error="Nazwisko powinno składać się tylko z liter"></span>
                     </div>
 
@@ -315,7 +308,8 @@
                         <label for="pesel">PESEL UBEZPIECZONEGO</label>
                         <input type="text" id="pesel" name="pesel" required class="validate"
                                pattern="^\d{11}$"
-                               data-length="11" th:value="${policy.client != null ? policy.client.pesel : ''}">
+                               data-length="11"
+                               th:field="*{policy.client.pesel}">
                         <span class="helper-text" data-error="PESEL powinnien składać się tylko z 11 cyfr"></span>
                     </div>
 
@@ -324,7 +318,7 @@
                         <i class="material-icons prefix">calendar_month</i>
                         <label for="dateOfBirth">DATA URODZENIA</label>
                         <input type="text" id="dateOfBirth" name="dateOfBirth" required class="datepicker validate"
-                               th:value="${policy.client != null ? policy.client.dateOfBirth : ''}">
+                               th:field="*{policy.client.dateOfBirth}">
                     </div>
                 </div>
                 <!-- ==== KONIEC:  L - I - N - I - A - 4 ============= - -->
@@ -337,7 +331,7 @@
                         <i class="material-icons prefix">alternate_email</i>
                         <label for="emailAddresss">ADRES EMAIL</label>
                         <input type="email" id="emailAddresss" name="email" required class="validate"
-                               th:value="${policy.client != null ? policy.client.email : ''}">
+                               th:field="*{policy.client.email}">
                         <span class="helper-text" data-error="Wprowadź poprawny adres email"></span>
                     </div>
 
@@ -346,7 +340,7 @@
                         <i class="material-icons prefix">phone</i>
                         <label for="mobileNumber">NUMER TELEFONU</label>
                         <input type="tel" id="mobileNumber" name="mobileNumber" required class="validate"
-                               th:value="${policy.client != null ? policy.client.mobileNumber : ''}">
+                               th:field="*{policy.client.mobileNumber}">
                         <span class="helper-text" data-error="Wprowadź poprawny numer telefonu (9 cyfr)"></span>
                     </div>
 
@@ -354,9 +348,8 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">location_city</i>
                         <label for="city">MIASTO ZAMIESZKANIA</label>
-                        <input type="TEXT" id="city" name="city" required class="validate"
-
-                               th:value="${policy.client != null && policy.client.address !=null ? policy.client.address.city : ''}">
+                        <input type="text" id="city" name="city" required class="validate"
+                               th:field="*{policy.client.address.city}">
                         <span class="helper-text" data-error="Wprowadź miasto zamieszkania ubezpieczonego"></span>
                     </div>
 
@@ -364,8 +357,8 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">pin</i>
                         <label for="zipcode">KOD POCZTOWY</label>
-                        <input type="TEXT" id="zipcode" name="zipcode" required class="validate"
-                               th:value="${policy.client != null && policy.client.address !=null ? policy.client.address.zipcode : ''}">
+                        <input type="text" id="zipcode" name="zipcode" required class="validate"
+                               th:field="*{policy.client.address.zipcode}">
                         <span class="helper-text" data-error="Wprowadź  kod pocztowy"></span>
                     </div>
 
@@ -379,8 +372,8 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">edit_road</i>
                         <label for="street">NAZWA ULICY</label>
-                        <input type="TEXT" id="street" name="street" required class="validate"
-                               th:value="${policy.client != null && policy.client.address !=null ? policy.client.address.street : ''}">
+                        <input type="text" id="street" name="street" required class="validate"
+                               th:field="*{policy.client.address.street}">
                         <span class="helper-text" data-error="Wprowadź poprawną nazwe ulicy"></span>
                     </div>
 
@@ -388,8 +381,8 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">signpost</i>
                         <label for="streetNo">NUMER BUDYNKU</label>
-                        <input type="TEXT" id="streetNo" name="streetNo" required class="validate"
-                               th:value="${policy.client != null && policy.client.address !=null ? policy.client.address.streetNo : ''}">
+                        <input type="text" id="streetNo" name="streetNo" required class="validate"
+                               th:field="*{policy.client.address.streetNo}">
                         <span class="helper-text" data-error="Wprowadź poprawny numer ulicy"></span>
                     </div>
 
@@ -397,8 +390,8 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">signpost</i>
                         <label for="apartmentNo">NUMER MIESZKANIA</label>
-                        <input type="TEXT" id="apartmentNo" name="apartmentNo" class="validate"
-                               th:value="${policy.client != null && policy.client.address !=null ? policy.client.address.apartmentNo : ''}">
+                        <input type="text" id="apartmentNo" name="apartmentNo" class="validate"
+                               th:field="*{policy.client.address.apartmentNo}">
                         <span class="helper-text" data-error="Wprowadź poprawny numer mieszkania"></span>
                     </div>
                 </div>
@@ -409,11 +402,22 @@
     </form>
 </main>
 
+
+<script>
+    $(document).ready(function(){
+        $('.datepicker').datepicker({
+            format: 'dd.mm.yyyy'
+        });
+    });
+</script>
+
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.datepicker');
         var instances = M.Datepicker.init(elems, {
-            format: 'yyyy-mm-dd'
+            format: 'dd.mm.yyyy'
         });
 
         var claimRegistrationDateInput = document.getElementById('claimRegistrationDate');
@@ -424,7 +428,7 @@
             var claimDate = new Date(claimDateInput.value);
 
             if (claimDate >= claimRegistrationDate) {
-                //alert('Data roszczenia nie może być późniejsza lub taka sama jak data rejestracji roszczenia.');
+                alert('Data roszczenia nie może być późniejsza lub taka sama jak data rejestracji roszczenia.');
                 claimDateInput.value = '';
                 claimDateInput.classList.remove('invalid');
                 claimDateInput.classList.add('valid');
@@ -435,8 +439,6 @@
         });
     });
 </script>
-
-
 
 
 <!-- - - - - - - - - S - T - O - P - K - A - - - - - - - - - - -->

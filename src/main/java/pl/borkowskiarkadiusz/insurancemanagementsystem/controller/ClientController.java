@@ -29,6 +29,7 @@ class ClientController {
         return "clients";
     }
 
+    //używane przy wyszykukiwawniu klienta podczas tworzenia polisy (zaczytanie jego danych)
     @GetMapping("/search")
     @ResponseBody
     public ResponseEntity<ClientDTO> searchClientByPesel(@RequestParam String pesel) {
