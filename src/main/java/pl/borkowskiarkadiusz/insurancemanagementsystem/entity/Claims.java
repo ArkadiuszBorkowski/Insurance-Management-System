@@ -41,6 +41,10 @@ public class Claims {
     @Enumerated(EnumType.STRING)
     private Decision decision ;
 
+    private Double paymentAmount;
+    private LocalDate paymentDate;
+    private String claimVerificationStatus;
+
     @ManyToOne
     @JoinColumn(name = "policy_id")
     @JsonBackReference

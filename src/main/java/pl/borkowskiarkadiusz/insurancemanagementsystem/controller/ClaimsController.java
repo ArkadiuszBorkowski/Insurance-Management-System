@@ -16,8 +16,8 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.ClaimStatus;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.PolicyStatus;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ClaimService;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.service.generator.ClaimsNumberGenerator;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.PolicyService;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.service.generator.ClaimsNumberGenerator;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -85,11 +85,9 @@ class ClaimsController {
 
     //save claims
     @PostMapping("/{id}")
-    public String updateClaims(@PathVariable Long id, @ModelAttribute ClaimsDTO claimsDTO, BindingResult result) {
-        if (result.hasErrors()) {
-            // obsługa błędów
-        }
-        ClaimsDTO updatedClaims = claimService.updateClaims(id, claimsDTO);
+    public String updateClaims(@PathVariable Long id, @ModelAttribute ClaimsDTO claimsDTO, @RequestParam("paymentAmountModal") String paymentAmountModal, BindingResult result) {
+
+        ClaimsDTO updatedClaims = claimService.updateClaims(id, claimsDTO, paymentAmountModal);
         return "redirect:/claims/" + updatedClaims.getId();
     }
 

@@ -27,8 +27,14 @@
                     type="VARCHAR(255)"/>
             <column name="decision"
                     type="VARCHAR(255)"/>
+            <column name="payment_amount"
+                    type="DOUBLE"/>
+            <column name="payment_date"
+                    type="DATE"/>
             <column name="policy_id"
                     type="BIGINT"/>
+            <column name="claim_verification_status"
+                    type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
     <changeSet id="0004-2"
@@ -41,5 +47,6 @@
     </changeSet>
 
 </databaseChangeLog>
+
 
 

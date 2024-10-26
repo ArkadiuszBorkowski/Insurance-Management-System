@@ -1,5 +1,6 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.service;
 
+import io.micrometer.common.util.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,9 +9,14 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClaimsDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Claims;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.ClaimStatus;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.ClaimsRepository;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,11 +28,13 @@ public class ClaimService {
 
     private final ClaimsRepository claimsRepository;
     private final ModelMapper modelMapper;
+    private final PolicyRepository policyRepository;
 
     @Autowired
-    public ClaimService(ClaimsRepository claimsRepository, ModelMapper modelMapper) {
+    public ClaimService(ClaimsRepository claimsRepository, ModelMapper modelMapper, PolicyRepository policyRepository) {
         this.claimsRepository = claimsRepository;
         this.modelMapper = modelMapper;
+        this.policyRepository = policyRepository;
     }
 
     public Optional<ClaimsDTO> getClaimsById(Long id) {
@@ -45,17 +53,31 @@ public class ClaimService {
         }
     }
 
-    private void updateClaimDetails(Claims existingClaim, ClaimsDTO claimsDTO) {
+    private void updateClaimDetails(Claims existingClaim, ClaimsDTO claimsDTO, String paymentAmount) {
         existingClaim.setDescription(claimsDTO.getDescription());
         existingClaim.setClaimStatus(claimsDTO.getClaimStatus());
         existingClaim.setDecision(claimsDTO.getDecision());
+
+        //parametr przesyłany w modalu (przypisywanie płatności)
+        if (StringUtils.isNotBlank(paymentAmount)) {
+            Double payments = Double.parseDouble(paymentAmount);
+            existingClaim.setPaymentAmount(payments);
+            existingClaim.setPaymentDate(LocalDate.now());
+            existingClaim.setClaimStatus(ClaimStatus.valueOf("WYPŁACONE"));
+
+            Optional<Policy> policyOpt = policyRepository.findById(existingClaim.getPolicy().getId());
+            if (policyOpt.isPresent()) {
+                Policy policy = policyOpt.get();
+                policy.setReserveAmount(policy.getReserveAmount() - existingClaim.getPaymentAmount());
+                policyRepository.save(policy);
+            }
+        }
     }
 
-    public ClaimsDTO updateClaims(Long id, ClaimsDTO claimsDTO) {
+    public ClaimsDTO updateClaims(Long id, ClaimsDTO claimsDTO, String paymentAmount) {
         Claims existingClaim = claimsRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Claim not found with id " + id));
-
-        updateClaimDetails(existingClaim, claimsDTO);
+        updateClaimDetails(existingClaim, claimsDTO, paymentAmount);
         claimsRepository.save(existingClaim);
         return modelMapper.map(existingClaim, ClaimsDTO.class);
     }
@@ -78,6 +100,36 @@ public class ClaimService {
                 .collect(Collectors.toList());
 
         return new PageImpl<>(claimsDTos, pageable, claimsPage.getTotalElements());
+    }
+
+    public void updateClaimsDetailsAndState (Claims existingClaim, ClaimsDTO claimsDTO, String paymentAmount) {
+        LocalDate claimDate = claimsDTO.getClaimDate();
+        LocalDate policyEndDate = existingClaim.getPolicy().getEndDate();
+        LocalDate claimRegistrationDate = claimsDTO.getClaimRegistrationDate();
+        double claimReserveAmount = claimsDTO.getPolicy().getReserveAmount();
+        double claimPaymentAmount = Double.parseDouble(paymentAmount);
+
+        // Warunek 1: ClaimsDate > policy.EndDate
+        if (claimDate.isAfter(policyEndDate)) {
+            claimsDTO.setClaimStatus(ClaimStatus.ODRZUCONE);
+            claimsDTO.setDecision(Decision.valueOf("ODMOWA"));
+            claimsDTO.setClaimVerificationStatus("Zdarzenie ubezpieczeniowe miało miejsce po dacie wygaśnięcia polisy, w związku z czym roszczenie nie może zostać uznane.");
+        } else if (claimReserveAmount == 0) {
+            // Warunek 2: ClaimDate ok, ClaimReserveAmount = 0
+            claimsDTO.setClaimStatus(ClaimStatus.ZAMKNIĘTE);
+            claimsDTO.setDecision(Decision.valueOf("ODMOWA"));
+            claimsDTO.setClaimVerificationStatus("Wyczerpana rezerwa ubezpieczeniowa - roszczenie automatycznie zamknięte.");
+        } else if (claimPaymentAmount > 0) {
+            // Warunek 4: ClaimDate ok, ClaimPaymentAmount > 0
+            claimsDTO.setClaimStatus(ClaimStatus.WYPŁACONE);
+            claimsDTO.setDecision(Decision.valueOf("AKCEPTACJA"));
+            claimsDTO.setClaimVerificationStatus("Roszczenie uznane - szkoda została wypłacona.");
+        } else if (existingClaim.getId() == null && claimReserveAmount == 0) {
+            // Warunek 5: claims.id == null & reserveAmount == 0
+            claimsDTO.setClaimVerificationStatus("Wyczerpana rezerwa ubezpieczeniowa - roszczenie nie może być wypłacone.");
+        }
+        // Mapowanie ClaimsDTO na Claims
+        modelMapper.map(claimsDTO, existingClaim);
     }
 
 

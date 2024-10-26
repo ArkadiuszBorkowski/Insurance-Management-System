@@ -1,23 +1,30 @@
--- Wstawianie danych do tabeli Client
+-- Wstawianie danych do tabeli Client - dane generowane
+
 INSERT INTO Client (FIRST_NAME, LAST_NAME, PESEL, DATE_OF_BIRTH, EMAIL, MOBILE_NUMBER, STREET, STREET_NO, APARTMENT_NO, CITY, ZIPCODE) VALUES
-('Jan', 'Kowalski', '44051401359', '1980-05-14', 'jan.kowalski@example.com', '123456789', 'Main Street', '1', '10', 'Warszawa', '00-001'),
-('Anna', 'Nowak', '02270803628', '1990-07-08', 'anna.nowak@example.com', '987654321', 'Second Street', '2', NULL, 'Kraków', '30-002'),
-('Piotr', 'Wiśniewski', '55010212345', '1975-01-02', 'piotr.wisniewski@example.com', '112233445', 'Third Street', '3', '5', 'Gdańsk', '80-003'),
-('Katarzyna', 'Zielińska', '66020312345', '1985-02-03', 'katarzyna.zielinska@example.com', '223344556', 'Fourth Street', '4', '6', 'Poznań', '60-004'),
-('Michał', 'Wójcik', '77030412345', '1995-03-04', 'michal.wojcik@example.com', '334455667', 'Fifth Street', '5', NULL, 'Wrocław', '50-005'),
-('Agnieszka', 'Kwiatkowska', '88040512345', '1988-04-05', 'agnieszka.kwiatkowska@example.com', '445566778', 'Sixth Street', '6', '7', 'Łódź', '90-006'),
-('Tomasz', 'Lewandowski', '99050612345', '1979-05-06', 'tomasz.lewandowski@example.com', '556677889', 'Seventh Street', '7', '8', 'Lublin', '20-007'),
-('Ewa', 'Szymańska', '11060712345', '1981-06-07', 'ewa.szymanska@example.com', '667788990', 'Eighth Street', '8', '9', 'Katowice', '40-008'),
-('Paweł', 'Dąbrowski', '22070812345', '1992-07-08', 'pawel.dabrowski@example.com', '778899001', 'Ninth Street', '9', '10', 'Szczecin', '70-009'),
-('Magdalena', 'Pawlak', '33080912345', '1983-08-09', 'magdalena.pawlak@example.com', '889900112', 'Tenth Street', '10', '11', 'Bydgoszcz', '85-010'),
-('Krzysztof', 'Michalski', '44091012345', '1974-09-10', 'krzysztof.michalski@example.com', '990011223', 'Eleventh Street', '11', '12', 'Gdynia', '81-011'),
-('Joanna', 'Wojciechowska', '55101112345', '1985-10-11', 'joanna.wojciechowska@example.com', '001122334', 'Twelfth Street', '12', '13', 'Częstochowa', '42-012'),
-('Adam', 'Jankowski', '66111212345', '1996-11-12', 'adam.jankowski@example.com', '112233445', 'Thirteenth Street', '13', '14', 'Radom', '26-013'),
-('Dorota', 'Mazur', '77121312345', '1987-12-13', 'dorota.mazur@example.com', '223344556', 'Fourteenth Street', '14', '15', 'Toruń', '87-014'),
-('Rafał', 'Kaczmarek', '88131412345', '1978-01-14', 'rafal.kaczmarek@example.com', '334455667', 'Fifteenth Street', '15', '16', 'Rzeszów', '35-015');
+('Roksana', 'Goral', '82120867193', '1982-12-08', 'roksana.goral@example.com', '656504266', 'Dębowa', '071', NULL, 'Płock', '62-197'),
+('Marcelina', 'Bany', '92100211748', '1992-10-02', 'marcelina.bany@example.com', '220295779', 'Rybacka', '80', NULL, 'Czerwionka-Leszczyny', '28-431'),
+('Blanka', 'Imiela', '45050222752', '1945-05-02', 'blanka.imiela@example.com', '965680768', 'Wiślana', '47/00', 81, 'Zambrów', '42-228'),
+('Gaja', 'Maculewicz', '40021077856', '1940-02-10', 'gaja.maculewicz@example.com', '378624855', 'Północna', '25', NULL, 'Rzeszów', '75-883'),
+('Nicole', 'Salwin', '81081670206', '1981-08-16', 'nicole.salwin@example.com', '091485625', 'Słoneczna', '12', NULL, 'Gdańsk', '80-001'),
+('Leonard', 'Raba', '35051591238', '1935-05-15', 'leonard.raba@example.com', '643809043', 'Chmielna', '17/16', NULL, 'Sanok', '12-390'),
+('Leonard', 'Rećko', '61031460997', '1961-03-14', 'leonard.recko@example.com', '536902228', 'Andersa', '284', 26, 'Brzeg', '49-741'),
+('Albert', 'Ciepłuch', '86041224142', '1986-04-12', 'albert.ciepluch@example.com', '737822278', 'Jana Sobieskiego', '66/33', 50, 'Płońsk', '32-110'),
+('Melania', 'Tekiela', '34083132326', '1934-08-31', 'melania.tekiela@example.com', '502594221', 'Wojciecha', '155', NULL, 'Nysa', '27-095'),
+('Bianka', 'Reiter', '60060496455', '1960-06-04', 'bianka.reiter@example.com', '601123456', 'Kwiatowa', '12', NULL, 'Poznań', '60-001'),
+('Cyprian', 'Gill', '40080474624', '1940-08-04', 'cyprian.gill@example.com', '886013144', 'Żytnia', '91/55', 95, 'Tomaszów Mazowiecki', '98-618'),
+('Tobiasz', 'Cecot', '34081064680', '1934-08-10', 'tobiasz.cecot@example.com', '519414562', 'Widokowa', '40/18', NULL, 'Kędzierzyn-Koźle', '67-667'),
+('Alan', 'Cudzich', '85072777063', '1985-07-27', 'alan.cudzich@example.com', '737989790', 'Kraszewskiego', '935', NULL, 'Łomża', '86-255'),
+('Agnieszka', 'Forysiak', '76030471843', '1976-03-04', 'agnieszka.forysiak@example.com', '787172397', 'Piastowska', '714', NULL, 'Bochnia', '99-891'),
+('Dawid', 'Bartoś', '79100965746', '1979-10-09', 'dawid.bartos@example.com', '220320249', 'Mokra', '44/33', 32, 'Skarżysko-Kamienna', '66-039'),
+('Piotr', 'Goliasz', '44051401359', '1944-05-14', 'piotr.goliasz@example.com', '691545318', 'Szymanowskiego', '07', 69, 'Rumia', '54-540'),
+('Malwina', 'Trojanek', '02281128420', '2002-08-11', 'malwina.trojanek@example.com', '512812066', 'Opolska', '98', 94, 'Luboń', '99-958'),
+('Gabriel', 'Wypiór', '75030306916', '1975-03-03', 'gabriel.wypior@example.com', '576923993', 'Kolonia', '397', 97, 'Szczytno', '18-593'),
+('Adrian', 'Raźny', '79111190553', '1979-11-11', 'adrian.razny@example.com', '789123456', 'Leśna', '12', NULL, 'Gdańsk', '80-001'),
+('Katarzyna', 'Zielińska', '85010112345', '1985-01-01', 'katarzyna.zielinska@example.com', '600700800', 'Kwiatowa', '5', 10, 'Poznań', '60-001');
+
 
 INSERT INTO Policy (ID, POLICY_NUMBER, START_DATE, END_DATE, INSURANCE_PRODUCT_ID, COVERAGE_AMOUNT, RESERVE_AMOUNT, PREMIUM, CLIENT_ID, POLICY_STATUS) VALUES
-       (1, 'BP20230801001', '2023-08-01', '2024-08-01', 1, 100000.00, 5000.00, 1200.00, 1, 0),
+       (1, 'BP20230801001', '2023-11-01', '2024-11-01', 1, 100000.00, 100000.00, 1200.00, 1, 0),
        (2, 'BP20230801002', '2023-08-01', '2024-08-01', 2, 200000.00, 0.00, 2400.00, 2, 1),
        (3, 'BP20230801003', '2023-08-01', '2024-08-01', 3, 300000.00, -15000.00, 3600.00, 3, 2),
        (4, 'BP20230804001', '2023-08-04', '2024-08-04', 1, 400000.00, 20000.00, 4800.00, 4, 0),

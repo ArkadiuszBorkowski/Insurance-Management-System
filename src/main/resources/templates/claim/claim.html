@@ -19,18 +19,33 @@
 <!--Z - A - W - A - R - T - O - Ś - Ć - - S - T - R - O - N - Y-->
 
 <main>
+
+
+
     <!-- Sekcja etapy procesu szkodowego -->
-    <section class="container card-panel red lighten-1" style="margin-bottom: 20px">
+    <section class="container card-panel red lighten-1" style="margin-bottom: 0px">
         <div id="steps_1" class="steps active-step">WERYFIKACJA POLISY</div>
-        <div id="steps_2" class="steps" th:classappend="${claims.id != null} ? 'active-step' : 'inactive-step'">REJESTRACJA ROSZCZENIA</div>
-        <div id="steps_3" class="steps" th:classappend="${claims.id != null} ? 'active-step' : 'inactive-step'">PODJĘCIE DECYZJI</div>
-        <div id="steps_4" class="steps" th:classappend="${claims.id != null and claims.decision == 'AKCEPTACJA'} ? 'active-step' : 'inactive-step'">WYPŁATA ODSZKODOWANIA</div>
+        <div id="steps_2" class="steps" th:classappend="${claims.id != null} ? 'active-step' : 'inactive-step'">
+            REJESTRACJA ROSZCZENIA
+        </div>
+        <div id="steps_3" class="steps" th:classappend="${claims.id != null} ? 'active-step' : 'inactive-step'">PODJĘCIE
+            DECYZJI
+        </div>
+        <div id="steps_4" class="steps"
+             th:classappend="${claims.id != null and claims.paymentAmount != null } ? 'active-step' : 'inactive-step'">
+            WYPŁATA ODSZKODOWANIA
+        </div>
     </section>
+    <div class="container card-panel teal">
+                <span id="claimVerificationStatus" class="flow-text white-text"
+                      th:text="${claims.claimVerificationStatus}"></span>
+    </div>
 
     <div class="next-line"></div>
 
     <!--Sekcja wyszukiwania polisy po numerze polisy -->
-    <section id="search_data" class="container card-panel green lighten-5" th:if="${policy.id == null}" style="margin-bottom: 20px">
+    <section id="search_data" class="container card-panel green lighten-5" th:if="${policy.id == null}"
+             style="margin-bottom: 20px">
         <span class="flow-text grey-text text-darken-2">ABY ZAREJESTROWAĆ SZKODĘ SPRAWDŹ CZY UBEZPIECZONY POSIADA POLISE:</span>
         <form id="policyNumberSearchForm">
             <div class="row" style="margin-bottom: 1px">
@@ -51,11 +66,12 @@
     </section>
 
 
-    <form id="claimForm" th:action="${claims.id == null} ? @{/claims} : @{/claims/{id}(id=${claims.id})}" th:object="${claims}" method="post">
+    <form id="claimForm" th:action="${claims.id == null} ? @{/claims} : @{/claims/{id}(id=${claims.id})}"
+          th:object="${claims}" method="post">
         <section id="claim_data" th:classappend="${policy.id == null} ? 'hidden' : ''">
 
 
-            <!-- sekcja 1 -->
+
             <!-- ZAWARTOŚĆ CZĘŚĆI SZKODOWEJ -->
             <section th:fragment="claim_data" class="container card-panel grey lighten-5">
 
@@ -76,7 +92,8 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">newspaper</i>
                         <label for="claimNumber" class="red-text">NUMER ROSZCZENIA</label>
-                        <input type="text" id="claimNumber" name="claimNumber" placeholder="Numer generowany systemowo" readonly
+                        <input type="text" id="claimNumber" name="claimNumber" placeholder="Numer generowany systemowo"
+                               readonly
                                th:field="*{claimNumber}">
                     </div>
 
@@ -84,7 +101,8 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">calendar_month</i>
                         <label for="claimRegistrationDate">DATA REJESTRACJI ROSZCZENIA</label>
-                        <input type="text" id="claimRegistrationDate" name="claimRegistrationDate" required class="validate datepicker" readonly
+                        <input type="text" id="claimRegistrationDate" name="claimRegistrationDate" required
+                               class="validate datepicker" readonly
                                th:field="*{claimRegistrationDate}">
                     </div>
 
@@ -94,10 +112,9 @@
                         <label for="claimDate">DATA ROSZCZENIA</label>
                         <input type="text" id="claimDate" name="claimDate" required class="datepicker validate"
                                th:field="*{claimDate}">
-                        <span class="helper-text" data-error="Data roszczenia nie może być późniejsza lub taka sama jak data rejestracji roszczenia."></span>
+                        <span class="helper-text"
+                              data-error="Data roszczenia nie może być późniejsza lub taka sama jak data rejestracji roszczenia."></span>
                     </div>
-
-
 
 
                 </div>
@@ -108,7 +125,8 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">description</i>
-                            <textarea id="description" name="description" data-length="500" class="materialize-textarea validate" required
+                            <textarea id="description" name="description" data-length="500"
+                                      class="materialize-textarea validate" required
                                       th:field="*{description}">
                             </textarea>
                             <label for="description">OPIS ROSZCZENIA</label>
@@ -123,51 +141,114 @@
                     <!-- S - T - A - T - U - S - - S - Z - K - O - D - Y -->
                     <div class="label-select col s12 m6 l3">
                         <label for="claimStatus">STATUS ROSZCZENIA</label>
-                        <select id="claimStatus" th:field="*{claimStatus}" required th:readonly="${claims.id == null}">
-                            <option th:each="status : ${statuses}" th:value="${status.name()}" th:text="${status}"></option>
+                        <select id="claimStatus" th:field="*{claimStatus}" required
+                                th:disabled="${policy.id == null or claims.claimStatus.name() == 'ODRZUCONE' or claims.claimStatus.name() == 'WYPŁACONE' or claims.claimStatus.name() == 'ZAMKNIĘTE'}">
+                            <option th:each="status : ${statuses}" th:value="${status.name()}"
+                                    th:text="${status}"></option>
                         </select>
                     </div>
 
                     <!-- D - E - C - Y - Z - J - A -->
                     <div class="label-select col s12 m6 l3" th:if="${claims.id != null}">
                         <label for="decision">DECYZJA</label>
-                        <select id="decision" th:field="*{decision}" required>
+                        <select id="decision" th:field="*{decision}" required
+                                th:disabled="${policy.id == null or claims.decision.name() == 'AKCEPTACJA' or claims.paymentAmount != null}">
                             <option value="" disabled selected>Wybierz decyzję</option>
-                            <option th:each="decision : ${decisions}" th:value="${decision}" th:text="${decision}"></option>
+                            <option th:each="decision : ${decisions}" th:value="${decision}"
+                                    th:text="${decision}"></option>
                         </select>
                     </div>
 
-                    <!-- Dodatkowe pola do wykonania akcji -->
                     <div class="input-field col s12 m6 l3" th:if="${claims.id != null}">
                         <i class="material-icons prefix">payments</i>
-                        <label for="payment_amount">KWOTA REZERWY</label>
-                        <input type="text" id="payment_amount" name="payment_amount" class="validate" pattern="^\d+(\.\d{1,2})?$">
+                        <label for="paymentAmount">KWOTA DO WYPŁATY ROSZCZENIA</label>
+                        <input type="text" id="paymentAmount" name="paymentAmount" class="validate" readonly
+                               pattern="^\d+(\.\d{1,2})?$" placeholder="Kwota definiowana przy płatności"
+                               th:field="*{paymentAmount}">
                         <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
                         <span id="payment_amount-currency-label" class="currency-label">zł</span>
                     </div>
 
                     <div class="input-field col s12 m6 l3" th:if="${claims.id != null}">
                         <i class="material-icons prefix">calendar_month</i>
-                        <label for="claimPaymentDate">DATA WYPŁATY</label>
-                        <input type="text" id="claimPaymentDate" name="claimPaymentDate" class="validate datepicker">
+                        <label for="paymentDate">DATA WYPŁATY ROSZCZENIA</label>
+                        <input type="text" id="paymentDate" name="paymentDate" placeholder="Data ustawiana przy płatności"
+                               class="validate" readonly
+                               th:field="*{paymentDate}">
                     </div>
+
+                    <!-- Modal do wprowadzenia danych wypłaty -->
+                    <div id="paymentModal" class="modal bottom-sheet">
+                        <div class="modal-content">
+                            <div class="row">
+                                <h4>Wypłata roszczenia</h4>
+                                <div class="card-panel teal">
+                                    <span class="white-text">Wypłata nie może przewyższać wartości pozostałej rezerwy.
+                                        W przypadku gdy inna szkoda wykorzysta pule rezerwy nie będzie możliwa wypłata odszkodowania.
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- Dodatkowe pola do wykonania akcji -->
+                                <div class="input-field col s12 m6 l5" th:if="${claims.id != null}">
+                                    <i class="material-icons prefix">payments</i>
+                                    <label for="paymentAmountModal">KWOTA ODSZKODOWANIA</label>
+                                    <input type="text" id="paymentAmountModal" name="paymentAmountModal" class="validate"
+                                           pattern="^\d+(\.\d{1,2})?$">
+                                    <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
+                                    <span id="payment-amount-modal-currency-label" class="currency-label">zł</span>
+                                </div>
+
+                                <div class="input-field col s12 m6 l3">
+                                    <label for="coverageAmountModal">SUMA UBEZPIECZENIA</label>
+                                    <input type="text" id="coverageAmountModal" name="coverageAmountModal" class="validate" readonly
+                                           th:field="*{policy.coverageAmount}">
+                                </div>
+
+                                <div class="input-field col s12 m6 l4">
+                                    <label for="reserveAmountModal">POZOSTAŁA WARTOŚĆ REZERWY</label>
+                                    <input type="text" id="reserveAmountModal" name="reserveAmountModal" class="validate" readonly
+                                           th:field="*{policy.reserveAmount}">
+                                </div>
+                            </div>
+
+                        </div>
+
+                            <div class="row">
+                                <div class="modal-footer">
+                                    <button type="button" class="modal-close btn waves-effect waves-light">Anuluj</button>
+                                    <button type="submit" class="btn waves-effect waves-light">Zatwierdź</button>
+                                </div>
+                            </div>
+
+                    </div>
+
 
                 </div>
 
                 <BR>
-                <div class="input-field col s12 m6 l3">
-                    <section th:if="${claims.id == null}">
-                        <button class="btn waves-effect waves-light" type="submit">ZAREJESTRUJ SZKODĘ
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </section>
-                    <section th:if="${claims.id != null}">
-                        <button class="btn waves-effect waves-light" type="submit">ZAKTUALIZUJ SZKODĘ
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </section>
-                </div>
+                <div class="row">
+                        <section class="input-field col" th:if="${claims.id == null}">
+                            <button class="btn waves-effect waves-light" type="submit">ZAPISZ SZKODĘ
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </section>
+                        <section class="input-field col" th:if="${claims.id != null}">
+                            <button class="btn waves-effect waves-light" type="submit">ZAKTUALIZUJ SZKODĘ
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </section>
 
+                        <!-- Przycisk Wypłać roszczenie -->
+                        <section th:if="${claims.paymentAmount == null and claims.decision.name() == 'AKCEPTACJA'}" class="input-field col" id="paymentButtonContainer">
+                            <button type="button" class="btn waves-effect waves-light modal-trigger"
+                                    data-target="paymentModal">Wypłać roszczenie
+                                    <i class="material-icons right">money</i>
+                            </button>
+                        </section>
+                    </div>
+                </div>
 
 
             </section>
@@ -175,7 +256,8 @@
             <!-- sekcja 2 -->
             <!-- ZAWARTOŚĆ CZĘŚCI POLISOWEJ -->
             <section th:fragment="claim_policy_data" class="container card-panel grey lighten-5">
-            <span id="policyStatus"  class="flow-text grey-text text-darken-2" th:text="'DANE POLISY: ' + ${policy.policyStatus}"></span>
+                <span id="policyStatus" class="flow-text grey-text text-darken-2"
+                      th:text="'DANE POLISY: ' + ${policy.policyStatus}"></span>
 
                 <!-- ============= L - I - N - I - A - 1 ============= - -->
                 <div class="row">
@@ -184,14 +266,16 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">policy id</i>
                         <label for="policyId">ID POLISY</label>
-                        <input type="text" id="policyId" name="policyId" th:field="*{policy.id}" required class="validate" readonly>
+                        <input type="text" id="policyId" name="policyId" th:field="*{policy.id}" required
+                               class="validate" readonly>
                     </div>
 
                     <!-- N - U - M - E - R - - P - O - L - I - S - Y -->
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">policy</i>
                         <label for="policyNumber">NUMER POLISY</label>
-                        <input type="text" id="policyNumber"   name="policyNumber" th:field="*{policy.policyNumber}" required class="validate" readonly>
+                        <input type="text" id="policyNumber" name="policyNumber" th:field="*{policy.policyNumber}"
+                               required class="validate" readonly>
                     </div>
 
                     <!-- D - A - T - A - - Z - A - W - A - R - C - I - A -->
@@ -210,7 +294,7 @@
                                th:field="*{policy.endDate}">
                     </div>
                 </div>
-                
+
 
                 <div class="row">
 
@@ -246,6 +330,7 @@
                         <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
                         <span id="reserveAmount-currency-label" class="currency-label">zł</span>
                     </div>
+
                     <!-- - - - - - - - - - - P - R - O - D - U - K - T - - - - - - - - - - -->
                     <div class="label-select col s12 m6 l3">
                         <label for="insuranceProduct">PRODUKT UBEZPIECZENIOWY</label>
@@ -401,10 +486,29 @@
         </section>
     </form>
 </main>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
+
+        var decisionSelect = document.getElementById('decision');
+        var paymentButtonContainer = document.getElementById('paymentButtonContainer');
+
+        decisionSelect.addEventListener('change', function () {
+            if (this.value === 'AKCEPTACJA') {
+                paymentButtonContainer.style.display = 'block';
+            } else {
+                paymentButtonContainer.style.display = 'none';
+            }
+        });
+    });
+
+</script>
 
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('.datepicker').datepicker({
             format: 'dd.mm.yyyy'
         });
@@ -412,9 +516,8 @@
 </script>
 
 
-
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.datepicker');
         var instances = M.Datepicker.init(elems, {
             format: 'dd.mm.yyyy'
@@ -423,7 +526,7 @@
         var claimRegistrationDateInput = document.getElementById('claimRegistrationDate');
         var claimDateInput = document.getElementById('claimDate');
 
-        claimDateInput.addEventListener('change', function() {
+        claimDateInput.addEventListener('change', function () {
             var claimRegistrationDate = new Date(claimRegistrationDateInput.value);
             var claimDate = new Date(claimDateInput.value);
 

@@ -21,13 +21,16 @@ public class ClaimsDTO {
     private LocalDate claimRegistrationDate;
     private ClaimStatus claimStatus;
     private Decision decision;
+    private Double paymentAmount;
+    private LocalDate paymentDate;
     private PolicyDTOWithoutClaims policy;
+    private String claimVerificationStatus;
 
 
     public void initializeDefaultValues() {
         this.claimRegistrationDate = LocalDate.now();
         this.claimStatus = ClaimStatus.NOWE_ROSZCZENIE;
         this.decision = Decision.ANALIZA;
-        //this.claimNumber = ClaimsNumberGenerator.generateClaimsNumber();
+        this.claimVerificationStatus = "Rejestracja nowej szkody.";
     }
 }
