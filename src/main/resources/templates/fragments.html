@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!-- - - - - - - - - - - H - E - A - D - - - - - - - - - - - - -->
 <head th:fragment="head">
     <meta charset="UTF-8">
@@ -68,8 +69,10 @@
 
                 <li><a href="/products" th:href="@{/products}">PRODUKTY</a></li>
                 <li><a href="/clients" th:href="@{/clients}">KLIENT<span class="badge">WIP</span></a></li>
-                <li><a href="/login" th:href="@{/login}">ZALOGUJ SIĘ<span class="badge">WIP</span>
-                </a></li>
+                <li>
+                    <a href="/login" th:href="@{/login}" sec:authorize="!isAuthenticated()">ZALOGUJ SIĘ</a>
+                    <a href="/logout" th:href="@{/logout}" sec:authorize="isAuthenticated()">WYLOGUJ SIĘ</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -92,7 +95,10 @@
 
         <li><a href="/products" th:href="@{/products}">PRODUKTY</a></li>
         <li><a href="/clients" th:href="@{/clients}">KLIENT</a></li>
-        <li><a href="/login" th:href="@{/login}">ZALOGUJ SIĘ</a></li>
+        <li>
+            <a href="/login" th:href="@{/login}" sec:authorize="!isAuthenticated()">ZALOGUJ SIĘ</a>
+            <a href="/logout" th:href="@{/logout}" sec:authorize="isAuthenticated()">WYLOGUJ SIĘ</a>
+        </li>
     </ul>
 
 </header>

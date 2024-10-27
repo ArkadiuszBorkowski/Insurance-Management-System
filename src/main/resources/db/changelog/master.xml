@@ -8,8 +8,10 @@
     <include file="db/changelog/0002_create_table_client.xml"/>
     <include file="db/changelog/0003_create_table_policy.xml"/>
     <include file="db/changelog/0004_create_table_claims.xml"/>
+    <include file="db/changelog/0005_create_tables_users_and_role.xml"/>
 
     <include file="../testdata/0001_insurance_product_and_risk.sql" relativeToChangelogFile="true"/>
     <include file="../testdata/0002_clients_and_policy.sql" relativeToChangelogFile="true"/>
     <include file="../testdata/0003_claims.sql" relativeToChangelogFile="true"/>
+    <include file="../testdata/0005_users_and_roles.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

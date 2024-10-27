@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strona logowania</title>
+    <!-- Import Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .login-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+
+        .login-container .btn {
+            width: 100%;
+        }
+
+        .message-login {
+            color: #ff0707;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h4 class="center-align bold grey-text">ZALOGUJ SIĘ</h4>
+    <form action="" th:action="@{/login}" method="post">
+        <p th:if="${param.error}"
+           th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
+           class="message-login">
+            Błąd logowania.
+        </p>
+        <!-- Dodany paragraf -->
+        <p th:if="${param.logout}" class="message-login">
+            Pomyślnie wylogowano, możesz zalogować się ponownie.
+        </p>
+        <div class="input-field">
+            <input id="username" name="username" type="text" class="validate" required>
+            <label for="username">Adres email</label>
+        </div>
+        <div class="input-field">
+            <input id="password" name="password" type="password" class="validate" required>
+            <label for="password">Hasło</label>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">Zaloguj się</button>
+    </form>
+</div>
+
+<!-- Import Materialize JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

@@ -23,7 +23,7 @@
 
 
     <!-- Sekcja etapy procesu szkodowego -->
-    <section class="container card-panel red lighten-1" style="margin-bottom: 0px">
+    <section class="container card-panel red lighten-1" style="margin-bottom: 0">
         <div id="steps_1" class="steps active-step">WERYFIKACJA POLISY</div>
         <div id="steps_2" class="steps" th:classappend="${claims.id != null} ? 'active-step' : 'inactive-step'">
             REJESTRACJA ROSZCZENIA
@@ -151,8 +151,8 @@
                     <!-- D - E - C - Y - Z - J - A -->
                     <div class="label-select col s12 m6 l3" th:if="${claims.id != null}">
                         <label for="decision">DECYZJA</label>
-                        <select id="decision" th:field="*{decision}" required
-                                th:disabled="${policy.id == null or claims.decision.name() == 'AKCEPTACJA' or claims.paymentAmount != null}">
+                        <select id="decision" th:field="*{decision}" required>
+                                <!--th:disabled="${policy.id == null or claims.decision.name() == 'AKCEPTACJA' or claims.paymentAmount != null}"> -->
                             <option value="" disabled selected>Wybierz decyzję</option>
                             <option th:each="decision : ${decisions}" th:value="${decision}"
                                     th:text="${decision}"></option>

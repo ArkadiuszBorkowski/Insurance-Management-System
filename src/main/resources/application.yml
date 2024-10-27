@@ -5,9 +5,14 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: true
+  security:
+    user:
+      name: supervisor
+      password: superPassword
 logging:
   file:
     path: ./logback
     name: application.log
+
 
 
