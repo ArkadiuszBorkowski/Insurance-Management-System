@@ -40,6 +40,11 @@ public class ProductController {
         return viewNames.get("PRODUCTS_LIST");
     }
 
+    @GetMapping("/config")
+    public String product_config() {
+        return viewNames.get("PRODUCTS_CONFIG");
+    }
+
     //UŻYCIE NA FORMULARZU POLISY DO ASYNCHRONICZNEGO POBRANIA LISTY RYZYK PRZY ZMIANIE PRODUKTU W POLU TYPU SELECT.
     //DANE POBIERANE PRZEZ AJAX W SKRYPTACH JS.
 

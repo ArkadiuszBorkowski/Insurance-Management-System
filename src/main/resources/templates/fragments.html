@@ -42,6 +42,19 @@
         <li><a href="/claims" th:href="@{/claims}">LISTA SZKÓD</a></li>
     </ul>
 
+    <ul id="products_dropdown" class="dropdown-content">
+        <li><a href="/products" th:href="@{/products}">PRODUKTY</a></li>
+        <li sec:authorize="hasAnyRole('ADMIN')">
+            <a href="/products/config" th:href="@{/products/config}">KONGIGURACJA PRODUKTÓW</a>
+        </li>
+    </ul>
+    <ul id="products_dropdown_dropdown_mobile" class="dropdown-content">
+        <li><a href="/products" th:href="@{/products}">PRODUKTY</a></li>
+        <li sec:authorize="hasAnyRole('ADMIN')">
+            <a href="/products/config" th:href="@{/products/config}">KONGIGURACJA PRODUKTÓW</a>
+        </li>
+    </ul>
+
     <!-- - - - - - - N - A - W - I - G - A - C - J - A - - - - - - -->
     <nav>
         <div class="nav-wrapper">
@@ -67,7 +80,13 @@
                     </a>
                 </li>
 
-                <li><a href="/products" th:href="@{/products}">PRODUKTY</a></li>
+                <li>
+                    <a class="dropdown-trigger" href="/products" th:href="@{/products}" data-target="products_dropdown">
+                        PRODUKTY
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+
                 <li><a href="/clients" th:href="@{/clients}">KLIENT<span class="badge">WIP</span></a></li>
                 <li>
                     <a href="/login" th:href="@{/login}" sec:authorize="!isAuthenticated()">ZALOGUJ SIĘ</a>
@@ -170,6 +189,52 @@
         });
     </script>
 
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var registerNewClaimButton = document.getElementById('registerNewClaimButton');
+            if (registerNewClaimButton) {
+                registerNewClaimButton.addEventListener('click', function() {
+                    // Pobierz numer polisy z pola input
+                    var policyNumber = document.getElementById('policyNumber').value;
+                    console.log('Policy Number:', policyNumber); // Debugowanie
+
+                    // Przekieruj na stronę /claims/new z numerem polisy jako parametrem URL
+                    window.location.href = '/claims/new?policyNumber=' + policyNumber;
+                });
+            } else {
+                console.log('Register New Claim Button Not Found'); // Debugowanie
+            }
+
+            // Sprawdź, czy jesteśmy na stronie /claims/new i czy mamy numer polisy w URL
+            var urlParams = new URLSearchParams(window.location.search);
+            var policyNumber = urlParams.get('policyNumber');
+            console.log('URL Policy Number:', policyNumber); // Debugowanie
+
+            if (policyNumber) {
+                // Upewnij się, że pole input jest dostępne
+                var policyNumberSearchInput = document.getElementById('policyNumberSearch');
+                if (policyNumberSearchInput) {
+                    console.log('Policy Number Search Input Found'); // Debugowanie
+
+                    // Wypełnij pole numeru polisy
+                    policyNumberSearchInput.value = policyNumber;
+                    console.log('Policy Number Set:', policyNumberSearchInput.value); // Debugowanie
+
+                    // Dodaj opóźnienie przed automatycznym wysłaniem formularza
+                   /* setTimeout(function() {
+                        document.getElementById('policyNumberSearchForm').submit();
+                    }, 1000); // Opóźnienie 1 sekundy (1000 milisekund)*/
+                } else {
+                    console.log('Policy Number Search Input Not Found'); // Debugowanie
+                }
+            }
+        });
+    </script>
+
+
     <!-- SEKCJA ZAKŁADKI () by https://materializecss.com/floating-action-button.html -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -179,9 +244,6 @@
             });
         });
     </script>
-
-
-
 
 
     <!-- SEKCJA WALIDACJI DAT I WYBORU DATY by https://materializecss.com/ -->
@@ -207,11 +269,11 @@
 
 
     <!-- SEKCJA DYNAMICZNEJ LISTY- ODNOŚNIKI WIERSZY  by https://materializecss.com/ -->
-  <!--  <script>
-        function rowClicked(value) {
-            location.href = "/policy/" + value;
-        }
-    </script>-->
+    <!--  <script>
+          function rowClicked(value) {
+              location.href = "/policy/" + value;
+          }
+      </script>-->
 
     <script>
         function rowClicked(element) {

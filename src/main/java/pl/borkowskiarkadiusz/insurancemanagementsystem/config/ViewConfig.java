@@ -20,6 +20,7 @@ public class ViewConfig {
         viewNames.put("POLICY_LIST", "policy/policies");
         viewNames.put("POLICY_DOC", "policy/documents");
         viewNames.put("PRODUCTS_LIST", "products/products");
+        viewNames.put("PRODUCTS_CONFIG", "products/products-config");
         viewNames.put("ERROR_404", "error/404");
         viewNames.put("ERROR_500", "error/500");
         viewNames.put("ERROR_PAGE", "error/error-page");

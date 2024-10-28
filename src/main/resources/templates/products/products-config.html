@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" >
+<head th:replace="~{fragments :: head}"></head>
+<body>
+
+<!-- PASEK MENU -->
+<header th:replace="~{fragments :: header}"></header>
+
+<!-- WYSZUKIWARKA -->
+<nav th:replace="~{fragments :: search}"></nav>
+<div><br><br></div>
+
+<main class="main-content">
+    <h3><span class="teal-text text-lighten-2">Do tej strony ma dostęp tylko użytkownik z rolą "ADMIN"</span></h3>
+    <h5><span class="teal-text text-lighten-2">To jest tylko przykład odseparowania dostępu dla poszczególnych ról.</span></h5>
+    <a href="/" class="btn-large waves-effect waves-light">Powrót do strony głównej</a>
+</main>
+
+<!-- STOPKA STRONY -->
+<footer th:replace="~{fragments :: footer}"></footer>
+
+<!-- SZYBKI DOSTĘP - SKRÓTY -->
+<div th:replace="~{fragments :: floating_btn}"></div>
+
+<!-- - - - - - - - - S - K - R - Y - P - T - Y - - - - - - - - -->
+<div th:replace="~{fragments :: script_js}"></div>
+
+</body>
+</html>

@@ -116,7 +116,7 @@ public class PolicyService {
     public String getHtmlContent(String templateName, PolicyDTO policyDTO) {
         Context context = new Context();
         context.setVariable("policy", policyDTO);
-        return templateEngine.process("/policy_documents/" + templateName, context);
+        return templateEngine.process("policy_documents/" + templateName, context);
     }
 
 

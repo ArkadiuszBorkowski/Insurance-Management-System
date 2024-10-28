@@ -1,6 +1,5 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.controller;
 
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.*;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.InternalServerErrorException;
@@ -20,6 +18,9 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.service.PdfService;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.PolicyService;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ProductService;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.generator.PolicyNumberGenerator;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import java.io.IOException;
 
 import java.io.IOException;
 import java.util.List;
@@ -75,6 +76,7 @@ public class PolicyController {
         try {
             policyDTO.setClient(clientDTO);
             policyDTO.getClient().setAddress(addressDTO);
+            policyDTO.setReserveAmount(policyDTO.getCoverageAmount());
             policyDTO.updatePolicyStatus();  //status ustalany na podstawie warunków
             policyDTO.setPolicyNumber(PolicyNumberGenerator.generatePolicyNumber());  //numer generowany automatycznie
 
@@ -162,21 +164,20 @@ public class PolicyController {
     }
 
 
-    @GetMapping("/download/pdf")
-    public ResponseEntity<byte[]> downloadPdf(@RequestParam String templateName, @RequestParam Long policyId) throws IOException {
-        PolicyDTO policyDTO = policyService.getPolicyById(policyId);
+    @GetMapping("/policy/{id}/download/pdf")
+    public ResponseEntity<byte[]> downloadPolicyPdf(@PathVariable Long id, @RequestParam String templateName) throws IOException {
+        PolicyDTO policyDTO = policyService.getPolicyById(id);
         String htmlContent = policyService.getHtmlContent(templateName, policyDTO);
+
 
         byte[] pdfBytes = pdfService.generatePdfFromHtml(htmlContent);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
-        headers.setContentDispositionFormData("attachment", "document.pdf");
+        headers.setContentDispositionFormData("attachment", "policy_" + id + ".pdf");
 
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     }
-
-
 
 }
 

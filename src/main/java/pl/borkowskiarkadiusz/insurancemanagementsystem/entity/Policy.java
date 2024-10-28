@@ -38,8 +38,6 @@ public class Policy {
     @NotNull
     @Positive
     private Double coverageAmount;
-    @NotNull
-    @Min(0)
     private Double reserveAmount;
     @NotNull
     @Positive

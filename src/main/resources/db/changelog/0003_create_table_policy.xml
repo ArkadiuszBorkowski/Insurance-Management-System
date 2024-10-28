@@ -35,7 +35,6 @@
             </column>
             <column name="reserve_amount"
                     type="DOUBLE">
-                <constraints nullable="false"/>
             </column>
             <column name="premium"
                     type="DOUBLE">

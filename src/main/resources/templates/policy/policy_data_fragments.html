@@ -97,9 +97,9 @@
         <div class="input-field col s12 m6 l3">
             <i class="material-icons prefix">savings</i>
             <label for="reserveAmount">REZERWA UBEZPIECZENIOWA</label>
-            <input type="text" id="reserveAmount" name="reserveAmount" required class="validate"
-                   pattern="^\d+(\.\d{1,2})?$" th:value="${policy != null ? policy.reserveAmount : ''}"
-                   th:disabled="${policy != null && policy.reserveAmount != null}">
+            <input type="text" id="reserveAmount" name="reserveAmount" class="validate" readonly
+                   placeholder="Kwota powiązana z sumą. ub."
+                   pattern="^\d+(\.\d{1,2})?$" th:value="${policy != null ? policy.reserveAmount : ''}">
             <span class="helper-text" data-error="Wprowadź poprawną kwotę (np. 123.45)"></span>
             <span id="reserveAmount-currency-label" class="currency-label">zł</span>
         </div>

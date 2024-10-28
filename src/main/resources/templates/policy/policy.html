@@ -39,11 +39,12 @@
         <!-- - - - - - - - P - O - L - I - S - A - - - - - - -  - -->
         <!--======================================================-->
 
-        <div  id="tab1" class="col s12">
+        <div id="tab1" class="col s12">
 
             <BR>
             <!--Sekcja wyszukiwania klienta po PESEL -->
-            <section th:if="${policy.client == null}" class="container card-panel grey lighten-5" style="margin-bottom: 20px">
+            <section th:if="${policy.client == null}" class="container card-panel grey lighten-5"
+                     style="margin-bottom: 20px">
                 <span class="flow-text grey-text text-darken-2">WYSZUKAJ KLIENTA I ZACZYTAJ JEGO DANE</span>
                 <form id="peselSearchForm">
                     <div class="row" style="margin-bottom: 1px">
@@ -66,7 +67,17 @@
             </section>
 
             <!--<form th:action="@{/policy}" th:object="${policy}" method="post">-->
-            <form th:action="${policy.id == null} ? @{/policy} : @{/policy/{id}(id=${policy.id})}" th:object="${policy}" method="post">
+            <form th:action="${policy.id == null} ? @{/policy} : @{/policy/{id}(id=${policy.id})}" th:object="${policy}"
+                  method="post">
+
+                <!-- STATUS INFORMACYJNY STANU POLISY -->
+                <div style="margin-bottom: 0px" th:class="${policy.id == null} ? 'container card-panel teal' : 'container card-panel cyan darken-2'">
+                    <span id="claimVerificationStatus" class="flow-text white-text">
+                        <span th:text="${policy.id == null} ? 'Formularz nowej polisy' : 'Polisa ubezpieczeniowa : ' + ${policy.policyNumber}"></span>
+                         <br/>
+                        <span th:if="${policy.id != null}" th:text="'Status : ' + ${policy.policyStatus}"></span>
+                     </span>
+                </div>
 
                 <!--===========================================================-->
                 <!-- - - - - D - A - N - E - - K - L - I - E - N - T - A - - - -->
@@ -107,7 +118,6 @@
             <br>
             <div th:replace="~{policy/policy_documents_fragments :: policy_documents_data}"></div>
         </div>
-
 
 
     </div>

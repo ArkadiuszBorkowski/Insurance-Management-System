@@ -1,9 +1,9 @@
 insert into
     users (email, password)
 values
-    ('admin@bezpiecznaprzyszlosc.com', '{noop}adminpass'),   -- 1
-    ('adjuster@bezpiecznaprzyszlosc.com', '{noop}adjusterpass'),     -- 2
-    ('supervisors@example.com', '{noop}supervisorspass'); -- 3
+    ('admin@bp.test', '{noop}adminpass'),   -- 1
+    ('adjuster@bp.test', '{noop}adjusterpass'),     -- 2
+    ('supervisors@bp.test', '{noop}supervisorspass'); -- 3
 
 insert into
     user_role (name, description)

@@ -7,6 +7,7 @@
     <title>Strona logowania</title>
     <!-- Import Materialize CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <style>
         body {
             display: flex;
@@ -20,7 +21,7 @@
             padding: 40px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            width: 500px;
         }
 
 
@@ -33,6 +34,12 @@
             text-align: center;
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.collapsible');
+            var instances = M.Collapsible.init(elems);
+        });
+    </script>
 </head>
 <body>
 <div class="login-container">
@@ -57,6 +64,52 @@
         </div>
         <button class="btn waves-effect waves-light" type="submit">Zaloguj się</button>
     </form>
+
+
+    <ul class="collapsible">
+        <li>
+            <div class="collapsible-header">Rozwiń przykładowe dane logowania</div>
+            <div class="collapsible-body">
+
+                <table class="striped">
+                    <thead>
+                    <tr>
+                        <th>login email</th>
+                        <th>hasło</th>
+                        <th>rola</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td>admin@bp.test</td>
+                        <td>adminpass</td>
+                        <td>ADMIN</td>
+
+                    </tr>
+                    <tr>
+                        <td>adjuster@bp.test</td>
+                        <td>adjusterpass</td>
+                        <td>ADJUSTER</td>
+                    </tr>
+                    <tr>
+                        <td>supervisors@bp.test</td>
+                        <td>supervisorspass</td>
+                        <td>SUPERVISORS</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header">Informacje o rolach:</div>
+            <div class="collapsible-body"><span>W projekcie zostały utworzone 3 role - jednak sam proces dodawania i obsługi szkód działa na każdym poziomie dostępów. W projekcie w ramach prezentacji przyznano dostęp do przykładowej strony konfiguracji produktów dla roli: ADMIN.  </span></div>
+        </li>
+    </ul>
+
+
+
 </div>
 
 <!-- Import Materialize JavaScript -->
