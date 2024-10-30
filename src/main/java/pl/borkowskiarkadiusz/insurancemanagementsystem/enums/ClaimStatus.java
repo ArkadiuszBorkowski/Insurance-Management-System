@@ -7,6 +7,7 @@ public enum ClaimStatus {
     W_TRAKCIE_REALIZACJI,
     ZATWIERDZONE,
     ODRZUCONE,
+    OCZEKIWANIE_NA_PŁATNOŚĆ,
     WYPŁACONE,
     ZAMKNIĘTE
 }

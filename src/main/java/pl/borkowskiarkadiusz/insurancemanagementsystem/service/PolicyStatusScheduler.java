@@ -27,7 +27,8 @@ public class PolicyStatusScheduler {
     }
 
 
-    @Scheduled(fixedRate = 86400000) // Uruchamianie co 24 godziny, potrzebne do postawienia aplikacji na serwerze.
+    //@Scheduled(fixedRate = 300000) // Uruchamianie co 5 minut - do testów
+    @Scheduled(cron = "0 5 0 * * ?") // URUCHAMMIA SIĘ O 5 MIN PO PÓŁNOCY
     public void updatePolicyStatuses() {
         List<Policy> policies = policyRepository.findAll();
         LocalDate today = LocalDate.now();

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Polisa Ubezpieczeniowa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            width: 50px;
+        }
+        .logo-text {
+            margin-left: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .date {
+            font-size: 14px;
+        }
+        .content {
+            margin-top: 20px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        .label {
+            font-weight: bold;
+            width: 25%;
+        }
+    </style>
+</head>
+
+<body>
+<div class="header">
+    <div class="logo">
+        <img src="../static/images/logo.png" th:src="@{images/logo.png}" alt="Logo">
+        <div class="logo-text">BEZPIECZNA PRZYSZŁOŚĆ</div>
+    </div>
+    <div class="date">
+        <script>
+            const today = new Date();
+            const formattedDate = today.getDate().toString().padStart(2, '0') + '-' +
+                (today.getMonth() + 1).toString().padStart(2, '0') + '-' +
+                today.getFullYear();
+            document.write('Warszawa, ' + formattedDate);
+        </script>
+    </div>
+</div>
+<div class="content">
+    <h1>Polisa Ubezpieczeniowa nr <span th:text="${policy.policyNumber}"></span></h1>
+    <div class="section">
+        <table>
+            <tr>
+                <td class="label">Ubezpieczyciel:</td>
+                <td>Bezpieczna Przyszłość S.A.</td>
+            </tr>
+            <tr>
+                <td class="label">Produkt ubezpieczeniowy:</td>
+                <td th:text="${policy.insuranceProduct.productName}"></td>
+            </tr>
+            <tr>
+                <td class="label">Opis produktu:</td>
+                <td th:text="${policy.insuranceProduct.description}"></td>
+            </tr>
+        </table>
+        <!-- LISTA RYZYK PRODUKTU -->
+        <p>Ryzyka:</p>
+        <p>
+        <div class="chip" th:each="risk : ${policy.insuranceProduct.risks}">
+            <i class="material-icons">
+                <span th:text="${risk.iconName}">flood</span>
+            </i>
+            <span th:text="${risk.riskName}">ZALANIE</span>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

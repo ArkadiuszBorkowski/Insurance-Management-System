@@ -1,10 +1,12 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.service;
 
 import io.micrometer.common.util.StringUtils;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClaimsDTO;
@@ -12,6 +14,8 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Claims;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.ClaimStatus;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.events.ClaimCreatedEvent;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.events.ClaimPaidEvent;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.ClaimsRepository;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyRepository;
@@ -21,6 +25,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.itextpdf.styledxmlparser.jsoup.helper.StringUtil.isNumeric;
+
 @Service
 public class ClaimService {
 
@@ -29,12 +35,15 @@ public class ClaimService {
     private final ClaimsRepository claimsRepository;
     private final ModelMapper modelMapper;
     private final PolicyRepository policyRepository;
+    private final ApplicationEventPublisher eventPublisher;
+
 
     @Autowired
-    public ClaimService(ClaimsRepository claimsRepository, ModelMapper modelMapper, PolicyRepository policyRepository) {
+    public ClaimService(ClaimsRepository claimsRepository, ModelMapper modelMapper, PolicyRepository policyRepository, ApplicationEventPublisher eventPublisher) {
         this.claimsRepository = claimsRepository;
         this.modelMapper = modelMapper;
         this.policyRepository = policyRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     public Optional<ClaimsDTO> getClaimsById(Long id) {
@@ -42,10 +51,12 @@ public class ClaimService {
                 .map(claims -> modelMapper.map(claims, ClaimsDTO.class));
     }
 
+
     public ClaimsDTO saveClaims(ClaimsDTO claimsDTO) {
         try {
             Claims claims = modelMapper.map(claimsDTO, Claims.class);
             Claims savedClaims = claimsRepository.save(claims);
+            eventPublisher.publishEvent(new ClaimCreatedEvent(this, savedClaims));
             return modelMapper.map(savedClaims, ClaimsDTO.class);
         } catch (Exception e) {
             logger.error("Error saving claims: {}", claimsDTO, e);
@@ -74,33 +85,27 @@ public class ClaimService {
         }
     }
 
+    
     public ClaimsDTO updateClaims(Long id, ClaimsDTO claimsDTO, String paymentAmount) {
         Claims existingClaim = claimsRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Claim not found with id " + id));
         updateClaimDetails(existingClaim, claimsDTO, paymentAmount);
         claimsRepository.save(existingClaim);
+        processPaymentAmount(paymentAmount, existingClaim);
         return modelMapper.map(existingClaim, ClaimsDTO.class);
     }
 
-
-    public Page<ClaimsDTO> getClaimsByPeselOrClaimNumber(String pesel, String claimNumber, String sortBy, int page) {
-        Page<Claims> claimsPage;
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sortBy));
-
-        if (pesel != null && !pesel.isEmpty()) {
-            claimsPage = claimsRepository.findByPolicyClientPesel(pesel, pageable);
-        } else if (claimNumber != null && !claimNumber.isEmpty()) {
-            claimsPage = claimsRepository.findByClaimNumber(claimNumber, pageable);
-        } else {
-            claimsPage = claimsRepository.findAll(pageable);
+    private void processPaymentAmount(String paymentAmount, Claims existingClaim) {
+        if (isNumeric(paymentAmount)) {
+            double paymentAmountValue = Double.parseDouble(paymentAmount);
+            eventPublisher.publishEvent(new ClaimPaidEvent(this, existingClaim, paymentAmountValue));
+        } else if (StringUtils.isNotBlank(paymentAmount)) {
+            throw new IllegalArgumentException("Invalid payment amount: " + paymentAmount);
         }
-
-        List<ClaimsDTO> claimsDTos = claimsPage.stream()
-                .map(claim -> modelMapper.map(claim, ClaimsDTO.class))
-                .collect(Collectors.toList());
-
-        return new PageImpl<>(claimsDTos, pageable, claimsPage.getTotalElements());
     }
+
+
+
 
     public void updateClaimsDetailsAndState (Claims existingClaim, ClaimsDTO claimsDTO, String paymentAmount) {
         LocalDate claimDate = claimsDTO.getClaimDate();
@@ -130,6 +135,25 @@ public class ClaimService {
         }
         // Mapowanie ClaimsDTO na Claims
         modelMapper.map(claimsDTO, existingClaim);
+    }
+
+    public Page<ClaimsDTO> getClaimsByPeselOrClaimNumber(String pesel, String claimNumber, String sortBy, int page) {
+        Page<Claims> claimsPage;
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sortBy));
+
+        if (pesel != null && !pesel.isEmpty()) {
+            claimsPage = claimsRepository.findByPolicyClientPesel(pesel, pageable);
+        } else if (claimNumber != null && !claimNumber.isEmpty()) {
+            claimsPage = claimsRepository.findByClaimNumber(claimNumber, pageable);
+        } else {
+            claimsPage = claimsRepository.findAll(pageable);
+        }
+
+        List<ClaimsDTO> claimsDTos = claimsPage.stream()
+                .map(claim -> modelMapper.map(claim, ClaimsDTO.class))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(claimsDTos, pageable, claimsPage.getTotalElements());
     }
 
 

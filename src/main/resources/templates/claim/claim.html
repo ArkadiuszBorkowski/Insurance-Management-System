@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <!-- - - - - - - - - - - H - E - A - D - - - - - - - - - - - - -->
 <head th:replace="~{fragments :: head}">
     <meta charset="UTF-8">
@@ -178,7 +180,7 @@
                     </div>
 
                     <!-- Modal do wprowadzenia danych wypłaty -->
-                    <div id="paymentModal" class="modal bottom-sheet">
+                    <div id="paymentModal" class="modal">
                         <div class="modal-content">
                             <div class="row">
                                 <h4>Wypłata roszczenia</h4>
@@ -486,6 +488,7 @@
         </section>
     </form>
 </main>
+
 <script>
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -515,7 +518,33 @@
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+        $('#claimDate').on('change', function() {
+            var claimDateValue = $(this).val();
+            var claimRegistrationDateValue = $('#claimRegistrationDate').val();
 
+            if (claimDateValue && claimRegistrationDateValue) {
+                var claimDateParts = claimDateValue.split('.');
+                var claimRegistrationDateParts = claimRegistrationDateValue.split('.');
+
+                var claimDate = new Date(claimDateParts[2], claimDateParts[1] - 1, claimDateParts[0]);
+                var claimRegistrationDate = new Date(claimRegistrationDateParts[2], claimRegistrationDateParts[1] - 1, claimRegistrationDateParts[0]);
+
+                if (claimDate >= claimRegistrationDate) {
+                    $(this).val('');
+                    M.toast({html: 'Data roszczenia nie może być późniejsza lub taka sama jak data rejestracji roszczenia.', classes: 'red'});
+                }
+            }
+        });
+    });
+</script>
+
+
+
+
+
+<!--
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.datepicker');
@@ -542,6 +571,7 @@
         });
     });
 </script>
+-->
 
 
 <!-- - - - - - - - - S - T - O - P - K - A - - - - - - - - - - -->
