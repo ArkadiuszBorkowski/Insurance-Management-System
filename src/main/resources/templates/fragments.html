@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
     <link rel="stylesheet" href="../static/styles/styles.css" th:href="@{/styles/styles.css}">
+    <script src="../static/script/script.js" th:src="@{/script/script.js}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
@@ -160,7 +161,7 @@
 
 <div th:fragment="script_js">
 
-    <!-- SEKCJA PREZENTACJA DANYCH PRODUKTÓW by https://materializecss.com/collapsible.html -->
+<!--    &lt;!&ndash; ROZWIJANA LISTA  by https://materializecss.com/collapsible.html &ndash;&gt;
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('.collapsible');
@@ -168,7 +169,7 @@
         });
     </script>
 
-    <!-- SEKCJA NAWIGACJI by https://materializecss.com/navbar.html -->
+    &lt;!&ndash; SEKCJA NAWIGACJI by https://materializecss.com/navbar.html &ndash;&gt;
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('.sidenav');
@@ -176,9 +177,9 @@
             var dropdowns = document.querySelectorAll('.dropdown-trigger');
             M.Dropdown.init(dropdowns, {coverTrigger: false});
         });
-    </script>
+    </script>-->
 
-    <!-- SEKCJA SZYBKI DOSTĘP (prawy dolny róg) by https://materializecss.com/floating-action-button.html -->
+    <!--&lt;!&ndash; SEKCJA SZYBKI DOSTĘP (prawy dolny róg) by https://materializecss.com/floating-action-button.html &ndash;&gt;
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('.fixed-action-btn');
@@ -235,7 +236,7 @@
     </script>
 
 
-    <!-- SEKCJA ZAKŁADKI () by https://materializecss.com/floating-action-button.html -->
+    &lt;!&ndash; SEKCJA ZAKŁADKI () by https://materializecss.com/floating-action-button.html &ndash;&gt;
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('.tabs');
@@ -246,7 +247,7 @@
     </script>
 
 
-    <!-- SEKCJA WALIDACJI DAT I WYBORU DATY by https://materializecss.com/ -->
+    &lt;!&ndash; SEKCJA WALIDACJI DAT I WYBORU DATY by https://materializecss.com/ &ndash;&gt;
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('select');
@@ -259,13 +260,13 @@
         });
     </script>
 
-    <!-- SEKCJA WALIDACJI DŁUGOŚCI POLA by https://materializecss.com/ -->
+    &lt;!&ndash; SEKCJA WALIDACJI DŁUGOŚCI POLA by https://materializecss.com/ &ndash;&gt;
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('input[data-length], textarea[data-length]');
             M.CharacterCounter.init(elems);
         });
-    </script>
+    </script>-->
 
 
     <!-- SEKCJA DYNAMICZNEJ LISTY- ODNOŚNIKI WIERSZY  by https://materializecss.com/ -->
@@ -275,14 +276,14 @@
           }
       </script>-->
 
-    <script>
+<!--    <script>
         function rowClicked(element) {
             var url = element.getAttribute("data-url");
             location.href = url;
         }
-    </script>
+    </script>-->
 
-    <!-- ZACZYTYWANIE KLIENTA DO SEKCJI POLISY, STYL KOUMNIKATÓW -->
+ <!--   &lt;!&ndash; ZACZYTYWANIE KLIENTA DO SEKCJI POLISY, STYL KOUMNIKATÓW &ndash;&gt;
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('peselSearchForm');
@@ -335,10 +336,10 @@
                 messageContainer.style.display = 'block';
             }
         });
-    </script>
+    </script>-->
 
     <!-- ZACZYTYWANIE POLISY DO SEKCJI SZKÓD, STYL KOUMNIKATÓW -->
-    <script>
+  <!--  <script>
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('policyNumberSearchForm');
             form.addEventListener('submit', async function (event) {
@@ -423,9 +424,9 @@
                 M.toast({html: message, classes: `${color} rounded`});
             }
         });
-    </script>
+    </script>-->
 
-    <!-- ZACZYTYWANIE PRODUKTÓW DO SEKCJI FORMULARZA POLISOWEGO -->
+  <!--  &lt;!&ndash; ZACZYTYWANIE PRODUKTÓW DO SEKCJI FORMULARZA POLISOWEGO &ndash;&gt;
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const productSelect = document.getElementById('insuranceProduct');
@@ -473,7 +474,7 @@
                     .catch(error => console.error('Error fetching risks:', error));
             });
         });
-    </script>
+    </script>-->
 
 </div>
 

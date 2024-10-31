@@ -26,11 +26,11 @@ public class ClaimsDTO {
     private PolicyDTOWithoutClaims policy;
     private String claimVerificationStatus;
 
-
+    //domyślne ustawienia dla nowej i "prawidłowej" szkody - event listener nadpisuje te zdarzenia przy walidacji.
     public void initializeDefaultValues() {
         this.claimRegistrationDate = LocalDate.now();
-        this.claimStatus = ClaimStatus.NOWE_ROSZCZENIE;
         this.decision = Decision.ANALIZA;
+        this.claimStatus = ClaimStatus.NOWE_ROSZCZENIE;
         this.claimVerificationStatus = "Rejestracja nowej szkody.";
     }
 }

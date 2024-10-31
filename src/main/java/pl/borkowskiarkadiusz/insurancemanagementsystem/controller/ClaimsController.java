@@ -49,7 +49,7 @@ class ClaimsController {
         initializeModelAttributes(model, claimsDTO, policyDTO);
         return viewNames.get("CLAIM_FORM");
     }
-    // NOWA / ZAPISANA SZKODA - metoda pomocnicza
+    // new / saved claims - metoda pomocnicza
     private void initializeModelAttributes(Model model, ClaimsDTO claimsDTO, PolicyDTOWithoutClaims policyDTO) {
         model.addAttribute("statuses", ClaimStatus.values());
         model.addAttribute("decisions", Decision.values());
@@ -62,10 +62,16 @@ class ClaimsController {
     @GetMapping("/{id}")
     public String getPolicy(@PathVariable Long id, Model model) {
         Optional<ClaimsDTO> claimsDtoOptional = claimService.getClaimsById(id);
-        ClaimsDTO claimsDTO = claimsDtoOptional.get();
-        PolicyDTOWithoutClaims policyDTO = policyService.getPolicyById(claimsDTO.getPolicy().getId());
-        initializeModelAttributes(model, claimsDTO, policyDTO);
-        return viewNames.get("CLAIM_FORM");
+
+        if (claimsDtoOptional.isPresent()) {
+            ClaimsDTO claimsDTO = claimsDtoOptional.get();
+            PolicyDTOWithoutClaims policyDTO = policyService.getPolicyById(claimsDTO.getPolicy().getId());
+            initializeModelAttributes(model, claimsDTO, policyDTO);
+            return viewNames.get("CLAIM_FORM");
+        } else {
+            model.addAttribute("errorMessage", "Roszczenie o ID = " + id + " nie zostało znalezione.");
+            return viewNames.get("ERROR_404");
+        }
     }
 
     //save - zapis danych szkody - dane polisy jak status czy rezerwa będą zmieniane procesami.
@@ -75,7 +81,6 @@ class ClaimsController {
             logger.error("Validation errors: {}", bindingResult.getAllErrors());
             return viewNames.get("CLAIM_FORM");
         }
-        claimsDTO.initializeDefaultValues();
         claimsDTO.setClaimNumber(ClaimsNumberGenerator.generateClaimsNumber());
         claimsDTO.setClaimRegistrationDate(LocalDate.now());
 

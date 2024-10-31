@@ -58,7 +58,7 @@
                    <!-- <span class="helper-text" data-error="Numer polisy musi mieć 13 znaków"></span>-->
                 </div>
                 <div class="input-field col s12 m6 l3">
-                    <button class="btn waves-effect waves-light" type="submit">SPRAWDŹ</button>
+                    <button id="policyNumberSearchButton" class="btn waves-effect waves-light" type="submit">SPRAWDŹ</button>
                 </div>
                 <div id="claimsMessageContainer" class="card-panel red lighten-4" style="display: none;">
                     <span id="messageText" class="red-text text-darken-4"></span>
@@ -242,7 +242,7 @@
                             </button>
                         </section>
 
-                        <!-- Przycisk Wypłać roszczenie -->
+
                         <section th:if="${claims.paymentAmount == null and claims.decision.name() == 'AKCEPTACJA'}" class="input-field col" id="paymentButtonContainer">
                             <button type="button" class="btn waves-effect waves-light modal-trigger"
                                     data-target="paymentModal">Wypłać roszczenie
@@ -488,91 +488,6 @@
         </section>
     </form>
 </main>
-
-<script>
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.modal');
-        var instances = M.Modal.init(elems);
-
-        var decisionSelect = document.getElementById('decision');
-        var paymentButtonContainer = document.getElementById('paymentButtonContainer');
-
-        decisionSelect.addEventListener('change', function () {
-            if (this.value === 'AKCEPTACJA') {
-                paymentButtonContainer.style.display = 'block';
-            } else {
-                paymentButtonContainer.style.display = 'none';
-            }
-        });
-    });
-
-</script>
-
-
-<script>
-    $(document).ready(function () {
-        $('.datepicker').datepicker({
-            format: 'dd.mm.yyyy'
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('#claimDate').on('change', function() {
-            var claimDateValue = $(this).val();
-            var claimRegistrationDateValue = $('#claimRegistrationDate').val();
-
-            if (claimDateValue && claimRegistrationDateValue) {
-                var claimDateParts = claimDateValue.split('.');
-                var claimRegistrationDateParts = claimRegistrationDateValue.split('.');
-
-                var claimDate = new Date(claimDateParts[2], claimDateParts[1] - 1, claimDateParts[0]);
-                var claimRegistrationDate = new Date(claimRegistrationDateParts[2], claimRegistrationDateParts[1] - 1, claimRegistrationDateParts[0]);
-
-                if (claimDate >= claimRegistrationDate) {
-                    $(this).val('');
-                    M.toast({html: 'Data roszczenia nie może być późniejsza lub taka sama jak data rejestracji roszczenia.', classes: 'red'});
-                }
-            }
-        });
-    });
-</script>
-
-
-
-
-
-<!--
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.datepicker');
-        var instances = M.Datepicker.init(elems, {
-            format: 'dd.mm.yyyy'
-        });
-
-        var claimRegistrationDateInput = document.getElementById('claimRegistrationDate');
-        var claimDateInput = document.getElementById('claimDate');
-
-        claimDateInput.addEventListener('change', function () {
-            var claimRegistrationDate = new Date(claimRegistrationDateInput.value);
-            var claimDate = new Date(claimDateInput.value);
-
-            if (claimDate >= claimRegistrationDate) {
-                alert('Data roszczenia nie może być późniejsza lub taka sama jak data rejestracji roszczenia.');
-                claimDateInput.value = '';
-                claimDateInput.classList.remove('invalid');
-                claimDateInput.classList.add('valid');
-            } else {
-                claimDateInput.classList.add('invalid');
-            }
-
-        });
-    });
-</script>
--->
-
 
 <!-- - - - - - - - - S - T - O - P - K - A - - - - - - - - - - -->
 <footer th:replace="~{fragments :: footer}"></footer>

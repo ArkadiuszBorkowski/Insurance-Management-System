@@ -10,20 +10,26 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.PolicyStatus;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.events.ClaimCreatedEvent;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.events.ClaimPaidEvent;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.events.ClaimUpdatedEvent;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.events.EventsMessages;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.ClaimsRepository;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyRepository;
 
 @Component
-public class PolicyEventListener {
+public class ClaimEventListener {
 
     @Autowired
     private PolicyRepository policyRepository;
+    @Autowired
+    private ClaimsRepository claimsRepository;
 
     @EventListener
     public void handleClaimCreatedEvent(ClaimCreatedEvent event) {
         Claims claim = event.getClaim();
         Policy policy = policyRepository.findById(claim.getPolicy().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Policy not found"));
+
 
         handleExpiredPolicy(claim, policy);
         handleValidPolicy(claim, policy);
@@ -38,25 +44,26 @@ public class PolicyEventListener {
             claim.setDecision(Decision.ODMOWA);
 
             if (policy.getReserveAmount() == 0) {
-                claim.setClaimVerificationStatus("Zdarzenie ubezpieczeniowe miało miejsce po dacie wygaśnięcia polisy, " +
-                        "ponadto rezerwa ubezpieczeniowa się wyczerpała. Roszczenie nie zostanie uznane.");
+                claim.setClaimVerificationStatus(EventsMessages.CLAIM_AFTER_POLICY_EXPIRY_NO_RESERVE);
             } else {
-                claim.setClaimVerificationStatus("Zdarzenie ubezpieczeniowe miało miejsce po dacie wygaśnięcia polisy, " +
-                        "w związku z czym roszczenie nie może zostać uznane.");
+                claim.setClaimVerificationStatus(EventsMessages.CLAIM_AFTER_POLICY_EXPIRY);
             }
         }
     }
 
     private void handleValidPolicy(Claims claim, Policy policy) {
         if (claim.getClaimDate().isBefore(policy.getEndDate()) && claim.getClaimDate().isAfter(policy.getStartDate())) {
-            if (policy.getReserveAmount() == 0) {
+            if (policy.getReserveAmount() > 0) {
+                claim.setClaimStatus(ClaimStatus.NOWE_ROSZCZENIE);
+                claim.setDecision(Decision.ANALIZA);
+                claim.setClaimVerificationStatus(EventsMessages.NEW_CLAIM_REGISTERED);
+            } else {
                 claim.setClaimStatus(ClaimStatus.ZAMKNIĘTE);
                 claim.setDecision(Decision.ODMOWA);
-                claim.setClaimVerificationStatus("Rezerwa na polisie została wyczerpana. Roszczenie zostanie automatycznie zamknięte.");
+                claim.setClaimVerificationStatus(EventsMessages.RESERVE_EXHAUSTED);
             }
         }
     }
-
 
 
     @EventListener
@@ -66,10 +73,36 @@ public class PolicyEventListener {
                 .orElseThrow(() -> new ResourceNotFoundException("Policy not found"));
 
         double paymentAmount = event.getPaymentAmount();
+        double reserveAmount = policy.getReserveAmount();
 
-        policy.setReserveAmount(policy.getReserveAmount() - paymentAmount);
+        if (paymentAmount > reserveAmount) {
+            paymentAmount = reserveAmount;
+            policy.setReserveAmount(0.0);
+            claim.setClaimVerificationStatus(EventsMessages.CLAIM_PARTIALLY_PAID);
+        } else {
+            policy.setReserveAmount(reserveAmount - paymentAmount);
+            claim.setClaimVerificationStatus(EventsMessages.CLAIM_PAID);
+        }
+        claim.setClaimStatus(ClaimStatus.WYPŁACONE);
         policy.setPolicyStatus(PolicyStatus.WYGASŁA);
 
+        claimsRepository.save(claim);
         policyRepository.save(policy);
     }
+
+
+    @EventListener
+    public void handleClaimUpdatedEvent(ClaimUpdatedEvent event) {
+        Claims claim = event.getClaim();
+
+        if ((claim.getDecision().equals(Decision.AKCEPTACJA)) && claim.getPaymentAmount() == null) {
+            claim.setClaimStatus(ClaimStatus.OCZEKIWANIE_NA_PŁATNOŚĆ);
+            claim.setClaimVerificationStatus(EventsMessages.CLAIM_APPROVED_PENDING_PAYMENT);  }
+        else if (claim.getDecision().equals(Decision.ODMOWA)) {
+            claim.setClaimStatus(ClaimStatus.ODRZUCONE);
+            claim.setClaimVerificationStatus(EventsMessages.CLAIM_REJECTED);
+        }
+
+        claimsRepository.save(claim);
+      }
 }

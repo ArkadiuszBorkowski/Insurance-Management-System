@@ -16,6 +16,7 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.ClaimStatus;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.events.ClaimCreatedEvent;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.events.ClaimPaidEvent;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.events.ClaimUpdatedEvent;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.ClaimsRepository;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyRepository;
@@ -74,14 +75,14 @@ public class ClaimService {
             Double payments = Double.parseDouble(paymentAmount);
             existingClaim.setPaymentAmount(payments);
             existingClaim.setPaymentDate(LocalDate.now());
-            existingClaim.setClaimStatus(ClaimStatus.valueOf("WYPŁACONE"));
+            //.setClaimStatus(ClaimStatus.valueOf("WYPŁACONE"));
 
-            Optional<Policy> policyOpt = policyRepository.findById(existingClaim.getPolicy().getId());
+            /*Optional<Policy> policyOpt = policyRepository.findById(existingClaim.getPolicy().getId());
             if (policyOpt.isPresent()) {
                 Policy policy = policyOpt.get();
                 policy.setReserveAmount(policy.getReserveAmount() - existingClaim.getPaymentAmount());
                 policyRepository.save(policy);
-            }
+            }*/
         }
     }
 
@@ -91,16 +92,20 @@ public class ClaimService {
                 .orElseThrow(() -> new ResourceNotFoundException("Claim not found with id " + id));
         updateClaimDetails(existingClaim, claimsDTO, paymentAmount);
         claimsRepository.save(existingClaim);
-        processPaymentAmount(paymentAmount, existingClaim);
+        processUpdateClaimsOrProcessPayment(paymentAmount, existingClaim);
         return modelMapper.map(existingClaim, ClaimsDTO.class);
     }
 
-    private void processPaymentAmount(String paymentAmount, Claims existingClaim) {
-        if (isNumeric(paymentAmount)) {
-            double paymentAmountValue = Double.parseDouble(paymentAmount);
-            eventPublisher.publishEvent(new ClaimPaidEvent(this, existingClaim, paymentAmountValue));
-        } else if (StringUtils.isNotBlank(paymentAmount)) {
-            throw new IllegalArgumentException("Invalid payment amount: " + paymentAmount);
+    private void processUpdateClaimsOrProcessPayment(String paymentAmount, Claims existingClaim) {
+        if (StringUtils.isNotBlank(paymentAmount)) {
+            if (isNumeric(paymentAmount)) {
+                double paymentAmountValue = Double.parseDouble(paymentAmount);
+                eventPublisher.publishEvent(new ClaimPaidEvent(this, existingClaim, paymentAmountValue));
+            } else {
+                throw new IllegalArgumentException("Invalid payment amount: " + paymentAmount);
+            }
+        } else {
+            eventPublisher.publishEvent(new ClaimUpdatedEvent(this, existingClaim));
         }
     }
 
