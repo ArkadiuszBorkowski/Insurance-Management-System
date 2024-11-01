@@ -196,6 +196,22 @@ span.badge {
     height: 500px;
 }
 
+.tabs .tab a {
+    color: #000; /* Kolor tekstu zakładek */
+}
+.tabs .tab a.active {
+    background-color: rgb(0, 136, 122);
+    color: white;
+}
+.tabs .tab a:not(.active) {
+    background-color: #e0e0e0; /* Kolor tła nieaktywnych zakładek */
+}
+
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+    background-color: rgb(0, 136, 122);
+    outline: none;
+    color: white;
+}
 
 
 

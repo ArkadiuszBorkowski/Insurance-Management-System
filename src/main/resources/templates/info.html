@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<!-- - - - - - - - - - - H - E - A - D - - - - - - - - - - - - -->
+<head th:replace="~{fragments :: head}">
+
+    <style>
+        .section-title {
+            font-weight: bold;
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #00796b; /* Kolor tytułów sekcji */
+        }
+        .section-content {
+            margin-bottom: 20px;
+        }
+        .highlight {
+            background-color: #e0f7fa; /* Kolor tła dla wyróżnienia */
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .table-header {
+            background-color: #00796b; /* Kolor tła nagłówka tabeli */
+            color: white; /* Kolor tekstu nagłówka tabeli */
+        }
+        .table-content {
+            background-color: #e0f7fa; /* Kolor tła zawartości tabeli */
+        }
+    </style>
+
+</head>
+<body>
+<!-- - - - - - - - - - - M - E - N - U - - - - - - - - - - - - -->
+<header th:replace="~{fragments :: header}"></header>
+<!-- - - - W - Y - S - Z - U - K - I - W - A - R - K - A - - - -->
+<nav th:replace="~{fragments :: search}"></nav>
+<br><br>
+
+<!--Z - A - W - A - R - T - O - Ś - Ć - - S - T - R - O - N - Y-->
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <h2 class="center-align">System Zawierania Umów Ubezpieczeniowych</h2>
+                <div class="section">
+                    <h4 class="section-title">Opis Projektu</h4>
+                    <p class="section-content highlight">
+                        System umożliwia zawieranie ubezpieczeń oraz obsługę roszczeń ubezpieczeniowych. Użytkownicy mogą tworzyć profile, dzięki, którym będą obsługiwać system.
+                    </p>
+                </div>
+                <div class="section">
+                    <div class="row">
+                        <div class="col s6">
+                            <h4 class="section-title">Funkcjonalności</h4>
+                            <table class="highlight">
+                                <thead class="table-header">
+                                <tr>
+                                    <th>Funkcjonalności</th>
+                                </tr>
+                                </thead>
+                                <tbody class="table-content">
+                                <tr><td>Dynamicznie zaciąganie danych na stronie</td></tr>
+                                <tr><td>Manualne uzupełnianie modelu klienta i zawieranie polis ubezpieczeniowych</td></tr>
+                                <tr><td>Import danych z plików</td></tr>
+                                <tr><td>Rezerwa ubezpieczeniowa na pokrycie ewentualnych szkód</td></tr>
+                                <tr><td>Polisy na różne produkty: dom, mieszkanie, luksusowy jacht, pojazd</td></tr>
+                                <tr><td>Ręczne przypisywanie i importowanie polis do systemu</td></tr>
+                                <tr><td>Obsługa ryzyk i wypłaty odszkodowań zgodnie z warunkami umowy</td></tr>
+                                <tr><td>Tworzenie i przypisywanie szkód do klientów</td></tr>
+                                <tr><td>Weryfikacja szkód, zbieranie dokumentacji i podejmowanie decyzji o wypłacie roszczeń</td></tr>
+                                <tr><td>Znaczniki nowych szkód, podsumowania zdarzeń, podpowiedzi</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col s6">
+                            <h4 class="section-title">Technologie</h4>
+                            <table class="highlight">
+                                <thead class="table-header">
+                                <tr>
+                                    <th>Technologie</th>
+                                </tr>
+                                </thead>
+                                <tbody class="table-content">
+                                <tr><td>Java</td></tr>
+                                <tr><td>Spring Boot</td></tr>
+                                <tr><td>Profile: dev i prod</td></tr>
+                                <tr><td>Bazy danych: H2 i MySQL</td></tr>
+                                <tr><td>Liquibase</td></tr>
+                                <tr><td>JPA</td></tr>
+                                <tr><td>Thymeleaf</td></tr>
+                                <tr><td>HTML 5.0</td></tr>
+                                <tr><td>CSS</td></tr>
+                                <tr><td>JavaScript, JQuery, Ajax</td></tr>
+                                <tr><td>Dev-tools</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <h4 class="section-title">Warstwa Widoku</h4>
+                    <p class="section-content highlight">
+                        Warstwa widoku została stworzona w stylu Material Design przy wykorzystaniu silnika Thymeleaf.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- - - - - - - - - S - T - O - P - K - A - - - - - - - - - - -->
+<footer th:replace="~{fragments :: footer}"></footer>
+
+<!-- - - P - Ł - Y - W - A - J - Ą - C - Y  -  - P - R - Z - Y - C - I - S - K - - -->
+<div th:replace="~{fragments :: floating_btn}"></div>
+
+<!-- - - - - - - - - S - K - R - Y - P - T - Y - - - - - - - - -->
+<div th:replace="~{fragments :: script_js}"></div>
+
+</body>
+</html>

@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.InsuranceProductDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.RiskDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.InsuranceProduct;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Risk;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.ProductRepository;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.RiskRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,11 +23,13 @@ public class ProductService {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
     private final ProductRepository productRepository;
+    private final RiskRepository riskRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public ProductService(ProductRepository productRepository, ModelMapper modelMapper) {
+    public ProductService(ProductRepository productRepository, RiskRepository riskRepository, ModelMapper modelMapper) {
         this.productRepository = productRepository;
+        this.riskRepository = riskRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -49,6 +53,13 @@ public class ProductService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product Id: " + id));
         logger.debug("Found insurance product: {}", product);
         return product.getRisks().stream()
+                .map(risk -> modelMapper.map(risk, RiskDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<RiskDTO> getAllRisks() {
+        Iterable<Risk> risks = riskRepository.findAll();
+        return StreamSupport.stream(risks.spliterator(), false)
                 .map(risk -> modelMapper.map(risk, RiskDTO.class))
                 .collect(Collectors.toList());
     }

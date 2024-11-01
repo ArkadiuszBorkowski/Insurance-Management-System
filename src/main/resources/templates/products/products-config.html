@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org" >
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments :: head}"></head>
 <body>
 
@@ -8,13 +8,51 @@
 
 <!-- WYSZUKIWARKA -->
 <nav th:replace="~{fragments :: search}"></nav>
-<div><br><br></div>
-
 <main class="main-content">
-    <h3><span class="teal-text text-lighten-2">Do tej strony ma dostęp tylko użytkownik z rolą "ADMIN"</span></h3>
-    <h5><span class="teal-text text-lighten-2">To jest tylko przykład odseparowania dostępu dla poszczególnych ról.</span></h5>
-    <a href="/" class="btn-large waves-effect waves-light">Powrót do strony głównej</a>
+<h3><span class="teal-text text-lighten-2 center-align">Do tej strony ma dostęp tylko użytkownik z rolą "ADMIN"</span></h3>
+<h5><span class="teal-text text-lighten-2 center-align">To jest tylko przykład odseparowania dostępu dla poszczególnych ról. Brak obsłużonej logiki</span></h5>
+
+<section class="container card-panel grey lighten-5">
+    <h5><span class="teal-text text-lighten-2 center-align">KONFIGURATPR PRODUKTÓW</span></h5>
+
+    <form th:action="@{/products/config}" th:object="${product}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <label>Product Name:</label>
+        <input type="text" th:field="*{productName}" />
+        <label>Description:</label>
+        <input type="text" th:field="*{description}" />
+        <label>Risks:</label>
+        <select multiple th:field="*{risks}">
+            <option th:each="risk : ${allRisks}" th:value="${risk.id}" th:text="${risk.riskName}"></option>
+        </select>
+
+    </form>
+    <div class="input-field col s12 m6 l3">
+        <button id="fakeButton" class="btn waves-effect waves-light" type="submit">ZAPISZ</button>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>Nazwa produktu</th>
+            <th>Opis</th>
+            <th>Akcja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.productName}"></td>
+            <td th:text="${product.description}"></td>
+            <td>
+                <a href="#">Edytuj</a>
+                <a href="#">Usuń</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</section>
 </main>
+
 
 <!-- STOPKA STRONY -->
 <footer th:replace="~{fragments :: footer}"></footer>

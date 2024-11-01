@@ -9,13 +9,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyRepository;
 
+import java.util.Map;
+
 @Controller
 class HomeController {
 
     private final PolicyRepository policyRepository;
+    private final Map<String, String> viewNames;
 
-    public HomeController(PolicyRepository policyRepository) {
+    public HomeController(PolicyRepository policyRepository, Map<String, String> viewNames) {
         this.policyRepository = policyRepository;
+        this.viewNames = viewNames;
     }
 
     @GetMapping("/")
@@ -27,6 +31,11 @@ class HomeController {
     public String home(Model model) {
         Long policyCounter = policyRepository.count();
         model.addAttribute("policyCounter", policyCounter);
-        return "index";
+        return viewNames.get("HOME_SITE");
+    }
+
+    @GetMapping("/info")
+    public String info(Model model) {
+        return viewNames.get("INFO_SITE");
     }
 }

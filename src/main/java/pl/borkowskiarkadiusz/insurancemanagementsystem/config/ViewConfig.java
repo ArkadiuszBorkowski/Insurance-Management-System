@@ -13,6 +13,8 @@ public class ViewConfig {
     @Bean
     public Map<String, String> viewNames() {
         Map<String, String> viewNames = new HashMap<>();
+        viewNames.put("HOME_SITE", "/index");
+        viewNames.put("INFO_SITE", "/info");
         viewNames.put("CLAIM_FORM", "claim/claim");
         viewNames.put("CLAIM_LIST", "claim/claims-list");
         viewNames.put("CLAIM_DETAILS", "claim/claim-details");

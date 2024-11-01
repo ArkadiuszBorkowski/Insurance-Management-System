@@ -161,5 +161,10 @@ public class ClaimService {
         return new PageImpl<>(claimsDTos, pageable, claimsPage.getTotalElements());
     }
 
+    //licznik szkód w dniu dziejszym
+    public long getTodayClaimsCount() {
+        return claimsRepository.countClaimsRegisteredToday(LocalDate.now());
+    }
+
 
 }

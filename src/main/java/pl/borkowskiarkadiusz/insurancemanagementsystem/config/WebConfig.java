@@ -7,15 +7,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    private final
-    StringToInsuranceProductDTOConverter stringToInsuranceProductDTOConverter;
+    private final StringToInsuranceProductDTOConverter stringToInsuranceProductDTOConverter;
 
     public WebConfig(StringToInsuranceProductDTOConverter stringToInsuranceProductDTOConverter) {
         this.stringToInsuranceProductDTOConverter = stringToInsuranceProductDTOConverter;
+
     }
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(stringToInsuranceProductDTOConverter);
+
     }
+
+
 }

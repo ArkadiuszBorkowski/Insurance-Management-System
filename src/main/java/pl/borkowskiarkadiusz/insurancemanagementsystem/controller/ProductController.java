@@ -5,16 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.InsuranceProductDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.RiskDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ProductService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/products")
@@ -40,14 +38,8 @@ public class ProductController {
         return viewNames.get("PRODUCTS_LIST");
     }
 
-    @GetMapping("/config")
-    public String product_config() {
-        return viewNames.get("PRODUCTS_CONFIG");
-    }
-
     //UŻYCIE NA FORMULARZU POLISY DO ASYNCHRONICZNEGO POBRANIA LISTY RYZYK PRZY ZMIANIE PRODUKTU W POLU TYPU SELECT.
     //DANE POBIERANE PRZEZ AJAX W SKRYPTACH JS.
-
     @GetMapping("/{id}/risks")
     @ResponseBody
     public List<RiskDTO> getRisksByProductId(@PathVariable Long id) {
@@ -56,5 +48,14 @@ public class ProductController {
         logger.info("Response: {}", risks);
         return risks;
     }
+
+    @GetMapping("/config")
+    public String showForm(Model model) {
+        model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("product", new InsuranceProductDTO());
+        model.addAttribute("allRisks", productService.getAllRisks());
+        return viewNames.get("PRODUCTS_CONFIG");
+    }
+
 
 }
