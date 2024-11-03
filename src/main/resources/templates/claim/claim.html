@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 -->
 <!-- - - - - - - - - - - H - E - A - D - - - - - - - - - - - - -->
 <head th:replace="~{fragments :: head}">
@@ -372,7 +373,7 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">person</i>
                         <label for="firstName">IMIE UBEZPIECZONEGO</label>
-                        <input type="text" id="firstName" name="firstName" required class="validate"
+                        <input type="text" id="firstName" name="firstName" required class="validate" readonly
                                pattern="^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+$"
                                th:field="*{policy.client.firstName}">
                         <span class="helper-text" data-error="Imię powinno składać się tylko z liter"></span>
@@ -383,7 +384,7 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">person</i>
                         <label for="lastName">NAZWISKO UBEZPIECZONEGO</label>
-                        <input type="text" id="lastName" name="lastName" required class="validate"
+                        <input type="text" id="lastName" name="lastName" required class="validate" readonly
                                pattern="^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]+$"
                                th:field="*{policy.client.lastName}">
                         <span class="helper-text" data-error="Nazwisko powinno składać się tylko z liter"></span>
@@ -393,7 +394,7 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">badge</i>
                         <label for="pesel">PESEL UBEZPIECZONEGO</label>
-                        <input type="text" id="pesel" name="pesel" required class="validate"
+                        <input type="text" id="pesel" name="pesel" required class="validate" readonly
                                pattern="^\d{11}$"
                                data-length="11"
                                th:field="*{policy.client.pesel}">
@@ -404,7 +405,7 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">calendar_month</i>
                         <label for="dateOfBirth">DATA URODZENIA</label>
-                        <input type="text" id="dateOfBirth" name="dateOfBirth" required class="datepicker validate"
+                        <input type="text" id="dateOfBirth" name="dateOfBirth" required class="datepicker validate" readonly
                                th:field="*{policy.client.dateOfBirth}">
                     </div>
                 </div>
@@ -417,7 +418,7 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">alternate_email</i>
                         <label for="emailAddresss">ADRES EMAIL</label>
-                        <input type="email" id="emailAddresss" name="email" required class="validate"
+                        <input type="email" id="emailAddresss" name="email" required class="validate" readonly
                                th:field="*{policy.client.email}">
                         <span class="helper-text" data-error="Wprowadź poprawny adres email"></span>
                     </div>
@@ -426,7 +427,7 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">phone</i>
                         <label for="mobileNumber">NUMER TELEFONU</label>
-                        <input type="tel" id="mobileNumber" name="mobileNumber" required class="validate"
+                        <input type="tel" id="mobileNumber" name="mobileNumber" required class="validate" readonly
                                th:field="*{policy.client.mobileNumber}">
                         <span class="helper-text" data-error="Wprowadź poprawny numer telefonu (9 cyfr)"></span>
                     </div>
@@ -435,7 +436,7 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">location_city</i>
                         <label for="city">MIASTO ZAMIESZKANIA</label>
-                        <input type="text" id="city" name="city" required class="validate"
+                        <input type="text" id="city" name="city" required class="validate" readonly
                                th:field="*{policy.client.address.city}">
                         <span class="helper-text" data-error="Wprowadź miasto zamieszkania ubezpieczonego"></span>
                     </div>
@@ -444,7 +445,7 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">pin</i>
                         <label for="zipcode">KOD POCZTOWY</label>
-                        <input type="text" id="zipcode" name="zipcode" required class="validate"
+                        <input type="text" id="zipcode" name="zipcode" required class="validate" readonly
                                th:field="*{policy.client.address.zipcode}">
                         <span class="helper-text" data-error="Wprowadź  kod pocztowy"></span>
                     </div>
@@ -459,7 +460,7 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">edit_road</i>
                         <label for="street">NAZWA ULICY</label>
-                        <input type="text" id="street" name="street" required class="validate"
+                        <input type="text" id="street" name="street" required class="validate" readonly
                                th:field="*{policy.client.address.street}">
                         <span class="helper-text" data-error="Wprowadź poprawną nazwe ulicy"></span>
                     </div>
@@ -477,7 +478,7 @@
                     <div class="input-field col s12 m6 l3">
                         <i class="material-icons prefix">signpost</i>
                         <label for="apartmentNo">NUMER MIESZKANIA</label>
-                        <input type="text" id="apartmentNo" name="apartmentNo" class="validate"
+                        <input type="text" id="apartmentNo" name="apartmentNo" class="validate" readonly
                                th:field="*{policy.client.address.apartmentNo}">
                         <span class="helper-text" data-error="Wprowadź poprawny numer mieszkania"></span>
                     </div>

@@ -71,7 +71,7 @@
                   th:object="${policy}" method="post">
 
                 <!-- STATUS INFORMACYJNY STANU POLISY -->
-                <div style="margin-bottom: 0px"
+                <div style="margin-bottom: 0"
                      th:class="${policy.id == null} ? 'container card-panel teal' : 'container card-panel cyan darken-2'">
                     <span id="claimVerificationStatus" class="flow-text white-text">
                         <span th:text="${policy.id == null} ? 'Formularz nowej polisy' : 'Polisa ubezpieczeniowa : ' + ${policy.policyNumber}"></span>
