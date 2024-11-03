@@ -9,7 +9,7 @@ import java.util.Map;
 @Configuration
 public class ViewConfig {
 
-    //KLASA DO MAPOWANIE LOKALIZACJI WIDOKÓW STRON HTML (DO KONTROLERÓW)
+    //KLASA DO MAPOWANIA LOKALIZACJI WIDOKÓW STRON HTML (DO KONTROLERÓW)
     @Bean
     public Map<String, String> viewNames() {
         Map<String, String> viewNames = new HashMap<>();
