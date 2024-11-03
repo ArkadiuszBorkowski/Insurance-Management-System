@@ -10,7 +10,7 @@
 <!-- - - - - D - A - N - E - - K - L - I - E - N - T - A - - - -->
 <!--===========================================================-->
 
-<section class="container card-panel grey lighten-5" th:fragment="policy_claims_data">
+<section th:if="${policy.id != null}" class="container card-panel grey lighten-5" th:fragment="policy_claims_data">
     <span class="flow-text grey-text text-darken-2">Lista szkód ubezpieczonego:</span>
     <br>
 

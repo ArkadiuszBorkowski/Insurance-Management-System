@@ -18,6 +18,7 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyReposito
 
 import javax.swing.text.html.Option;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -124,6 +125,8 @@ public class PolicyService {
         return policyRepository.findByPolicyNumber(policyNumber)
                 .map(policy -> modelMapper.map(policy, PolicyDTOWithoutClaims.class));
     }
+
+
 
 
 

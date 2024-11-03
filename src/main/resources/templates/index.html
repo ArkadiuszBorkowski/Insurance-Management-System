@@ -49,7 +49,7 @@
     <section class="container">
         <!-- WELCOME MESSAGE UŻYTKOWNIK APLIKACJI -->
         <div class="row">
-                <h5><span class="teal-text text-lighten-2">Witaj </span><span class="grey-text text-lighten-1">Arkadiusz Borkowski</span></h5>
+                <h5><span class="teal-text text-lighten-2">Witaj </span><span class="grey-text text-lighten-1">Operator Szkód</span></h5>
         </div>
 
         <div class="row">
@@ -118,23 +118,23 @@
                             <tbody>
                             <tr>
                                 <td>Polisy ogółem:</td>
-                                <td><span th:text="${policyCounter}"></td>
+                                <td><span th:text="${policyCounter}"></span></td>
                             </tr>
                             <tr>
                                 <td>Szkody ogółem:</td>
-                                <td>30</td>
+                                <td><span th:text="${claimsCounter}"></span></td>
                             </tr>
                             <tr>
                                 <td>Szkody zamkinięte:</td>
-                                <td>3</td>
+                                <td><span th:text="${closedClaimsCounter}"></span></td>
                             </tr>
                             <tr>
-                                <td>Szkody pilne:</td>
-                                <td>3</td>
+                                <td>Szkody wypłacone:</td>
+                                <td><span th:text="${paidClaimsCounter}"></span></td>
                             </tr>
                             <tr>
-                                <td>Szkody w tym miesiącu:</td>
-                                <td>1</td>
+                                <td>Szkody w dniu dzisiejszym</td>
+                                <td><span th:text="${todayClaimsCount}"></span></td>
                             </tr>
                             </tbody>
                         </table>

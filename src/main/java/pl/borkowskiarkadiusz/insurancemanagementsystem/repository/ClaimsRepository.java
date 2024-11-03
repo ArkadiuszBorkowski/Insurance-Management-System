@@ -19,4 +19,10 @@ public interface ClaimsRepository extends JpaRepository<Claims, Long> {
 
     @Query("SELECT COUNT(c) FROM Claims c WHERE c.claimRegistrationDate = :today")
     long countClaimsRegisteredToday(@Param("today") LocalDate today);
+
+    @Query("SELECT COUNT(c) FROM Claims c WHERE c.claimStatus = 'ZAMKNIĘTE'")
+    long countClosedClaims();
+
+    @Query("SELECT COUNT(c) FROM Claims c WHERE c.claimStatus = 'WYPŁACONE'")
+    long countPaidClaims();
 }

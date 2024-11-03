@@ -94,14 +94,19 @@ public class ClaimEventListener {
     @EventListener
     public void handleClaimUpdatedEvent(ClaimUpdatedEvent event) {
         Claims claim = event.getClaim();
+        Policy policy = policyRepository.findById(claim.getPolicy().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Policy not found"));
 
-        if ((claim.getDecision().equals(Decision.AKCEPTACJA)) && claim.getPaymentAmount() == null) {
+        if (claim.getDecision().equals(Decision.AKCEPTACJA) && claim.getPaymentAmount() == null) {
             claim.setClaimStatus(ClaimStatus.OCZEKIWANIE_NA_PŁATNOŚĆ);
-            claim.setClaimVerificationStatus(EventsMessages.CLAIM_APPROVED_PENDING_PAYMENT);  }
-        else if (claim.getDecision().equals(Decision.ODMOWA)) {
-            claim.setClaimStatus(ClaimStatus.ODRZUCONE);
-            claim.setClaimVerificationStatus(EventsMessages.CLAIM_REJECTED);
+            claim.setClaimVerificationStatus(EventsMessages.CLAIM_APPROVED_PENDING_PAYMENT);
+        } else if (claim.getDecision().equals(Decision.ODMOWA)) {
+            if (!policy.getPolicyStatus().equals(PolicyStatus.WYGASŁA)) {
+                claim.setClaimStatus(ClaimStatus.ODRZUCONE);
+                claim.setClaimVerificationStatus(EventsMessages.CLAIM_REJECTED);
+            }
         }
+
 
         claimsRepository.save(claim);
       }

@@ -1,6 +1,9 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.service;
 
 import io.micrometer.common.util.StringUtils;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.ClaimStatus;
+import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -11,9 +14,6 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClaimsDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Claims;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.ClaimStatus;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.events.ClaimCreatedEvent;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.events.ClaimPaidEvent;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.events.ClaimUpdatedEvent;
@@ -35,15 +35,13 @@ public class ClaimService {
 
     private final ClaimsRepository claimsRepository;
     private final ModelMapper modelMapper;
-    private final PolicyRepository policyRepository;
     private final ApplicationEventPublisher eventPublisher;
 
 
     @Autowired
-    public ClaimService(ClaimsRepository claimsRepository, ModelMapper modelMapper, PolicyRepository policyRepository, ApplicationEventPublisher eventPublisher) {
+    public ClaimService(ClaimsRepository claimsRepository, ModelMapper modelMapper, ApplicationEventPublisher eventPublisher) {
         this.claimsRepository = claimsRepository;
         this.modelMapper = modelMapper;
-        this.policyRepository = policyRepository;
         this.eventPublisher = eventPublisher;
     }
 
@@ -75,14 +73,6 @@ public class ClaimService {
             Double payments = Double.parseDouble(paymentAmount);
             existingClaim.setPaymentAmount(payments);
             existingClaim.setPaymentDate(LocalDate.now());
-            //.setClaimStatus(ClaimStatus.valueOf("WYPŁACONE"));
-
-            /*Optional<Policy> policyOpt = policyRepository.findById(existingClaim.getPolicy().getId());
-            if (policyOpt.isPresent()) {
-                Policy policy = policyOpt.get();
-                policy.setReserveAmount(policy.getReserveAmount() - existingClaim.getPaymentAmount());
-                policyRepository.save(policy);
-            }*/
         }
     }
 
@@ -110,37 +100,6 @@ public class ClaimService {
     }
 
 
-
-
-    public void updateClaimsDetailsAndState (Claims existingClaim, ClaimsDTO claimsDTO, String paymentAmount) {
-        LocalDate claimDate = claimsDTO.getClaimDate();
-        LocalDate policyEndDate = existingClaim.getPolicy().getEndDate();
-        LocalDate claimRegistrationDate = claimsDTO.getClaimRegistrationDate();
-        double claimReserveAmount = claimsDTO.getPolicy().getReserveAmount();
-        double claimPaymentAmount = Double.parseDouble(paymentAmount);
-
-        // Warunek 1: ClaimsDate > policy.EndDate
-        if (claimDate.isAfter(policyEndDate)) {
-            claimsDTO.setClaimStatus(ClaimStatus.ODRZUCONE);
-            claimsDTO.setDecision(Decision.valueOf("ODMOWA"));
-            claimsDTO.setClaimVerificationStatus("Zdarzenie ubezpieczeniowe miało miejsce po dacie wygaśnięcia polisy, w związku z czym roszczenie nie może zostać uznane.");
-        } else if (claimReserveAmount == 0) {
-            // Warunek 2: ClaimDate ok, ClaimReserveAmount = 0
-            claimsDTO.setClaimStatus(ClaimStatus.ZAMKNIĘTE);
-            claimsDTO.setDecision(Decision.valueOf("ODMOWA"));
-            claimsDTO.setClaimVerificationStatus("Wyczerpana rezerwa ubezpieczeniowa - roszczenie automatycznie zamknięte.");
-        } else if (claimPaymentAmount > 0) {
-            // Warunek 4: ClaimDate ok, ClaimPaymentAmount > 0
-            claimsDTO.setClaimStatus(ClaimStatus.WYPŁACONE);
-            claimsDTO.setDecision(Decision.valueOf("AKCEPTACJA"));
-            claimsDTO.setClaimVerificationStatus("Roszczenie uznane - szkoda została wypłacona.");
-        } else if (existingClaim.getId() == null && claimReserveAmount == 0) {
-            // Warunek 5: claims.id == null & reserveAmount == 0
-            claimsDTO.setClaimVerificationStatus("Wyczerpana rezerwa ubezpieczeniowa - roszczenie nie może być wypłacone.");
-        }
-        // Mapowanie ClaimsDTO na Claims
-        modelMapper.map(claimsDTO, existingClaim);
-    }
 
     public Page<ClaimsDTO> getClaimsByPeselOrClaimNumber(String pesel, String claimNumber, String sortBy, int page) {
         Page<Claims> claimsPage;

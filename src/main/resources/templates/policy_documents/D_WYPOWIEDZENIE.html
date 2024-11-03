@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Polisa Ubezpieczeniowa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Formularz Wypowiedzenia Umowy Ubezpieczenia</h1>
+</div>
+<div class="section">
+    <label class="label" for="policyNumber">Numer Polisy:</label>
+    <input th:value="${policy != null ? policy.policyNumber : ''}"type="text" id="policyNumber" class="input">
+</div>
+<div class="section">
+    <label class="label" for="insuredName">Imię i Nazwisko Ubezpieczonego:</label>
+    <input th:value="${policy.client != null ? policy.client.firstName + ' ' + policy.client.lastName : ''}" type="text" id="insuredName" class="input">
+</div>
+<div class="section">
+    <label class="label" for="email">Email:</label>
+    <input th:value="${policy.client != null ? policy.client.email : ''}" type="email" id="email" class="input">
+</div>
+<div class="section">
+    <label class="label" for="phone">Telefon:</label>
+    <input th:value="${policy.client != null ? policy.client.mobileNumber : ''}" type="tel" id="phone" class="input">
+</div>
+<div class="section">
+    <label class="label" for="terminationDate">Data Wypowiedzenia:</label>
+    <input type="date" id="terminationDate" class="input">
+</div>
+<div class="section">
+    <label class="label" for="reason">Powód Wypowiedzenia:</label>
+    <textarea id="reason" class="input" rows="4"></textarea>
+</div>
+<div class="section">
+    <p>Proszę o rozwiązanie umowy ubezpieczenia z zachowaniem 30-dniowego okresu wypowiedzenia.</p>
+</div>
+<div class="section">
+    <p>Podpis: ___________________________</p>
+</div>
+</body>
+</html>

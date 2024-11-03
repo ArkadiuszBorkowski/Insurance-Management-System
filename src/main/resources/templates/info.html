@@ -25,6 +25,11 @@
         .table-content {
             background-color: #e0f7fa; /* Kolor tła zawartości tabeli */
         }
+
+        .table-content ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
     </style>
 
 </head>
@@ -37,71 +42,176 @@
 
 <!--Z - A - W - A - R - T - O - Ś - Ć - - S - T - R - O - N - Y-->
 <main>
-    <div class="container">
+    <div class="container card-panel grey lighten-5">
         <div class="row">
             <div class="col s12">
-                <h2 class="center-align">System Zawierania Umów Ubezpieczeniowych</h2>
+                <h2 class="center-align teal-text text-darken-2">System Zawierania Umów Ubezpieczeniowych</h2>
                 <div class="section">
-                    <h4 class="section-title">Opis Projektu</h4>
+                    <h4 class="section-title teal-text text-darken-2">Opis Projektu</h4>
                     <p class="section-content highlight">
-                        System umożliwia zawieranie ubezpieczeń oraz obsługę roszczeń ubezpieczeniowych. Użytkownicy mogą tworzyć profile, dzięki, którym będą obsługiwać system.
+                        Aplikacja jest kompleksowym systemem do zarządzania polisami i szkodami ubezpieczeniowymi. Dzięki modularnej architekturze i zastosowaniu wzorców projektowych, aplikacja jest skalowalna, bezpieczna i łatwa w utrzymaniu. <br>
+                        Dostęp do aplikacji jest zabezpieczony przy użyciu Spring Security i wymaga zalogowania. Użytkownicy systemu posiadają określone role i uprawnienia - dostęp może być uzalezniony od roli. <br>
+                        Zadaniem użytkownika systemu jest wprowadzanie danych klienta i zawieranie polis ubezpieczeniowych w zależności od wybranego przez klienta produktu ubezpieczeniowego.<br>
+                        W przypadku gdy klient zgłosi szkodę, użytkownik wprowadza informacje o zdarzeniu do systemu a następnie operator szkód podejmuje decyzję odnośnie odrzuceniu lub akceptacji szkody i wypłacie odszkodowania.<br>
+                        Dzięki wykorzystaniu obsługi zdarzeń procesy jakie musi wykonać operator szkód zostały zautomaytyzowane tak by ograniczyć jego pracę<br>
+                        Produkty ubezpieczeniowe są definiowane tylko przez administratora systemu. (rola ADMIN).
+
                     </p>
                 </div>
                 <div class="section">
                     <div class="row">
                         <div class="col s6">
-                            <h4 class="section-title">Funkcjonalności</h4>
                             <table class="highlight">
                                 <thead class="table-header">
                                 <tr>
-                                    <th>Funkcjonalności</th>
+                                    <th><h4 class="section-title teal-text text-darken-2">Funkcjonalności</h4></th>
                                 </tr>
                                 </thead>
                                 <tbody class="table-content">
-                                <tr><td>Dynamicznie zaciąganie danych na stronie</td></tr>
-                                <tr><td>Manualne uzupełnianie modelu klienta i zawieranie polis ubezpieczeniowych</td></tr>
-                                <tr><td>Import danych z plików</td></tr>
-                                <tr><td>Rezerwa ubezpieczeniowa na pokrycie ewentualnych szkód</td></tr>
-                                <tr><td>Polisy na różne produkty: dom, mieszkanie, luksusowy jacht, pojazd</td></tr>
-                                <tr><td>Ręczne przypisywanie i importowanie polis do systemu</td></tr>
-                                <tr><td>Obsługa ryzyk i wypłaty odszkodowań zgodnie z warunkami umowy</td></tr>
-                                <tr><td>Tworzenie i przypisywanie szkód do klientów</td></tr>
-                                <tr><td>Weryfikacja szkód, zbieranie dokumentacji i podejmowanie decyzji o wypłacie roszczeń</td></tr>
-                                <tr><td>Znaczniki nowych szkód, podsumowania zdarzeń, podpowiedzi</td></tr>
+                                <tr>
+                                    <td><b>Podsumowanie polis i szkód w systemie</b>, w tym szkody zamknięte, wypłacone oraz dzisiejsze zgłoszenia.<br>
+                                        W aplikacji wykorzystane są specjalne wizualne znaczniki, np. szkód zawartych w danym dniu. SZKODY <span class="badge">3</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b><span class="red-text">Asynchroniczne pobieranie danych</span> klienta</b> na podstawie PESEL do formularza, bez konieczności przeładowania.<br>
+                                        <b>Asynchroniczne pobieranie ryzyk</b> na podstawie wybranego produktu ubezpieczeniowego na formularzu.<br>
+                                        API do zwrócenia danych (JSON) oraz JavaScript do dynamicznego wczytywania danych do formularza.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b><span class="red-text">Walidacja wielowarstwowa</span> danych</b> na poziomie modelu <b>(backend)</b>, jak również po stronie klienta <b>(frontend)</b>.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Obiekty transferu danych <span class="red-text">DTO</span></b> używane do przesyłania danych między warstwami aplikacji.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Wykorzystanie <b>Scheduler</b> do weryfikacji polis co 24h i <b>aktualizacji statusów</b> (np. gdy polisa wygaśnie).
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Manualne <b>uzupełnianie modelu klienta i zawieranie polis ubezpieczeniowych oraz szkód</b>.<br>
+                                        Głównym założeniem systemu jest <b>minimalizacja ręcznych procesów</b> i wprowadzania danych.<br>
+                                        <b>Część danych jest generowana automatycznie, aby ograniczyć ryzyko błędów ludzkich</b>, na przykład:<br>
+                                        • <b>Generatory numerów polis i szkód</b> tworzą unikalne numery na podstawie określonego wzorca, wykorzystując <b><span class="red-text">Atomic Integer</span></b> do zapewnienia ich unikalności.<br>
+                                        • <b>Status polisy</b> jest automatycznie ustawiany <b>podczas tworzenia i aktualizacji</b>, a jego stan jest modyfikowany przez <b><span class="red-text">EventListener</span> (obsługę zdarzeń)</b> oraz <b>Scheduler</b>.<br>
+                                        • <b>Opis statusowy szkody</b> jest automatycznie ustawiany <b>podczas tworzenia i aktualizacji szkody</b>, a jego stan jest modyfikowany przez <b><span class="red-text">EventListener</span> (obsługę zdarzeń)</b>.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Z poziomu</b> zapisanej <b>polisy</b> można przejść <b>do szkód ubezpieczonego</b> (wybór z listy szkód) lub utworzyć nową:<br>
+                                        Gdy tworzymy szkodę z poziomu formularza polisy, dane klienta i polisy są przenoszone automatycznie do formularza szkód (API + JS).
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b><span class="red-text">Dynamiczne generowanie dokumentów</span></b> na podstawie danych z polisy oraz <b>zapisywanie ich do formatu PDF</b>.<br>
+                                        Proste tworzenie szablonów dokumentów, które są automatycznie zaczytywane do listy dokumentów.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Utworzone <b>polisy i szkody są agregowane do listy z paginacją</b>, z możliwością <b>sortowania oraz filtrowania</b> wyników.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Utworzenie szkody możliwe tylko poprzez walidację, czy polisa ubezpieczeniowa istnieje w systemie.<br>
+                                        Na podstawie wprowadzonego numeru polisy i odpowiedzi z API, jeśli polisa istnieje, mapowane są dane polisy na pola w formularzu szkody.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Formularz szkodowy posiada czytelny baner etapu szkody, ułatwiający rozeznanie na szkodzie oraz opisowy status szkody (+ walidacja).<br>
+                                        [WERYFIKACJA POLISY > REJESTRACJA ROSZCZENIA > PODJĘCIE DECYZJI > WYPŁATA ODSZKODOWANIA]
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Weryfikacja szkód, zbieranie informacji o szkodzie i podejmowanie decyzji o wypłacie roszczeń.<br>
+                                        Wypłata roszczenia wpływa na stan rezerwy polisy i jej status.
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
+
                         </div>
                         <div class="col s6">
-                            <h4 class="section-title">Technologie</h4>
+
                             <table class="highlight">
                                 <thead class="table-header">
                                 <tr>
-                                    <th>Technologie</th>
+                                    <th><h4 class="section-title teal-text text-darken-2">Technologie i Frameworki</h4></th>
                                 </tr>
                                 </thead>
                                 <tbody class="table-content">
-                                <tr><td>Java</td></tr>
-                                <tr><td>Spring Boot</td></tr>
-                                <tr><td>Profile: dev i prod</td></tr>
-                                <tr><td>Bazy danych: H2 i MySQL</td></tr>
-                                <tr><td>Liquibase</td></tr>
-                                <tr><td>JPA</td></tr>
-                                <tr><td>Thymeleaf</td></tr>
-                                <tr><td>HTML 5.0</td></tr>
-                                <tr><td>CSS</td></tr>
-                                <tr><td>JavaScript, JQuery, Ajax</td></tr>
-                                <tr><td>Dev-tools</td></tr>
+                                <tr>
+                                    <td><b>Technologie</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Java</td>
+                                </tr>
+                                <tr>
+                                    <td>Spring Boot</td>
+                                </tr>
+                                <tr>
+                                    <td>Bazy danych: H2 i MySQL (Profile: dev i prod)</td>
+                                </tr>
+                                <tr>
+                                    <td>Liquibase</td>
+                                </tr>
+                                <tr>
+                                    <td>JPA (Java Persistence API)</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Frontend</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Thymeleaf</td>
+                                </tr>
+                                <tr>
+                                    <td>HTML 5.0</td>
+                                </tr>
+                                <tr>
+                                    <td>CSS</td>
+                                </tr>
+                                <tr>
+                                    <td>JavaScript</td>
+                                </tr>
+                                <tr>
+                                    <td>jQuery</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Narzędzia i Biblioteki</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Spring Boot DevTools</td>
+                                </tr>
+
+                                <tr>
+                                    <td>ModelMapper</td>
+                                </tr>
+                                <tr>
+                                    <td>Lombok</td>
+                                </tr>
+                                <tr>
+                                    <td>SLF4J i Logback</td>
+                                </tr>
+                                <tr>
+                                    <td>iText</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Testowanie</b></td>
+                                </tr>
+                                <tr>
+                                    <td>JUnit</td>
+                                </tr>
+                                <tr>
+                                    <td>Spring Security Test</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div class="section">
-                    <h4 class="section-title">Warstwa Widoku</h4>
-                    <p class="section-content highlight">
-                        Warstwa widoku została stworzona w stylu Material Design przy wykorzystaniu silnika Thymeleaf.
-                    </p>
-                </div>
+
             </div>
         </div>
     </div>

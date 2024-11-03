@@ -148,17 +148,20 @@
                             <option th:each="status : ${statuses}" th:value="${status.name()}"
                                     th:text="${status}"></option>
                         </select>
+                        <input type="hidden" th:field="*{claimStatus}" th:value="${claims.claimStatus.name()}"/>
                     </div>
 
                     <!-- D - E - C - Y - Z - J - A -->
                     <div class="label-select col s12 m6 l3" th:if="${claims.id != null}">
                         <label for="decision">DECYZJA</label>
-                        <select id="decision" th:field="*{decision}" required>
+                        <select id="decision" th:field="*{decision}" required
+                                th:disabled="${policy.id == null or claims.decision.name() == 'AKCEPTACJA' or claims.decision.name() == 'ODMOWA'}">
                                 <!--th:disabled="${policy.id == null or claims.decision.name() == 'AKCEPTACJA' or claims.paymentAmount != null}"> -->
                             <option value="" disabled selected>Wybierz decyzję</option>
                             <option th:each="decision : ${decisions}" th:value="${decision}"
                                     th:text="${decision}"></option>
                         </select>
+                        <input type="hidden" th:field="*{decision}" th:value="${claims.decision}"/>
                     </div>
 
                     <div class="input-field col s12 m6 l3" th:if="${claims.id != null}">

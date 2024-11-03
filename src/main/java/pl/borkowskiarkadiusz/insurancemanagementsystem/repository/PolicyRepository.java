@@ -13,4 +13,5 @@ public interface PolicyRepository extends JpaRepository<Policy, Long> {
     Page<Policy> findByPolicyNumber(String policyNumber, Pageable pageable);
     Optional<Policy> findByPolicyNumber(String policyNumber);
     List<Policy> findAll();
+
 }

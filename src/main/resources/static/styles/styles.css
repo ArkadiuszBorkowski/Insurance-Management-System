@@ -66,6 +66,7 @@ footer {
     bottom: 0;
     width: 100%;
     height: 60px; /*dodane do testów */
+    z-index: 9999;
 }
 
 
@@ -212,7 +213,9 @@ span.badge {
     outline: none;
     color: white;
 }
-
+span.badge {
+border-radius: 10px;
+}
 
 
 
