@@ -67,10 +67,12 @@
             </section>
 
             <!--<form th:action="@{/policy}" th:object="${policy}" method="post">-->
-            <form id="policyForm" th:action="${policy.id == null} ? @{/policy} : @{/policy/{id}(id=${policy.id})}" th:object="${policy}"  method="post">
+            <form id="policyForm" th:action="${policy.id == null} ? @{/policy} : @{/policy/{id}(id=${policy.id})}"
+                  th:object="${policy}" method="post">
 
                 <!-- STATUS INFORMACYJNY STANU POLISY -->
-                <div style="margin-bottom: 0px" th:class="${policy.id == null} ? 'container card-panel teal' : 'container card-panel cyan darken-2'">
+                <div style="margin-bottom: 0px"
+                     th:class="${policy.id == null} ? 'container card-panel teal' : 'container card-panel cyan darken-2'">
                     <span id="claimVerificationStatus" class="flow-text white-text">
                         <span th:text="${policy.id == null} ? 'Formularz nowej polisy' : 'Polisa ubezpieczeniowa : ' + ${policy.policyNumber}"></span>
                          <br/>

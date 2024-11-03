@@ -1,10 +1,6 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.service;
 
 import io.micrometer.common.util.StringUtils;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.ClaimStatus;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
-import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +15,6 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.events.ClaimPaidEvent;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.events.ClaimUpdatedEvent;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.ClaimsRepository;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyRepository;
 
 import java.time.LocalDate;
 import java.util.List;

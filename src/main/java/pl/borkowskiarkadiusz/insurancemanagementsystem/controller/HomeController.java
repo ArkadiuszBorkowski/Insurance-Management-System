@@ -1,12 +1,8 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.controller;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Policy;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.ClaimsRepository;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyRepository;
 
@@ -48,7 +44,7 @@ class HomeController {
     }
 
     @GetMapping("/info")
-    public String info(Model model) {
+    public String info() {
         return viewNames.get("INFO_SITE");
     }
 }

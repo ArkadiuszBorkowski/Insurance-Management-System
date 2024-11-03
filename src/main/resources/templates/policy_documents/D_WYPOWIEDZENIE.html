@@ -10,18 +10,22 @@
             font-family: 'Roboto', sans-serif;
             margin: 20px;
         }
+
         .header {
             text-align: center;
             margin-bottom: 20px;
         }
+
         .section {
             margin-bottom: 20px;
         }
+
         .label {
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
         }
+
         .input {
             width: 100%;
             padding: 8px;
@@ -37,11 +41,12 @@
 </div>
 <div class="section">
     <label class="label" for="policyNumber">Numer Polisy:</label>
-    <input th:value="${policy != null ? policy.policyNumber : ''}"type="text" id="policyNumber" class="input">
+    <input th:value="${policy != null ? policy.policyNumber : ''}" type="text" id="policyNumber" class="input">
 </div>
 <div class="section">
     <label class="label" for="insuredName">Imię i Nazwisko Ubezpieczonego:</label>
-    <input th:value="${policy.client != null ? policy.client.firstName + ' ' + policy.client.lastName : ''}" type="text" id="insuredName" class="input">
+    <input th:value="${policy.client != null ? policy.client.firstName + ' ' + policy.client.lastName : ''}" type="text"
+           id="insuredName" class="input">
 </div>
 <div class="section">
     <label class="label" for="email">Email:</label>

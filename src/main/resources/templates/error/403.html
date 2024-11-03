@@ -11,8 +11,14 @@
 <br><br>
 
 <main class="main-content">
-    <h1><span class="teal-text text-lighten-2" th:text="${errorCode != null ? 'BŁĄD: ' + errorCode : 'BRAK UPRAWNIEŃ (BŁĄD: 403)'}">BŁĄD: 403</span></h1>
-    <h4><span class="grey-text text-darken-4" th:text="${errorMessage != null ? errorMessage : 'ZALOGUJ SIĘ NA KONTO Z WYŻSZYMI UPRAWNIENIAMI'}">ZALOGUJ SIĘ NA KONTO Z WYŻSZYMI UPRAWNIENIAMI</span></h4>
+    <h1>
+        <span class="teal-text text-lighten-2"
+              th:text="${errorCode != null ? 'BŁĄD: ' + errorCode : 'BRAK UPRAWNIEŃ (BŁĄD: 403)'}">BŁĄD: 403
+        </span>
+    </h1>
+    <h4><span class="grey-text text-darken-4"
+              th:text="${errorMessage != null ? errorMessage : 'ZALOGUJ SIĘ NA KONTO Z WYŻSZYMI UPRAWNIENIAMI'}">ZALOGUJ SIĘ NA KONTO Z WYŻSZYMI UPRAWNIENIAMI</span>
+    </h4>
     <a href="/" class="btn-large waves-effect waves-light">Powrót do strony głównej</a>
 </main>
 

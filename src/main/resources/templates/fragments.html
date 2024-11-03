@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org"
-                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!-- - - - - - - - - - - H - E - A - D - - - - - - - - - - - - -->
 <head th:fragment="head">
     <meta charset="UTF-8">
@@ -150,8 +150,10 @@
     </a>
     <ul>
         <li><a href="/info" th:href="@{/info}" class="btn-floating red"><i class="material-icons">info</i></a></li>
-        <li><a href="/policy" th:href="@{/policy}" class="btn-floating yellow darken-1"><i class="material-icons">policy</i></a></li>
-        <li><a href="/claims/new" th:href="@{/claims/new}" class="btn-floating green"><i class="material-icons">description</i></a></li>
+        <li><a href="/policy" th:href="@{/policy}" class="btn-floating yellow darken-1"><i
+                class="material-icons">policy</i></a></li>
+        <li><a href="/claims/new" th:href="@{/claims/new}" class="btn-floating green"><i class="material-icons">description</i></a>
+        </li>
     </ul>
 </div>
 

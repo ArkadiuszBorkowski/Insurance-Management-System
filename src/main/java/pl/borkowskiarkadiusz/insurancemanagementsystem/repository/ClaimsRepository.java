@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Claims;
-import pl.borkowskiarkadiusz.insurancemanagementsystem.entity.Client;
 
 import java.time.LocalDate;
 import java.util.Optional;

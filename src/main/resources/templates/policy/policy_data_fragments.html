@@ -16,7 +16,8 @@
 <span class="flow-text">
     <span class="label">DANE POLISY:</span>
     <span th:classappend="${policy.policyStatus == T(pl.borkowskiarkadiusz.insurancemanagementsystem.enums.PolicyStatus).AKTYWNA
-    || policy.policyStatus == null} ? 'value' : 'value red-text'" th:text="${policy.policyStatus != null ? policy.policyStatus : 'NOWA'}"></span>
+    || policy.policyStatus == null} ? 'value' : 'value red-text'"
+          th:text="${policy.policyStatus != null ? policy.policyStatus : 'NOWA'}"></span>
 </span>
 
     <!-- ============= L - I - N - I - A - 1 ============= - -->
@@ -47,7 +48,8 @@
         <div class="input-field col s12 m6 l3">
             <i class="material-icons prefix">event_repeat</i>
             <label for="endDate">DATA WYGAŚNIĘCIA</label>
-            <input type="text" id="endDate" name="endDate" class="validate" placeholder="Data generowana systemowo" readonly
+            <input type="text" id="endDate" name="endDate" class="validate" placeholder="Data generowana systemowo"
+                   readonly
                    th:value="${policy != null ? policy.endDate : ''}"
                    th:disabled="${policy != null && policy.endDate != null}">
             <div th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="red-text"></div>

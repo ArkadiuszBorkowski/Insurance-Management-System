@@ -1,139 +1,156 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Polisa Ubezpieczeniowa</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      margin: 20px;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-    }
-    .logo img {
-      width: 50px;
-    }
-    .logo-text {
-      margin-left: 10px;
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .date {
-      font-size: 14px;
-    }
-    .content {
-      margin-top: 20px;
-    }
-    h1, h2, h3 {
-      text-align: center;
-    }
-    .section {
-      margin-bottom: 20px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    td {
-      padding: 8px;
-      border: 1px solid #ddd;
-    }
-    .label {
-      font-weight: bold;
-      width: 25%;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Polisa Ubezpieczeniowa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 50px;
+        }
+
+        .logo-text {
+            margin-left: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .date {
+            font-size: 14px;
+        }
+
+        .content {
+            margin-top: 20px;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .label {
+            font-weight: bold;
+            width: 25%;
+        }
+    </style>
 </head>
 
 <body>
 <div class="header">
-  <div class="logo">
-    <div class="logo-text">BEZPIECZNA PRZYSZŁOŚĆ</div>
-  </div>
-  <div class="date">
-    <script>
-      const today = new Date();
-      const formattedDate = today.getDate().toString().padStart(2, '0') + '-' +
-              (today.getMonth() + 1).toString().padStart(2, '0') + '-' +
-              today.getFullYear();
-      document.write('Warszawa, ' + formattedDate);
-    </script>
-  </div>
+    <div class="logo">
+        <div class="logo-text">BEZPIECZNA PRZYSZŁOŚĆ</div>
+    </div>
+    <div class="date">
+        <script>
+            const today = new Date();
+            const formattedDate = today.getDate().toString().padStart(2, '0') + '-' +
+                (today.getMonth() + 1).toString().padStart(2, '0') + '-' +
+                today.getFullYear();
+            document.write('Warszawa, ' + formattedDate);
+        </script>
+    </div>
 </div>
 <div class="content">
-  <h1>Polisa Ubezpieczeniowa nr <span th:text="${policy.policyNumber}"></span></h1>
-  <div class="section">
-    <table>
-      <tr>
-        <td class="label">Ubezpieczyciel:</td>
-        <td>Bezpieczna Przyszłość S.A.</td>
-      </tr>
-      <tr>
-        <td class="label">Ubezpieczony:</td>
-        <td th:text="${policy.client.firstName} + ' ' + ${policy.client.lastName}"></td>
-      </tr>
-      <tr>
-        <td class="label">Adres:</td>
-        <td>
-          <span th:text="${policy.client.address.street} + ' ' + ${policy.client.address.streetNo}"></span>
-          <span th:if="${policy.client.address.apartmentNo != null}" th:text="'/' + ${policy.client.address.apartmentNo}"></span>
-          <span th:text="' ' + ${policy.client.address.city} + ', ' + ${policy.client.address.zipcode}"></span>
-        </td>
-      </tr>
-      <tr>
-        <td class="label">Data zawarcia umowy:</td>
-        <td th:text="${policy.startDate}"></td>
-      </tr>
-      <tr>
-        <td class="label">Okres ubezpieczenia:</td>
-        <td th:text="${policy.startDate} + ' do ' + ${policy.endDate}"></td>
-      </tr>
-      <tr>
-        <td class="label">Produkt ubezpieczeniowy:</td>
-        <td th:text="${policy.insuranceProduct.productName}"></td>
-      </tr>
-      <tr>
-        <td class="label">Opis produktu:</td>
-        <td th:text="${policy.insuranceProduct.description}"></td>
-      </tr>
-      <tr>
-        <td class="label">Suma ubezpieczenia:</td>
-        <td th:text="${policy.coverageAmount} + ' PLN'"></td>
-      </tr>
-      <tr>
-        <td class="label">Składka ubezpieczeniowa:</td>
-        <td th:text="${policy.premium} + ' PLN'"></td>
-      </tr>
-      <tr>
-        <td class="label">Rezerwa ubezpieczeniowa:</td>
-        <td th:text="${policy.reserveAmount} + ' PLN'"></td>
-      </tr>
-    </table>
-  </div>
-  <div class="section">
-    <h2>Warunki Ubezpieczenia</h2>
-    <h3>Wyłączenia odpowiedzialności</h3>
-    <p>Ubezpieczyciel nie ponosi odpowiedzialności za szkody powstałe w wyniku działań wojennych, aktów terrorystycznych, samobójstwa ubezpieczonego w ciągu pierwszych dwóch lat trwania umowy.</p>
-    <h3>Obowiązki ubezpieczonego</h3>
-    <p>Ubezpieczony zobowiązany jest do niezwłocznego zgłaszania wszelkich zmian dotyczących stanu zdrowia oraz adresu zamieszkania.</p>
-    <p>W przypadku wystąpienia zdarzenia objętego ochroną ubezpieczeniową, ubezpieczony zobowiązany jest do zgłoszenia szkody w ciągu 7 dni od jej wystąpienia.</p>
-  </div>
-  <div class="section">
-    <h2>Postanowienia końcowe</h2>
-    <h3>Rozwiązanie umowy</h3>
-    <p>Umowa może zostać rozwiązana przez każdą ze stron z zachowaniem 30-dniowego okresu wypowiedzenia.</p>
-    <p>W przypadku rozwiązania umowy przed upływem okresu ubezpieczenia, ubezpieczonemu przysługuje zwrot proporcjonalnej części składki.</p>
-    <h3>Kontakt z ubezpieczycielem</h3>
-    <p>Wszelkie zgłoszenia i zapytania należy kierować na adres: kontakt@bezpiecznaprzyszlosc.pl lub telefonicznie pod numerem: +48 123 456 789.</p>
-  </div>
+    <h1>Polisa Ubezpieczeniowa nr <span th:text="${policy.policyNumber}"></span></h1>
+    <div class="section">
+        <table>
+            <tr>
+                <td class="label">Ubezpieczyciel:</td>
+                <td>Bezpieczna Przyszłość S.A.</td>
+            </tr>
+            <tr>
+                <td class="label">Ubezpieczony:</td>
+                <td th:text="${policy.client.firstName} + ' ' + ${policy.client.lastName}"></td>
+            </tr>
+            <tr>
+                <td class="label">Adres:</td>
+                <td>
+                    <span th:text="${policy.client.address.street} + ' ' + ${policy.client.address.streetNo}"></span>
+                    <span th:if="${policy.client.address.apartmentNo != null}"
+                          th:text="'/' + ${policy.client.address.apartmentNo}"></span>
+                    <span th:text="' ' + ${policy.client.address.city} + ', ' + ${policy.client.address.zipcode}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Data zawarcia umowy:</td>
+                <td th:text="${policy.startDate}"></td>
+            </tr>
+            <tr>
+                <td class="label">Okres ubezpieczenia:</td>
+                <td th:text="${policy.startDate} + ' do ' + ${policy.endDate}"></td>
+            </tr>
+            <tr>
+                <td class="label">Produkt ubezpieczeniowy:</td>
+                <td th:text="${policy.insuranceProduct.productName}"></td>
+            </tr>
+            <tr>
+                <td class="label">Opis produktu:</td>
+                <td th:text="${policy.insuranceProduct.description}"></td>
+            </tr>
+            <tr>
+                <td class="label">Suma ubezpieczenia:</td>
+                <td th:text="${policy.coverageAmount} + ' PLN'"></td>
+            </tr>
+            <tr>
+                <td class="label">Składka ubezpieczeniowa:</td>
+                <td th:text="${policy.premium} + ' PLN'"></td>
+            </tr>
+            <tr>
+                <td class="label">Rezerwa ubezpieczeniowa:</td>
+                <td th:text="${policy.reserveAmount} + ' PLN'"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="section">
+        <h2>Warunki Ubezpieczenia</h2>
+        <h3>Wyłączenia odpowiedzialności</h3>
+        <p>Ubezpieczyciel nie ponosi odpowiedzialności za szkody powstałe w wyniku działań wojennych, aktów
+            terrorystycznych, samobójstwa ubezpieczonego w ciągu pierwszych dwóch lat trwania umowy.</p>
+        <h3>Obowiązki ubezpieczonego</h3>
+        <p>Ubezpieczony zobowiązany jest do niezwłocznego zgłaszania wszelkich zmian dotyczących stanu zdrowia oraz
+            adresu zamieszkania.</p>
+        <p>W przypadku wystąpienia zdarzenia objętego ochroną ubezpieczeniową, ubezpieczony zobowiązany jest do
+            zgłoszenia szkody w ciągu 7 dni od jej wystąpienia.</p>
+    </div>
+    <div class="section">
+        <h2>Postanowienia końcowe</h2>
+        <h3>Rozwiązanie umowy</h3>
+        <p>Umowa może zostać rozwiązana przez każdą ze stron z zachowaniem 30-dniowego okresu wypowiedzenia.</p>
+        <p>W przypadku rozwiązania umowy przed upływem okresu ubezpieczenia, ubezpieczonemu przysługuje zwrot
+            proporcjonalnej części składki.</p>
+        <h3>Kontakt z ubezpieczycielem</h3>
+        <p>Wszelkie zgłoszenia i zapytania należy kierować na adres: kontakt@bezpiecznaprzyszlosc.pl lub telefonicznie
+            pod numerem: +48 123 456 789.</p>
+    </div>
 </div>
 </body>
 </html>
