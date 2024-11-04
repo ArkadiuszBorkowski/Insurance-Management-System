@@ -49,7 +49,7 @@ Polisa utworzona - widok strony:
 
 ```mermaid
 flowchart TD
-    A[POLISA] --> B[FORMULARZ POLISY]
+    A((POLISA)) --> B[FORMULARZ POLISY]
     A --> C[SZKODY]
     C --> D[Lista szkód]
     C --> E[Nowa szkoda]
