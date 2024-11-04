@@ -154,7 +154,6 @@
                         <label for="decision">DECYZJA</label>
                         <select id="decision" th:field="*{decision}" required
                                 th:disabled="${policy.id == null or claims.decision.name() == 'AKCEPTACJA' or claims.decision.name() == 'ODMOWA'}">
-                                <!--th:disabled="${policy.id == null or claims.decision.name() == 'AKCEPTACJA' or claims.paymentAmount != null}"> -->
                             <option value="" disabled selected>Wybierz decyzję</option>
                             <option th:each="decision : ${decisions}" th:value="${decision}"
                                     th:text="${decision}"></option>

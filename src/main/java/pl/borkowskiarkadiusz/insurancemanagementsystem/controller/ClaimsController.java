@@ -83,6 +83,7 @@ class ClaimsController {
         }
         claimsDTO.setClaimNumber(ClaimsNumberGenerator.generateClaimsNumber());
         claimsDTO.setClaimRegistrationDate(LocalDate.now());
+        claimsDTO.initializeDefaultValues();
 
         ClaimsDTO savedClaims = claimService.saveClaims(claimsDTO);
         return "redirect:/claims/" + savedClaims.getId();
