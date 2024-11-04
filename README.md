@@ -69,6 +69,27 @@ flowchart TD
     B -->|Nie| D[Nie mozna założyć szkody]
 ```
 
+Roszczenie w systemie:
+
+```mermaid
+flowchart TD
+    A[Wprowadzanie danych szkody] --> B[Zapis]
+    B --> C[Nowe roszczenie]
+    C --> D{Weryfikacja danych polisy}
+    D -->|Polisa aktywna| E[Roszczenie poprawne]
+    D -->|Polisa nieaktywna| F[Automatyczne zamknięcie szkody]
+    E --> G[Procesy szkodowe]
+    G --> H[Analiza szkody]
+    G --> I[Oczekiwanie na dokumenty]
+    G --> J[Opisy]
+    E --> K{Etap podejmowania decyzji}
+    K -->|Odrzucenie| L[Blokada zmiany stanu szkody]
+    K -->|Akceptacja| M[Wypłata odszkodowania]
+    M --> N[Pomniejszenie kwoty rezerwy płatności]
+    N --> O{Kwota rezerwy płatności = 0?}
+    O -->|Tak| P[Zamyka polisę]
+```
+
 ## Funkcjonalności
 
 
