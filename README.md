@@ -44,8 +44,7 @@ graph TD
     B --> L[Manualne wprowadzanie danych klienta]
     L --> M[Dane klienta]
     M --> N[Wprowadzenie danych polisy]
-    N --> O[Zapis polisy w systemie]
-    O --> id1[(BAZA DANYCH - POLISA)]
+    N -- Zapis polisy w systemie--> id1[(BAZA DANYCH - POLISA)]
 ```
 
 Polisa utworzona - widok strony: 
