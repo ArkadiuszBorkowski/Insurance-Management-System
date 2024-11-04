@@ -35,7 +35,7 @@ Zapis polisy:
 ```mermaid
 graph TD
     A[Operator szkód] --> B[Formularz polisy]
-    B --> C[Szukanie klienta po nr PESEL]
+    B --> C[Szukanie klienta po PESEL]
     C --> D[Klient znaleziony]
     D --> E[Pobranie danych klienta z systemu]
     E --> M[Dane klienta]
@@ -45,6 +45,7 @@ graph TD
     L --> M[Dane klienta]
     M --> N[Wprowadzenie danych polisy]
     N --> O[Zapis polisy w systemie]
+    O --> id1[(BAZA DANYCH - POLISA)]
 ```
 
 Polisa utworzona - widok strony: 
