@@ -36,11 +36,9 @@ Zapis polisy:
 graph TD
     A[Operator szkód] --> B[Formularz polisy]
     B --> C[Szukanie klienta po PESEL]
-    C --> D[Klient znaleziony]
-    D --> E[Pobranie danych klienta z systemu]
+    C -- Klient znaleziony -->E[Pobranie danych klienta z systemu]
     E --> M[Dane klienta]
-    C --> F[Klient nieznaleziony]
-    F --> L[Manualne wprowadzanie danych klienta]
+    C -- Klient nieznaleziony --> L[Manualne wprowadzanie danych klienta]
     B --> L[Manualne wprowadzanie danych klienta]
     L --> M[Dane klienta]
     M --> N[Wprowadzenie danych polisy]
