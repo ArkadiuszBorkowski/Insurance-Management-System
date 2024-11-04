@@ -47,6 +47,28 @@ graph TD
     N --> O[Zapis polisy w systemie]
 ```
 
+Polisa utworzona - wdiok strony: 
+
+```mermaid
+flowchart TD
+    A[POLISA] --> B[FORMULARZ POLISY]
+    A --> C[SZKODY]
+    C --> D[Lista szkód]
+    C --> E[Nowa szkoda]
+    A --> F[DOKUMENTY]
+    F --> G[Przegląd dokumentów]
+    F --> H[Generowanie do PDF]
+```
+
+Zgłaszanie nowego roszczenia:
+
+```mermaid
+flowchart TD
+    A[Sprawdzenie czy klient posiada polise] --> B{Klient posiada polise?}
+    B -->|Tak| C[Mozliwość założenia szkody]
+    B -->|Nie| D[Nie mozna założyć szkody]
+```
+
 ## Funkcjonalności
 
 
