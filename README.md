@@ -17,7 +17,38 @@ Produkty ubezpieczeniowe są definiowane tylko przez administratora systemu. (ro
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-%23005C0F.svg?style=for-the-badge&logo=Thymeleaf&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![Spring](https://img.shields.io/badge/spring_security-%236DB33F.svg?style=for-the-badge&logo=springsecurity&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
 ![H2](https://img.shields.io/badge/H2_DATABASE-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)  ![lLIQUIBASE](https://img.shields.io/badge/liquibase-%23E34F26.svg?style=for-the-badge&logo=liquibase&logoColor=white) ![JPA](https://img.shields.io/badge/hibernate-%23323330.svg?style=for-the-badge&logo=hibernate&logoColor=red) ![modelmapper](https://img.shields.io/badge/modelmapper-%23700.svg?style=for-the-badge&logo=modelmapper&logoColor=red) ![SLF4J](https://img.shields.io/badge/SLF4J-%23E34F26.svg?style=for-the-badge&logo=logger&logoColor=yellow) ![iText](https://img.shields.io/badge/iText-pdf-9A1.svg?style=for-the-badge&logo=iText&logoColor=yellow)
 
+## Założenia projektowe
+
+Autoryzacja systemowa:
+
+```mermaid
+flowchart LR
+    A[Użytkownik niezalogowany] --> B[Strona logowania]
+    B --> C{Autoryzacja}
+    C -->|Autoryzacja udana| D[Dostęp do systemu]
+    C -->|Brak autoryzacji| E[Powrót na stronę logowania]
+    E --> B
+```
+
+Zapis polisy:
+
+```mermaid
+graph TD
+    A[Operator szkód] --> B[Formularz polisy]
+    B --> C[Szukanie klienta po nr PESEL]
+    C --> D[Klient znaleziony]
+    D --> E[Pobranie danych klienta z systemu]
+    E --> M[Dane klienta]
+    C --> F[Klient nieznaleziony]
+    F --> L[Manualne wprowadzanie danych klienta]
+    B --> L[Manualne wprowadzanie danych klienta]
+    L --> M[Dane klienta]
+    M --> N[Wprowadzenie danych polisy]
+    N --> O[Zapis polisy w systemie]
+```
+
 ## Funkcjonalności
+
 
  - **Podsumowanie polis i szkód w systemie**, w tym szkody zamknięte, wypłacone oraz dzisiejsze zgłoszenia.  
 W aplikacji wykorzystane są specjalne wizualne znaczniki, np. szkód zawartych w danym dniu. SZKODY  3️⃣
