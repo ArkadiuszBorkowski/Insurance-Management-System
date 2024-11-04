@@ -47,7 +47,7 @@ graph TD
     N --> O[Zapis polisy w systemie]
 ```
 
-Polisa utworzona - wdiok strony: 
+Polisa utworzona - widok strony: 
 
 ```mermaid
 flowchart TD
