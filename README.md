@@ -1,5 +1,7 @@
 #  System Zawierania Umów Ubezpieczeniowych
 ## O projekcie:
+|![logo](https://raw.githubusercontent.com/ArkadiuszBorkowski/Insurance-Management-System/refs/heads/master/src/main/resources/static/images/logo_small.png)  |BEZPIECZNA PRZYSZŁOŚĆ | 2024 | Projekt stanowi przykład wykorzystania i integracji różnych technologii, pokazując umiejętność tworzenia kompleksowej aplikacji bazodanowej |
+|--|--|--|--|
 
 Aplikacja jest kompleksowym **systemem do zarządzania polisami i szkodami ubezpieczeniowymi**. 
 Dzięki modularnej architekturze i zastosowaniu wzorców projektowych, aplikacja jest skalowalna, bezpieczna i łatwa w utrzymaniu.  
@@ -8,8 +10,7 @@ Zadaniem użytkownika systemu jest wprowadzanie danych klienta i zawieranie poli
 W przypadku gdy klient zgłosi szkodę, użytkownik wprowadza informacje o zdarzeniu do systemu a następnie operator szkód podejmuje decyzję odnośnie odrzuceniu lub akceptacji szkody i wypłacie odszkodowania.  
 Dzięki wykorzystaniu obsługi zdarzeń procesy jakie musi wykonać operator szkód zostały zautomaytyzowane tak by ograniczyć jego pracę  
 Produkty ubezpieczeniowe są definiowane tylko przez administratora systemu. (rola ADMIN).
-|![logo](https://raw.githubusercontent.com/ArkadiuszBorkowski/Insurance-Management-System/refs/heads/master/src/main/resources/static/images/logo_small.png)  |BEZPIECZNA PRZYSZŁOŚĆ | 2024 | Projekt stanowi przykład wykorzystania i integracji różnych technologii, pokazując umiejętność tworzenia kompleksowej aplikacji bazodanowej |
-|--|--|--|--|
+
 
 ## 💻 Wykorzystane technologie:
 
