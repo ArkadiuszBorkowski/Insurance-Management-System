@@ -25,8 +25,8 @@ Autoryzacja systemowa:
 flowchart LR
     A[Użytkownik niezalogowany] --> B[Strona logowania]
     B --> C{Autoryzacja}
-    C -->|Autoryzacja udana| D[Dostęp do systemu]
-    C -->|Brak autoryzacji| E[Powrót na stronę logowania]
+    C -->|SUKCES| D[Dostęp do systemu]
+    C -->|BRAK AUTORYZACJI| E[Powrót na stronę logowania]
     E --> B
 ```
 
@@ -36,10 +36,10 @@ Zapis polisy:
 graph TD
     A[Operator szkód] --> B[Formularz polisy]
     B --> C{Szukanie klienta po PESEL}
-    C -- Klient znaleziony -->E[Pobranie danych klienta z systemu]
+    C -- KLIENT ISTNIEJE --> E[Pobranie danych klienta]
     E --> M[Dane klienta]
-    C -- Klient nieznaleziony --> L[Manualne wprowadzanie danych klienta]
-    B --> L[Manualne wprowadzanie danych klienta]
+    C -- KLIENT NIE ISTNIEJE --> L[Manualne wprowadzanie danych]
+    B --> L
     L --> M[Dane klienta]
     M --> N[Wprowadzenie danych polisy]
     N -- Zapis polisy w systemie--> id1[(BAZA DANYCH - POLISA)]
@@ -61,7 +61,7 @@ flowchart TD
 Zgłaszanie nowego roszczenia:
 
 ```mermaid
-flowchart TD
+flowchart LR
     A[Sprawdzenie czy klient posiada polise] --> B{Klient posiada polise?}
     B -->|Tak| C[Mozliwość założenia szkody]
     B -->|Nie| D[Nie mozna założyć szkody]
@@ -71,21 +71,20 @@ Roszczenie w systemie:
 
 ```mermaid
 flowchart TD
-    A[Wprowadzanie danych szkody] --> B[Zapis]
-    B --> C[Nowe roszczenie]
-    C --> D{Weryfikacja danych polisy}
-    D -->|Polisa aktywna| E[Roszczenie poprawne]
-    D -->|Polisa nieaktywna| F[Automatyczne zamknięcie szkody]
-    E --> G[Procesy szkodowe]
-    G --> H[Analiza szkody]
-    G --> I[Oczekiwanie na dokumenty]
-    G --> J[Opisy]
-    E --> K{Etap podejmowania decyzji}
-    K -->|Odrzucenie| L[Blokada zmiany stanu szkody]
-    K -->|Akceptacja| M[Wypłata odszkodowania]
-    M --> N[Pomniejszenie kwoty rezerwy płatności]
-    N --> O{Kwota rezerwy płatności = 0?}
-    O -->|Tak| P[Zamyka polisę]
+    A((DANE SZKODY)) -- ZAPIS --> B[NOWE ROSZCZENIE]
+    B --> C{Weryfikacja danych polisy}
+    C -->|POLISA_AKTYWNA| D[PROCESY OBSŁUGI ROSZCZENIA]
+    C -->|POLISA_NIEAKTYWNA| E[ODRZUCENIE SZKODY]
+    C -->|POLISA_AKTYWNA, REZERWA_POLISY = 0| E[ODRZUCENIE SZKODY]
+    D <--> F[[WERYIFKACJA SZKODY]] 
+    D <--> G[[OCZEKIWANIE NA DOKUMENTY]] 
+    D <--> H[[ZATWIERDZENIE ROSZCZENIA]] 
+    H --> I{DECYZJA}
+    I -->|AKCEPTACJA| J[ZLECENIE PŁATNOŚCI]
+    I -->|ODRZUCENIE| E[ODRZUCENIE SZKODY]
+    J -- WYPŁATA ROSZCZENIA --> K[POMNIEJSZENIE REZERWY UBEPIECZENIA POLISY]
+    K -->|REZERWA_POLISY = 0| L[ZAMKNIĘCIE POLISY]
+    K -->|REZERWA_POLISY > 0| M[POLISA AKTYWNA]
 ```
 
 ## Funkcjonalności
