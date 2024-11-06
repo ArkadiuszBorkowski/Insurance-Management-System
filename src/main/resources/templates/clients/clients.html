@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<!-- - - - - - - - - - - H - E - A - D - - - - - - - - - - - - -->
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<!-- - - - - - - - - - - M - E - N - U - - - - - - - - - - - - -->
+<header th:replace="~{fragments :: header}">
+
+</header>
+<!-- - - - W - Y - S - Z - U - K - I - W - A - R - K - A - - - -->
+<nav th:replace="~{fragments :: search}"></nav>
+<br><br>
+
+<!--Z - A - W - A - R - T - O - Ś - Ć - - S - T - R - O - N - Y-->
+
+<main>
+    <div class="container">
+
+        <h4>Lista Klientów</h4>
+        <!-- Sekcja filtrowania listy i zawężania rekordów -->
+
+        <ul class="collapsible">
+            <li>
+                <div class="collapsible-header"><i class="material-icons">filter_list</i>Filtry i sortowanie</div>
+                <div class="collapsible-body">
+
+                    <form th:action="@{/clients}" method="get">
+                        <div class="input-field">
+                            <input type="text" id="pesel" name="pesel" th:value="${pesel}">
+                            <label for="pesel">PESEL</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="text" id="lastName" name="lastName" th:value="${lastName}">
+                            <label for="lastName">Nazwisko</label>
+                        </div>
+                        <div class="input-field">
+                            <select name="sortBy">
+                                <option value="lastName" th:selected="${sortBy == 'lastName'}">Nazwisko</option>
+                                <option value="firstName" th:selected="${sortBy == 'firstName'}">Imię</option>
+                                <option value="pesel" th:selected="${sortBy == 'pesel'}">PESEL</option>
+                                <option value="dateOfBirth" th:selected="${sortBy == 'dateOfBirth'}">Data Urodzenia</option>
+                            </select>
+                            <label>Sortuj na podstawie:</label>
+                        </div>
+                        <button type="submit" class="btn">Wykonaj filtrowanie</button>
+                    </form>
+
+                </div>
+            </li>
+        </ul>
+
+        <table class="highlight responsive-table">
+            <thead>
+            <tr>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>PESEL</th>
+                <th>Data Urodzenia</th>
+                <th>Email</th>
+                <th>Numer Telefonu</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="client : ${clientsPage.content}" style="cursor: pointer">
+<!--                th:data-url="@{/clients/{id}(id=${client.id})}"
+                th:onclick="'javascript:rowClicked(this);'">-->
+                <td th:text="${client.firstName}"></td>
+                <td th:text="${client.lastName}"></td>
+                <td th:text="${client.pesel}"></td>
+                <td th:text="${client.dateOfBirth}"></td>
+                <td th:text="${client.email}"></td>
+                <td th:text="${client.mobileNumber}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="pagination center">
+            <li th:classappend="${clientsPage.hasPrevious()} ? 'waves-effect' : 'disabled'">
+                <a th:href="@{/clients(page=${clientsPage.number - 1}, sortBy=${sortBy})}"><i class="material-icons">chevron_left</i></a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(0, clientsPage.totalPages - 1)}"
+                th:classappend="${clientsPage.number == i} ? 'active' : 'waves-effect'">
+                <a th:href="@{/clients(page=${i}, sortBy=${sortBy})}" th:text="${i + 1}">1</a>
+            </li>
+            <li th:classappend="${clientsPage.hasNext()} ? 'waves-effect' : 'disabled'">
+                <a th:href="@{/clients(page=${clientsPage.number + 1}, sortBy=${sortBy})}"><i class="material-icons">chevron_right</i></a>
+            </li>
+        </ul>
+    </div>
+</main>
+
+<!-- - - - - - - - - S - T - O - P - K - A - - - - - - - - - - -->
+<footer th:replace="~{fragments :: footer}"></footer>
+
+<!-- - - P - Ł - Y - W - A - J - Ą - C - Y  -  - P - R - Z - Y - C - I - S - K - - -->
+<div th:replace="~{fragments :: floating_btn}"></div>
+
+<!-- - - - - - - - - S - K - R - Y - P - T - Y - - - - - - - - -->
+<div th:replace="~{fragments :: script_js}"></div>
+
+</body>
+</html>
+
+
+<!--
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista Klientów</title>
+</head>
+<body>
+<h1>Lista Klientów</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Imię</th>
+        <th>Nazwisko</th>
+        <th>PESEL</th>
+        <th>Data Urodzenia</th>
+        <th>Email</th>
+        <th>Numer Telefonu</th>
+        <th>Adres</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="client : ${clients}">
+        <td th:text="${client.firstName}"></td>
+        <td th:text="${client.lastName}"></td>
+        <td th:text="${client.pesel}"></td>
+        <td th:text="${client.dateOfBirth}"></td>
+        <td th:text="${client.email}"></td>
+        <td th:text="${client.mobileNumber}"></td>
+        <td th:text="${client.address}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>-->

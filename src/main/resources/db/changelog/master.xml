@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
 
     <include file="db/changelog/0001_create_table_insurance_product_and_risk.xml"/>
     <include file="db/changelog/0002_create_table_client.xml"/>
@@ -10,8 +11,8 @@
     <include file="db/changelog/0004_create_table_claims.xml"/>
     <include file="db/changelog/0005_create_tables_users_and_role.xml"/>
 
-    <include file="../testdata/0001_insurance_product_and_risk.sql" relativeToChangelogFile="true"/>
-    <include file="../testdata/0002_clients_and_policy.sql" relativeToChangelogFile="true"/>
-    <include file="../testdata/0003_claims.sql" relativeToChangelogFile="true"/>
-    <include file="../testdata/0005_users_and_roles.sql" relativeToChangelogFile="true"/>
+    <include file="../testdata/0001_insurance_product_and_risk.sql" relativeToChangelogFile="true" context="dev"/>
+    <include file="../testdata/0002_clients_and_policy.sql" relativeToChangelogFile="true" context="dev"/>
+    <include file="../testdata/0003_claims.sql" relativeToChangelogFile="true" context="dev"/>
+    <include file="../testdata/0005_users_and_roles.sql" relativeToChangelogFile="true" context="dev"/>
 </databaseChangeLog>

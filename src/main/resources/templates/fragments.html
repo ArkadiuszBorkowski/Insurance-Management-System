@@ -33,12 +33,21 @@
     </ul>
 
     <ul id="claims_dropdown" class="dropdown-content">
-        <li><a href="/claim" th:href="@{/claims/new}">FORMULARZ SZKODOWY</a></li>
-        <li><a href="/claims_list" th:href="@{/claims}">LISTA SZKÓD</a></li>
+        <li><a href="/claims/new" th:href="@{/claims/new}">FORMULARZ SZKODOWY</a></li>
+        <li><a href="/claims" th:href="@{/claims}">LISTA SZKÓD</a></li>
     </ul>
     <ul id="claims_dropdown_mobile" class="dropdown-content">
         <li><a href="/claims/new" th:href="@{/claims/new}">FORMULARZ SZKODOWY</a></li>
         <li><a href="/claims" th:href="@{/claims}">LISTA SZKÓD</a></li>
+    </ul>
+
+    <ul id="clients_dropdown" class="dropdown-content">
+        <li><a href="/clients/new" th:href="@{/clients/new}">FORMULARZ KLIENTA</a></li>
+        <li><a href="/clients" th:href="@{/clients}">LISTA KLIENTÓW</a></li>
+    </ul>
+    <ul id="clients_dropdown_mobile" class="dropdown-content">
+        <li><a href="/clients/new" th:href="@{/clients/new}">FORMULARZ KLIENTA</a></li>
+        <li><a href="/clients" th:href="@{/clients}">LISTA KLIENTÓW</a></li>
     </ul>
 
     <ul id="products_dropdown" class="dropdown-content">
@@ -47,7 +56,7 @@
             <a href="/products/config" th:href="@{/products/config}">KONFIGURACJA PRODUKTÓW</a>
         </li>
     </ul>
-    <ul id="products_dropdown_dropdown_mobile" class="dropdown-content">
+    <ul id="products_dropdown_mobile" class="dropdown-content">
         <li><a href="/products" th:href="@{/products}">PRODUKTY</a></li>
         <li sec:authorize="hasAnyRole('ADMIN')">
             <a href="/products/config" th:href="@{/products/config}">KONFIGURACJA PRODUKTÓW</a>
@@ -76,6 +85,13 @@
                     <a class="dropdown-trigger" href="/claims" th:href="@{/claims}" data-target="claims_dropdown">
                         SZKODY
                         <span class="badge" th:if="${todayClaimsCount > 0}" th:text="${todayClaimsCount}"></span>
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-trigger" href="/clients" th:href="@{/clients}" data-target="clients_dropdown">
+                        KLIENT
                         <i class="material-icons right">arrow_drop_down</i>
                     </a>
                 </li>
@@ -112,8 +128,14 @@
             </a>
         </li>
 
-        <li><a href="/products" th:href="@{/products}">PRODUKTY</a></li>
-        <li><a href="/clients" th:href="@{/clients}">KLIENT</a></li>
+        <li>
+            <a class="dropdown-trigger" href="/clients" th:href="@{/clients}" data-target="clients_dropdown_mobile">
+                KLIENT
+                <i class="material-icons right">arrow_drop_down</i>
+            </a>
+        </li>
+
+        <li><a href="/products" th:href="@{/products}" data-target="products_dropdown_mobile">PRODUKTY</a></li>
         <li>
             <a href="/login" th:href="@{/login}" sec:authorize="!isAuthenticated()">ZALOGUJ SIĘ</a>
             <a href="/logout" th:href="@{/logout}" sec:authorize="isAuthenticated()">WYLOGUJ SIĘ</a>

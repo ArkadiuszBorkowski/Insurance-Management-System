@@ -5,10 +5,8 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: true
-  security:
-    user:
-      name: supervisor
-      password: superPassword
+  liquibase:
+    change-log: classpath:db/changelog/master.xml
 logging:
   file:
     path: ./logback

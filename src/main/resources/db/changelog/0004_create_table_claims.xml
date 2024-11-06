@@ -18,7 +18,7 @@
             <column name="claim_number"
                     type="VARCHAR(255)"/>
             <column name="description"
-                    type="VARCHAR(255)"/>
+                    type="VARCHAR(700)"/>
             <column name="claim_date"
                     type="DATE"/>
             <column name="claim_registration_date"
@@ -47,6 +47,3 @@
     </changeSet>
 
 </databaseChangeLog>
-
-
-

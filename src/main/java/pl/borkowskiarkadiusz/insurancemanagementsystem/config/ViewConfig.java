@@ -19,6 +19,8 @@ public class ViewConfig {
         viewNames.put("CLAIM_FORM", "claim/claim");
         viewNames.put("CLAIM_LIST", "claim/claims-list");
         viewNames.put("CLAIM_DETAILS", "claim/claim-details");
+        viewNames.put("CLIENTS_LIST", "clients/clients");
+        viewNames.put("CLIENTS_FORM", "clients/clients_form");
         viewNames.put("POLICY_FORM", "policy/policy");
         viewNames.put("POLICY_LIST", "policy/policies");
         viewNames.put("POLICY_DOC", "policy/documents");
