@@ -13,6 +13,7 @@ Produkty ubezpieczeniowe są definiowane tylko przez administratora systemu. (ro
 
 ## Prezentacja wideo: 
 Kliknij na obrazek by wyświetlić prezentacje wideo: 
+
 [![Watch the video](https://img.youtube.com/vi/MKFGANyjOtY/0.jpg)](https://www.youtube.com/watch?v=MKFGANyjOtY)
 
 ## 💻 Wykorzystane technologie:
