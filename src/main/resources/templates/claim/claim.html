@@ -33,7 +33,7 @@
             DECYZJI
         </div>
         <div id="steps_4" class="steps"
-             th:classappend="${claims.id != null and claims.paymentAmount != null } ? 'active-step' : 'inactive-step'">
+             th:classappend="${claims.id != null and claims.paymentAmount != null and claims.paymentAmount != 0 } ? 'active-step' : 'inactive-step'">
             WYPŁATA ODSZKODOWANIA
         </div>
     </section>

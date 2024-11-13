@@ -35,6 +35,8 @@ public class PolicyDTO extends PolicyDTOWithoutClaims {
             this.policyStatus = PolicyStatus.WYGASŁA;
         } else if (reserveAmount <= 0) {
             this.policyStatus = PolicyStatus.ZAMKNIĘTA;
+        } else if (today.isEqual(startDate)) {
+            this.policyStatus = PolicyStatus.NOWA;
         }
     }
 

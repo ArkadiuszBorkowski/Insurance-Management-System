@@ -33,7 +33,7 @@ class ClaimsController {
 
     private static final Logger logger = LoggerFactory.getLogger(ClaimsController.class);
 
-    @Autowired
+
     public ClaimsController(ClaimService claimService, PolicyService policyService, Map viewNames) {
         this.claimService = claimService;
         this.policyService = policyService;

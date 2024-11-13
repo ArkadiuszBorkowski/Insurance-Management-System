@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.itextpdf.styledxmlparser.jsoup.helper.StringUtil.isNumeric;
+//import static com.itextpdf.styledxmlparser.jsoup.helper.StringUtil.isNumeric;
 
 @Service
 public class ClaimService {
@@ -92,6 +92,18 @@ public class ClaimService {
         } else {
             eventPublisher.publishEvent(new ClaimUpdatedEvent(this, existingClaim));
         }
+    }
+
+    private boolean isNumeric(String str) {
+        if (str == null) {
+            return false;
+        }
+        try {
+            Double.parseDouble(str);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 
 

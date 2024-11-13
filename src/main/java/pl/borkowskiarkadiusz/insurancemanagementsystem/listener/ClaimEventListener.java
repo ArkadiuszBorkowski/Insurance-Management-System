@@ -38,7 +38,7 @@ public class ClaimEventListener {
     }
 
     private void handleExpiredPolicy(Claims claim, Policy policy) {
-        if (claim.getClaimDate().isAfter(policy.getEndDate())) {
+        if (claim.getClaimDate().isAfter(policy.getEndDate()) || claim.getClaimDate().isBefore(policy.getStartDate())) {
             policy.setPolicyStatus(PolicyStatus.WYGASŁA);
             claim.setClaimStatus(ClaimStatus.ODRZUCONE);
             claim.setDecision(Decision.ODMOWA);
@@ -75,16 +75,16 @@ public class ClaimEventListener {
         double paymentAmount = event.getPaymentAmount();
         double reserveAmount = policy.getReserveAmount();
 
-        if (paymentAmount > reserveAmount) {
+        if (paymentAmount >= reserveAmount) {
             paymentAmount = reserveAmount;
             policy.setReserveAmount(0.0);
             claim.setClaimVerificationStatus(EventsMessages.CLAIM_PARTIALLY_PAID);
+            policy.setPolicyStatus(PolicyStatus.WYGASŁA);
         } else {
             policy.setReserveAmount(reserveAmount - paymentAmount);
             claim.setClaimVerificationStatus(EventsMessages.CLAIM_PAID);
         }
         claim.setClaimStatus(ClaimStatus.WYPŁACONE);
-        policy.setPolicyStatus(PolicyStatus.WYGASŁA);
 
         claimsRepository.save(claim);
         policyRepository.save(policy);

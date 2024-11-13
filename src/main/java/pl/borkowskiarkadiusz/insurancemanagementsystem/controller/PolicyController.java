@@ -18,9 +18,6 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.service.PdfService;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.PolicyService;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ProductService;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.generator.PolicyNumberGenerator;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import java.io.IOException;
 
 import java.io.IOException;
 import java.util.List;

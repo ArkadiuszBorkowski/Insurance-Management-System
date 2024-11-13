@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.ClientDTO;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ClientService;
 
-import java.util.List;
 import java.util.Map;
 
 @Controller
