@@ -11,6 +11,13 @@ W przypadku gdy klient zgłosi szkodę, użytkownik wprowadza informacje o zdarz
 Dzięki wykorzystaniu obsługi zdarzeń procesy jakie musi wykonać operator szkód zostały zautomaytyzowane tak by ograniczyć jego pracę  
 Produkty ubezpieczeniowe są definiowane tylko przez administratora systemu. (rola ADMIN).
 
+## Prezentacja wideo: 
+Kliknij na obrazek by wyświetlić prezentacje wideo: 
+
+[![Watch the video](https://img.youtube.com/vi/MKFGANyjOtY/0.jpg)](https://www.youtube.com/watch?v=MKFGANyjOtY)
+
+alternatywny link:
+https://www.youtube.com/watch?v=MKFGANyjOtY
 
 ## 💻 Wykorzystane technologie:
 
