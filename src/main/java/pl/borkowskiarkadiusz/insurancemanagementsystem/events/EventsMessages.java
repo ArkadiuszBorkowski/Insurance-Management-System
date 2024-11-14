@@ -1,5 +1,9 @@
 package pl.borkowskiarkadiusz.insurancemanagementsystem.events;
 
+/**
+ * Class containing constant event messages used in the system.
+ * These messages are used to update descriptive statuses on the claim form by the ClaimEventListener class.
+ */
 public class EventsMessages {
     public static final String CLAIM_AFTER_POLICY_EXPIRY_NO_RESERVE = "Zdarzenie ubezpieczeniowe miało miejsce po dacie wygaśnięcia polisy, ponadto rezerwa ubezpieczeniowa się wyczerpała. Roszczenie nie zostanie uznane.";
     public static final String CLAIM_AFTER_POLICY_EXPIRY = "Zdarzenie ubezpieczeniowe miało miejsce po dacie wygaśnięcia polisy, w związku z czym roszczenie nie może zostać uznane.";

@@ -7,7 +7,9 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.PolicyStatus;
 
 import java.time.LocalDate;
 
-
+/**
+ * Data transfer object for policy information without claims.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

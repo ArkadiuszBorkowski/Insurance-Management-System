@@ -7,6 +7,10 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.UserRepository
 
 import java.util.Optional;
 
+/**
+ * Service class responsible for user-related operations.
+ * This class provides methods to interact with the user repository and retrieve user credentials.
+ */
 @Service
 public class UserService {
 

@@ -10,6 +10,9 @@ import lombok.ToString;
 
 import java.util.Set;
 
+/**
+ * Entity class representing an insurance product in the system.
+ */
 @Entity
 @Getter
 @Setter

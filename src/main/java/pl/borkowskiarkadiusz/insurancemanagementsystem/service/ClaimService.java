@@ -21,8 +21,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-//import static com.itextpdf.styledxmlparser.jsoup.helper.StringUtil.isNumeric;
-
+/**
+ * Service class responsible for managing claims.
+ * This class provides methods to create, update, and retrieve claims, as well as to handle claim-related events.
+ */
 @Service
 public class ClaimService {
 
@@ -33,7 +35,12 @@ public class ClaimService {
     private final ApplicationEventPublisher eventPublisher;
 
 
-    @Autowired
+    /**
+     * Constructs a new ClaimService with the specified dependencies.
+     * @param claimsRepository the repository for managing claims
+     * @param modelMapper the model mapper for converting between entities and DTOs
+     * @param eventPublisher the event publisher for publishing claim-related events
+     */
     public ClaimService(ClaimsRepository claimsRepository, ModelMapper modelMapper, ApplicationEventPublisher eventPublisher) {
         this.claimsRepository = claimsRepository;
         this.modelMapper = modelMapper;
@@ -45,7 +52,11 @@ public class ClaimService {
                 .map(claims -> modelMapper.map(claims, ClaimsDTO.class));
     }
 
-
+    /**
+     * Saves a new claim.
+     * @param claimsDTO the DTO of the claim to save
+     * @return the saved ClaimsDTO
+     */
     public ClaimsDTO saveClaims(ClaimsDTO claimsDTO) {
         try {
             Claims claims = modelMapper.map(claimsDTO, Claims.class);
@@ -71,7 +82,14 @@ public class ClaimService {
         }
     }
 
-    
+    /**
+     * Updates an existing claim.
+     *
+     * @param id the ID of the claim to update
+     * @param claimsDTO the DTO of the claim to update
+     * @param paymentAmount the payment amount to set, if applicable
+     * @return the updated ClaimsDTO
+     */
     public ClaimsDTO updateClaims(Long id, ClaimsDTO claimsDTO, String paymentAmount) {
         Claims existingClaim = claimsRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Claim not found with id " + id));
@@ -107,7 +125,14 @@ public class ClaimService {
     }
 
 
-
+    /**
+     * Retrieves claims by client's PESEL or claim number with pagination and sorting.
+     * @param pesel the client's PESEL
+     * @param claimNumber the claim number
+     * @param sortBy the field to sort by
+     * @param page the page number to retrieve
+     * @return a Page of ClaimsDTOs
+     */
     public Page<ClaimsDTO> getClaimsByPeselOrClaimNumber(String pesel, String claimNumber, String sortBy, int page) {
         Page<Claims> claimsPage;
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sortBy));
@@ -127,7 +152,10 @@ public class ClaimService {
         return new PageImpl<>(claimsDTos, pageable, claimsPage.getTotalElements());
     }
 
-    //licznik szkód w dniu dziejszym
+    /**
+     * Counts the number of claims registered today.
+     * @return the number of claims registered today
+     */
     public long getTodayClaimsCount() {
         return claimsRepository.countClaimsRegisteredToday(LocalDate.now());
     }

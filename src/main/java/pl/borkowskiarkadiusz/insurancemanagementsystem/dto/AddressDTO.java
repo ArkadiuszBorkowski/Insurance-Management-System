@@ -4,6 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Data transfer object for address information.
+ * Used with Clients (entity and DTO).
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor

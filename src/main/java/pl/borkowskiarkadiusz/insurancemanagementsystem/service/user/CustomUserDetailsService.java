@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.dto.user.UserCredentialsDto;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.service.user.UserService;
 
+/**
+ * Service class that implements UserDetailsService to provide custom user details.
+ * This class is used to load user-specific data during authentication.
+ */
 @Service
 class CustomUserDetailsService implements UserDetailsService {
     private final UserService userService;

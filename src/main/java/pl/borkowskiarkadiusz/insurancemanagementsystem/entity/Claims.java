@@ -11,7 +11,9 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.ClaimStatus;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
 import java.time.LocalDate;
 
-
+/**
+ * Entity class representing a claim in the system.
+ */
 @Entity
 @Getter
 @Setter

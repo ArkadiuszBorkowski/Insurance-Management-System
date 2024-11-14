@@ -10,12 +10,14 @@ import lombok.ToString;
 
 import java.util.Set;
 
+/**
+ * Entity class representing a Risk in the system.
+ */
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-
 public class Risk {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

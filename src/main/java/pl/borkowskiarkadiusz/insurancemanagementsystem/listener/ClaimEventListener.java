@@ -15,15 +15,24 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.events.EventsMessages;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.exceptions.ResourceNotFoundException;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.ClaimsRepository;
 import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyRepository;
-
+/**
+ * Component class that listens for claim-related events and handles them accordingly.
+ * This class listens for events such as claim creation, payment, and updates, and updates the claim and policy statuses.
+ */
 @Component
 public class ClaimEventListener {
 
-    @Autowired
-    private PolicyRepository policyRepository;
-    @Autowired
-    private ClaimsRepository claimsRepository;
+    private final PolicyRepository policyRepository;
+    private final ClaimsRepository claimsRepository;
 
+    public ClaimEventListener(ClaimsRepository claimsRepository, PolicyRepository policyRepository) {
+        this.claimsRepository = claimsRepository;
+        this.policyRepository = policyRepository;
+    }
+
+    /**
+     * Handles the ClaimCreatedEvent.
+     */
     @EventListener
     public void handleClaimCreatedEvent(ClaimCreatedEvent event) {
         Claims claim = event.getClaim();
@@ -37,6 +46,9 @@ public class ClaimEventListener {
         policyRepository.save(policy);
     }
 
+    /**
+     * Handles the handleExpiredPolicy.
+     */
     private void handleExpiredPolicy(Claims claim, Policy policy) {
         if (claim.getClaimDate().isAfter(policy.getEndDate()) || claim.getClaimDate().isBefore(policy.getStartDate())) {
             policy.setPolicyStatus(PolicyStatus.WYGASŁA);
@@ -51,6 +63,9 @@ public class ClaimEventListener {
         }
     }
 
+    /**
+     * Handles the handleValidPolicy.
+     */
     private void handleValidPolicy(Claims claim, Policy policy) {
         if (claim.getClaimDate().isBefore(policy.getEndDate()) && claim.getClaimDate().isAfter(policy.getStartDate())) {
             if (policy.getReserveAmount() > 0) {

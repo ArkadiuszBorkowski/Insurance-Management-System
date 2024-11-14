@@ -9,7 +9,10 @@ import lombok.ToString;
 import java.util.HashSet;
 import java.util.Set;
 
-
+/**
+ * Entity class representing a user in the system.
+ * This class is mapped to the "users" table in the database.
+ */
 @Entity
 @Getter
 @Setter

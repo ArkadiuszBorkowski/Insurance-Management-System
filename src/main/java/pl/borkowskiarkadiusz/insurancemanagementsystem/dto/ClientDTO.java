@@ -5,9 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
-
+/**
+ * Data transfer object for client information.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,12 +21,22 @@ public class ClientDTO {
     private String mobileNumber;
     private AddressDTO address;
 
+    /**
+     * Sets the PESEL number and extracts the birth date from it.
+     *
+     * @param pesel the PESEL number
+     */
     public void setPesel(String pesel) {
         this.pesel = pesel;
         this.dateOfBirth = extractBirthDateFromPesel(pesel);
     }
 
-
+    /**
+     * Extracts the birth date from the PESEL number.
+     *
+     * @param pesel the PESEL number
+     * @return the extracted birth date
+     */
     private LocalDate extractBirthDateFromPesel(String pesel) {
         int year = Integer.parseInt(pesel.substring(0, 2));
         int month = Integer.parseInt(pesel.substring(2, 4));

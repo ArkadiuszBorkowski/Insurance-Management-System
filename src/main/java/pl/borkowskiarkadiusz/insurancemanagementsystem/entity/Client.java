@@ -13,7 +13,9 @@ import java.time.LocalDate;
 
 import java.util.Set;
 
-
+/**
+ * Entity class representing a client in the system.
+ */
 @Entity
 @Getter
 @Setter

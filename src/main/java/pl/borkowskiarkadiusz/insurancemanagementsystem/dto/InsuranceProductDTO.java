@@ -7,6 +7,9 @@ import lombok.ToString;
 
 import java.util.Set;
 
+/**
+ * Data transfer object for insurance product information.
+ */
 @Getter
 @Setter
 @NoArgsConstructor

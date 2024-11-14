@@ -2,11 +2,12 @@ package pl.borkowskiarkadiusz.insurancemanagementsystem.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.Set;
 
+/**
+ * Data transfer object for user credentials.
+ */
 @Getter
 @AllArgsConstructor
 public class UserCredentialsDto {

@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Abstract class responsible for generating sequential numbers based on the current date.
+ * This class provides a method to generate numbers with a specified date format and prefix.
+ */
 public abstract class NumberGenerator {
     private static final AtomicInteger counter = new AtomicInteger(1);
 

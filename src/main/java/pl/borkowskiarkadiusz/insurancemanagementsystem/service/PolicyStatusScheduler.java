@@ -11,13 +11,27 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.repository.PolicyReposito
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Service class responsible for scheduling and updating policy statuses.
+ * This class updates the statuses of policies based on their start and end dates, and the reserve amount.
+ */
+
 @Service
 public class PolicyStatusScheduler {
 
-    @Autowired
+
     private PolicyRepository policyRepository;
 
-    @PostConstruct // Uruchamia się w momencie uruchomienia aplikacji - do usunięcia po testach.
+    public PolicyStatusScheduler(PolicyRepository policyRepository) {
+        this.policyRepository = policyRepository;
+    }
+
+    /**
+     * Initializes the scheduler and updates policy statuses.
+     * This method is executed after the bean's initialization.
+     * It is used for testing purposes and should be removed after testing.
+     */
+    @PostConstruct
     public void init() {
         try {
             updatePolicyStatuses();
@@ -27,8 +41,11 @@ public class PolicyStatusScheduler {
     }
 
 
-    //@Scheduled(fixedRate = 300000) // Uruchamianie co 5 minut - do testów
-    @Scheduled(cron = "0 5 0 * * ?") // URUCHAMMIA SIĘ O 5 MIN PO PÓŁNOCY
+    /**
+     * Updates the statuses of all policies based on their dates and reserve amounts.
+     * This method is scheduled to run at 5 minutes past midnight every day.
+     */
+    @Scheduled(cron = "0 5 0 * * ?")
     public void updatePolicyStatuses() {
         List<Policy> policies = policyRepository.findAll();
         LocalDate today = LocalDate.now();

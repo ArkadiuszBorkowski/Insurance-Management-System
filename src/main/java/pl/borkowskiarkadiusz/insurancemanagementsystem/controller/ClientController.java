@@ -2,7 +2,6 @@ package pl.borkowskiarkadiusz.insurancemanagementsystem.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,6 +15,10 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.service.ClientService;
 
 import java.util.Map;
 
+/**
+ * Controller for handling client-related requests.
+ */
+
 @Controller
 @RequestMapping("/clients")
 class ClientController {
@@ -24,16 +27,40 @@ class ClientController {
     private final ClientService clientService;
     private final Map<String, String> viewNames;
 
-    @Autowired
+    /**
+     * Constructs a ClientController with the specified services and view names.
+     *
+     * @param clientService the service for handling clients
+     * @param viewNames the map of view names
+     */
     public ClientController(ClientService clientService, Map<String, String> viewNames) {
         this.clientService = clientService;
         this.viewNames = viewNames;
     }
-    //work in progress
+
+    /**
+     * Displays the form for creating a new client.
+     * <p>
+     * Note: This feature is currently a work in progress.
+     *
+     * @param model the model to hold attributes
+     * @return the view name for the client form
+     */
     @GetMapping("/new")
     public String newClients(Model model) {
         return viewNames.get("CLIENTS_FORM");
     }
+
+    /**
+     * Displays a list of clients.
+     *
+     * @param model the model to hold attributes
+     * @param page the page number for pagination
+     * @param pesel the PESEL number for filtering clients
+     * @param lastName the last name for filtering clients
+     * @param sortBy the field to sort by
+     * @return the view name for the clients list
+     */
 
     @GetMapping()
     public String getClients(Model model,
@@ -52,8 +79,15 @@ class ClientController {
         return viewNames.get("CLIENTS_LIST");
     }
 
-
-    //używane przy wyszykukiwawniu klienta podczas tworzenia polisy (zaczytanie jego danych)
+    /**
+     * Searches for a client by PESEL number.
+     * <p>
+     * Used during the creation of a policy to retrieve client data by entering the PESEL number into a special field.
+     * If the client is found, the data is fetched via JavaScript from the API (in JSON format) and populated into the form fields.
+     *
+     * @param pesel the PESEL number of the client
+     * @return the ResponseEntity containing the client data transfer object
+     */
     @GetMapping("/search")
     @ResponseBody
     public ResponseEntity<ClientDTO> searchClientByPesel(@RequestParam String pesel) {

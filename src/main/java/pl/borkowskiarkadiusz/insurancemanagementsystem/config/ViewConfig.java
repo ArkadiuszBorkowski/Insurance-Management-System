@@ -6,10 +6,17 @@ import org.springframework.context.annotation.Configuration;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Configuration class for mapping view locations to HTML pages (for controllers).
+ */
 @Configuration
 public class ViewConfig {
 
-    //KLASA DO MAPOWANIA LOKALIZACJI WIDOKÓW STRON HTML (DO KONTROLERÓW)
+    /**
+     * Bean for mapping view names to their corresponding paths.
+     *
+     * @return a map containing view names and their paths.
+     */
     @Bean
     public Map<String, String> viewNames() {
         Map<String, String> viewNames = new HashMap<>();

@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Class representing an address.
+ */
 @Embeddable
 @Getter
 @Setter

@@ -9,6 +9,9 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.Decision;
 
 import java.time.LocalDate;
 
+/**
+ * Data transfer object for entity Claims .
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,7 +29,10 @@ public class ClaimsDTO {
     private PolicyDTOWithoutClaims policy;
     private String claimVerificationStatus;
 
-    //domyślne ustawienia dla nowej i "prawidłowej" szkody - event listener nadpisuje te zdarzenia przy walidacji.
+    /**
+     * Initializes default values for a new and "valid" claim.
+     * Event listeners override these values during validation.
+     */
     public void initializeDefaultValues() {
         this.claimRegistrationDate = LocalDate.now();
         this.decision = Decision.ANALIZA;

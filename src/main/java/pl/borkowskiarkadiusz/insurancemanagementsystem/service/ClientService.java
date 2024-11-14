@@ -17,6 +17,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Service class responsible for managing clients.
+ * This class provides methods to search, retrieve, and list clients, as well as to handle client-related operations.
+ */
 @Service
 public class ClientService {
 
@@ -26,13 +30,21 @@ public class ClientService {
     private final ModelMapper modelMapper;
 
 
-    @Autowired
+    /**
+     * Constructs a new ClientService with the specified dependencies.
+     * @param clientRepository the repository for managing clients
+     * @param modelMapper the model mapper for converting between entities and DTOs
+     */
     public ClientService(ClientRepository clientRepository, ModelMapper modelMapper) {
         this.clientRepository = clientRepository;
         this.modelMapper = modelMapper;
-
     }
 
+    /**
+     * Searches for a client by PESEL.
+     * @param pesel the PESEL of the client to search for
+     * @return the ClientDTO of the found client
+     */
     public ClientDTO searchClientByPesel(String pesel) {
         logger.debug("Searching for client with PESEL: {}", pesel);
         Client client = clientRepository.findByPesel(pesel)
@@ -52,6 +64,15 @@ public class ClientService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Retrieves clients by PESEL or last name with pagination and sorting.
+     *
+     * @param pesel the PESEL of the clients to search for
+     * @param lastName the last name of the clients to search for
+     * @param sortBy the field to sort by
+     * @param page the page number to retrieve
+     * @return a Page of ClientDTOs
+     */
     public Page<ClientDTO> getClientsByPeselOrLastName(String pesel, String lastName, String sortBy, int page) {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sortBy));
         Page<Client> clientsPage = clientRepository.findByPeselContainingOrLastNameContaining(pesel, lastName, pageable);

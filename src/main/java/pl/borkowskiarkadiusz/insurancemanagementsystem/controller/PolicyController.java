@@ -2,7 +2,6 @@ package pl.borkowskiarkadiusz.insurancemanagementsystem.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,6 +23,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Controller for handling policy-related requests.
+ */
 @Controller
 public class PolicyController {
 
@@ -34,7 +36,14 @@ public class PolicyController {
     private final PdfService pdfService;
     private final Map<String, String> viewNames;
 
-    @Autowired
+    /**
+     * Constructs a PolicyController with the specified services and view names.
+     *
+     * @param policyService the service for handling policies
+     * @param productService the service for handling products
+     * @param pdfService the service for generating PDFs
+     * @param viewNames the map of view names
+     */
     public PolicyController(PolicyService policyService, ProductService productService, PdfService pdfService, Map<String, String> viewNames) {
         this.policyService = policyService;
         this.productService = productService;
@@ -42,7 +51,13 @@ public class PolicyController {
         this.viewNames = viewNames;
     }
 
-    //używane na formularzu szkód (claims/new) do weryfikacji czy polisa istnieje (js)
+    /**
+     * Checks if a policy number exists.
+     * Used on the claims form (claims/new) to verify if a policy exists (via JavaScript).
+     *
+     * @param policyNumber the policy number to check
+     * @return the ResponseEntity containing the policy data transfer object without claims
+     */
     @GetMapping("/checkPolicyNumber")
     @ResponseBody
     public ResponseEntity<PolicyDTOWithoutClaims> checkPolicyNumber(@RequestParam String policyNumber) {
@@ -51,7 +66,12 @@ public class PolicyController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    //new policy
+    /**
+     * Displays the form for creating a new policy.
+     *
+     * @param model the model to hold attributes
+     * @return the view name for the policy form
+     */
     @GetMapping("/policy")
     public String getEmptyPolicyForm(Model model) {
         try {
@@ -67,7 +87,15 @@ public class PolicyController {
         }
     }
 
-    //save
+    /**
+     * Saves a new policy.
+     *
+     * @param policyDTO the policy data transfer object
+     * @param clientDTO the client data transfer object
+     * @param addressDTO the address data transfer object
+     * @param model the model to hold attributes
+     * @return the redirect URL to the saved policy or the error page if an error occurs
+     */
     @PostMapping("/policy")
     public String savePolicy(@ModelAttribute PolicyDTO policyDTO, ClientDTO clientDTO, AddressDTO addressDTO, Model model) {
         try {
@@ -87,7 +115,16 @@ public class PolicyController {
         }
     }
 
-    //update
+    /**
+     * Updates an existing policy.
+     *
+     * @param id the ID of the policy
+     * @param policyDTO the policy data transfer object
+     * @param clientDTO the client data transfer object
+     * @param addressDTO the address data transfer object
+     * @param model the model to hold attributes
+     * @return the redirect URL to the updated policy or the error page if an error occurs
+     */
     @PostMapping("/policy/{id}")
     public String updatePolicy(@PathVariable Long id, @ModelAttribute PolicyDTO policyDTO, ClientDTO clientDTO, AddressDTO addressDTO, Model model) {
         try {
@@ -113,7 +150,16 @@ public class PolicyController {
         }
     }
 
-    //list
+    /**
+     * Displays a list of policies.
+     *
+     * @param model the model to hold attributes
+     * @param page the page number for pagination
+     * @param pesel the PESEL number for filtering policies
+     * @param policyNumber the policy number for filtering policies
+     * @param sortBy the field to sort by
+     * @return the view name for the policies list
+     */
     @GetMapping("/policies")
     public String getPolicies(Model model,
                               @RequestParam(defaultValue = "0") int page,
@@ -128,7 +174,13 @@ public class PolicyController {
         return viewNames.get("POLICY_LIST");
     }
 
-    //policy id
+    /**
+     * Displays the form for editing an existing policy.
+     *
+     * @param id the ID of the policy
+     * @param model the model to hold attributes
+     * @return the view name for the policy form or the error page if the policy is not found
+     */
     @GetMapping("/policy/{id}")
     public String getPolicy(@PathVariable Long id, Model model) {
         try {
@@ -152,7 +204,15 @@ public class PolicyController {
         }
     }
 
-    //wczytanie szablonów polisy do generowania dokumentów przez thymeleaf - wczytane w sekcji DOKUMENTY na widoku polisy
+    /**
+     * Loads policy templates for generating documents using Thymeleaf.
+     * Loaded in the DOCUMENTS section of the policy view.
+     *
+     * @param templateName the name of the template
+     * @param policyId the ID of the policy
+     * @param model the model to hold attributes
+     * @return the view name for the policy document template
+     */
     @GetMapping("/templates/policy_documents/{templateName}")
     public String getTemplate(@PathVariable String templateName, @RequestParam Long policyId, Model model) {
         PolicyDTO policyDTO = policyService.getPolicyById(policyId);

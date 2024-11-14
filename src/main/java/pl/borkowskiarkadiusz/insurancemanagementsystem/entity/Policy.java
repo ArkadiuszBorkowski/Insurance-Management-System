@@ -14,6 +14,9 @@ import pl.borkowskiarkadiusz.insurancemanagementsystem.enums.PolicyStatus;
 import java.time.LocalDate;
 import java.util.Set;
 
+/**
+ * Entity class representing a Policy in the system.
+ */
 @Entity
 @Getter
 @Setter
